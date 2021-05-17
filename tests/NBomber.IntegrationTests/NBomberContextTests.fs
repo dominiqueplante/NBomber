@@ -28,12 +28,12 @@ let baseGlobalSettings = {
 let baseScenarioSetting = {
     ScenarioName = "test_scenario"
     WarmUpDuration = None
-    LoadSimulationsSettings = List.empty
-    ConnectionPoolSettings = None
+    LoadSimulationsSettings = None
+    ClientFactorySettings = None
     CustomSettings = None
 }
 
-let failStep = Step.create("fail step", fun _ -> Response.Fail() |> Task.singleton)
+let failStep = Step.create("fail step", fun _ -> Response.fail() |> Task.singleton)
 let baseScenario = Scenario.create "1" [failStep] |> Scenario.withoutWarmUp
 
 let config = {
@@ -50,13 +50,16 @@ let context = {
     NBomberConfig = None
     InfraConfig = None
     CreateLoggerConfig = None
-    ReportFileName = None
-    ReportFolder = None
-    ReportFormats = List.empty
-    ReportingSinks = List.empty
-    SendStatsInterval = Constants.MinSendStatsInterval
+    Reporting = {
+        FileName = None
+        FolderName = None
+        Formats = List.empty
+        Sinks = List.empty
+        SendStatsInterval = Constants.DefaultSendStatsInterval
+    }
     WorkerPlugins = List.empty
     ApplicationType = Some ApplicationType.Process
+    UseHintsAnalyzer = false
 }
 
 [<Fact>]
@@ -90,9 +93,11 @@ let ``getReportFileName should return from GlobalSettings, if empty then from Te
     let glSettings = { baseGlobalSettings with ReportFileName = configValue }
     let config = { config with GlobalSettings = Some glSettings }
 
-    let ctx = { context with NBomberConfig = Some config
-                             ReportFormats = [ReportFormat.Txt]
-                             ReportFileName = contextValue }
+    let ctx = {
+        context with NBomberConfig = Some config
+                     Reporting = { context.Reporting with Formats = [ReportFormat.Txt]
+                                                          FileName = contextValue }
+    }
 
     let fileName = NBomberContext.getReportFileName(ctx)
 
@@ -109,9 +114,11 @@ let ``getReportFormats should return from GlobalSettings, if empty then from Tes
     let glSettings = { baseGlobalSettings with ReportFormats = configValue }
     let config = { config with GlobalSettings = Some glSettings }
 
-    let ctx = { context with NBomberConfig = Some config
-                             ReportFormats = contextValue
-                             ReportFileName = None }
+    let ctx = {
+        context with NBomberConfig = Some config
+                     Reporting = { context.Reporting with Formats = contextValue
+                                                          FileName = None }
+    }
 
     let formats = NBomberContext.getReportFormats(ctx)
     match configValue, contextValue with
@@ -153,25 +160,37 @@ let ``getTestName should return from Config, if empty then from TestContext``
         test <@ testSuite = context.TestName @>
 
 [<Property>]
-let ``getConnectionPoolSettings should return from Config with updated poolName, if empty then empty result``
+let ``getClientFactorySettings should return from Config with updated poolName, if empty then empty result``
     (poolNameGenerated: string, configValue: int option) =
 
     match configValue with
     | Some value ->
-        let poolSettings = {PoolName = poolNameGenerated; ConnectionCount = value}
-        let scnSettings = { baseScenarioSetting with ConnectionPoolSettings = Some [poolSettings] }
+        let poolSettings = { FactoryName = poolNameGenerated; ClientCount = value }
+        let scnSettings = { baseScenarioSetting with ClientFactorySettings = Some [poolSettings] }
         let glSettings = { baseGlobalSettings with ScenariosSettings = Some [scnSettings] }
         let config = { config with GlobalSettings = Some glSettings }
         let ctx = { context with NBomberConfig = Some config }
-        let result = NBomberContext.getConnectionPoolSettings(ctx)
+        let result = NBomberContext.getClientFactorySettings(ctx)
 
-        test <@ result.Head.ConnectionCount = poolSettings.ConnectionCount @>
-        test <@ result.Head.PoolName = Domain.Scenario.createConnectionPoolName(scnSettings.ScenarioName, poolSettings.PoolName) @>
-        test <@ result.Head.PoolName <> poolSettings.PoolName @>
+        test <@ result.Head.ClientCount = poolSettings.ClientCount @>
+        test <@ result.Head.FactoryName = Domain.Scenario.ClientFactory.createName poolSettings.FactoryName scnSettings.ScenarioName @>
+        test <@ result.Head.FactoryName <> poolSettings.FactoryName @>
 
     | None ->
-        let result = NBomberContext.getConnectionPoolSettings(context)
+        let result = NBomberContext.getClientFactorySettings(context)
         test <@ result = List.empty @>
+
+[<Fact>]
+let ``getSendStatsInterval should return fail if interval is smaller than min value`` () =
+
+    let okContext =    { context with Reporting = { context.Reporting with SendStatsInterval = seconds 5 }}
+    let errorContext = { context with Reporting = { context.Reporting with SendStatsInterval = seconds 2 }}
+
+    let ok = NBomberContext.getSendStatsInterval(okContext)
+    let error = NBomberContext.getSendStatsInterval(errorContext)
+
+    test <@ Result.isOk ok @>
+    test <@ Result.isError error @>
 
 [<Fact>]
 let ``checkAvailableTarget should return fail if TargetScenarios has empty value`` () =
@@ -225,7 +244,7 @@ let ``checkReportFolder should return fail if ReportFolderPath contains invalid 
 
 [<Fact>]
 let ``checkSendStatsInterval should return fail if SendStatsInterval is smaller than min value`` () =
-    match NBomberContext.Validation.checkSendStatsInterval(TimeSpan.FromSeconds 9.0) with
+    match NBomberContext.Validation.checkSendStatsInterval(seconds 3) with
     | Error (SendStatsValueSmallerThanMin _) -> ()
     | _ -> failwith ""
 
@@ -257,14 +276,14 @@ let ``checkWarmUpSettings should return ok if WarmUp has correct format`` () =
 
 [<Fact>]
 let ``checkLoadSimulationsSettings should return fail if duration time has invalid format`` () =
-    let setting = { baseScenarioSetting with LoadSimulationsSettings = [LoadSimulationSettings.KeepConstant(1, "asd:123")]}
+    let setting = { baseScenarioSetting with LoadSimulationsSettings = Some [LoadSimulationSettings.KeepConstant(1, "asd:123")]}
     match NBomberContext.Validation.checkLoadSimulationsSettings [setting] with
     | Error (LoadSimulationConfigValueHasInvalidFormat _) -> ()
     | _ -> failwith ""
 
 [<Fact>]
 let ``checkLoadSimulationsSettings should return ok if duration time has correct format`` () =
-    let setting = { baseScenarioSetting with LoadSimulationsSettings = [LoadSimulationSettings.KeepConstant(1, "00:00:25")]}
+    let setting = { baseScenarioSetting with LoadSimulationsSettings = Some [LoadSimulationSettings.KeepConstant(1, "00:00:25")]}
     match NBomberContext.Validation.checkLoadSimulationsSettings [setting] with
     | Error _ -> failwith ""
     | _       -> ()

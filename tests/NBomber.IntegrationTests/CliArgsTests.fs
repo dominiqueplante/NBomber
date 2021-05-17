@@ -3,7 +3,7 @@ module Tests.CliArgs
 open System
 open System.IO
 
-open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Control.Tasks.NonAffine
 open Swensen.Unquote
 open Xunit
 
@@ -12,7 +12,7 @@ open NBomber.Domain
 open NBomber.FSharp
 
 let okStep = Step.create("ok step", fun _ -> task {
-    return Response.Ok()
+    return Response.ok()
 })
 
 let scenario = Scenario.create "scenario" [okStep] |> Scenario.withoutWarmUp

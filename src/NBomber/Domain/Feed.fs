@@ -1,54 +1,66 @@
 module internal NBomber.Domain.Feed
 
 open System
-open NBomber
+open System.Threading.Tasks
 open NBomber.Contracts
 
-let toUntypedFeed (feed: IFeed<'TFeedItem>) =
-    { new IFeed<obj> with
+let toUntypedFeed (feed: IFeed<'TFeedItem>) = {
+    new obj() with
+        override _.GetHashCode() = feed.GetHashCode()
+        override _.Equals(instance) = instance.GetHashCode() = feed.GetHashCode()
+    interface IFeed<obj> with
         member _.FeedName = feed.FeedName
-        member _.GetNextItem(correlationId, stepData) = feed.GetNextItem(correlationId, stepData) :> obj }
+        member _.Init(context) = feed.Init(context)
+        member _.GetNextItem(scenarioInfo, stepData) = feed.GetNextItem(scenarioInfo, stepData) :> obj
+}
 
-let rec createInfiniteStream (items: 'T seq) =
-    seq {
-        yield! items
-        yield! createInfiniteStream items
+let constant (name, data: 'T seq) =
+    let mutable _allItems = Array.empty
+
+    { new IFeed<'T> with
+        member _.FeedName = name
+
+        member _.Init(context) =
+            _allItems <- data |> Seq.toArray
+            Task.CompletedTask
+
+        member _.GetNextItem(scenarioInfo, stepData) =
+            let index = scenarioInfo.ThreadNumber % _allItems.Length
+            _allItems.[index] }
+
+let circular (name, data: 'T seq) =
+    let mutable _enumerator = Unchecked.defaultof<_>
+
+    let createInfiniteStream (items: 'T seq) = seq {
+        while true do
+            yield! items
     }
 
-let empty<'T> =
-    { new IFeed<'T> with
-        member _.FeedName = Constants.EmptyFeedName
-        member _.GetNextItem(correlationId, stepData) = Unchecked.defaultof<'T> }
-
-let constant (name, provider: IFeedProvider<'T>) =
-    let allItems = provider.GetAllItems()
-
     { new IFeed<'T> with
         member _.FeedName = name
-        member _.GetNextItem(correlationId, stepData) =
-            let index = correlationId.CopyNumber % allItems.Length
-            allItems.[index] }
 
-let circular (name, provider: IFeedProvider<'T>) =
+        member _.Init(context) =
+            let infiniteItems = data |> createInfiniteStream
+            _enumerator <- infiniteItems.GetEnumerator()
+            Task.CompletedTask
 
-    let infiniteItems = provider.GetAllItems() |> createInfiniteStream
-    let enumerator = infiniteItems.GetEnumerator()
+        member _.GetNextItem(scenarioInfo, stepData) =
+            _enumerator.MoveNext() |> ignore
+            _enumerator.Current }
 
-    { new IFeed<'T> with
-        member _.FeedName = name
-        member _.GetNextItem(correlationId, stepData) =
-         enumerator.MoveNext() |> ignore
-         enumerator.Current }
-
-let random (name, provider: IFeedProvider<'T>) =
-
-    let random = Random()
-    let allItems = provider.GetAllItems()
+let random (name, data: 'T seq) =
+    let _random = Random()
+    let mutable _allItems = Array.empty
 
     let getRandomItem () =
-        let index = random.Next(allItems.Length)
-        allItems.[index]
+        let index = _random.Next(_allItems.Length)
+        _allItems.[index]
 
     { new IFeed<'T> with
         member _.FeedName = name
-        member _.GetNextItem(correlationId, stepData) = getRandomItem() }
+
+        member _.Init(context) =
+            _allItems <- data |> Seq.toArray
+            Task.CompletedTask
+
+        member _.GetNextItem(scenarioInfo, stepData) = getRandomItem() }

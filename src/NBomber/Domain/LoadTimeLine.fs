@@ -1,4 +1,4 @@
-[<CompilationRepresentationAttribute(CompilationRepresentationFlags.ModuleSuffix)>]
+[<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 module internal NBomber.Domain.LoadTimeLine
 
 open System
@@ -8,34 +8,52 @@ open FsToolkit.ErrorHandling
 
 open NBomber
 open NBomber.Contracts
+open NBomber.Contracts.Stats
 open NBomber.Errors
 open NBomber.Domain.DomainTypes
 
-let validateSimulation (simulation: LoadSimulation) =
-    result {
-        let checkCopies (copies) =
-            if copies <= 0 then
-                simulation.ToString() |> CopiesCountIsZeroOrNegative |> AppError.createResult
-            else Ok copies
+module Validation =
 
-        let checkDuration (duration) =
-            if duration < Constants.MinSimulationDuration then
-                simulation.ToString() |> SimulationIsSmallerThanMin |> AppError.createResult
+    let validate (simulation: LoadSimulation) =
+        result {
+            let checkCopies (copies) =
+                if copies <= 0 then
+                    simulation.ToString() |> CopiesCountIsZeroOrNegative |> AppError.createResult
+                else Ok copies
 
-            elif duration > Constants.MaxSimulationDuration then
-                simulation.ToString() |> SimulationIsBiggerThanMax |> AppError.createResult
+            let checkRate (rate) =
+                if rate <= 0 then
+                    simulation.ToString() |> RateIsZeroOrNegative |> AppError.createResult
+                else Ok rate
 
-            else Ok duration
+            let checkDuration (duration) =
+                if duration < Constants.MinSimulationDuration then
+                    simulation.ToString() |> SimulationIsSmallerThanMin |> AppError.createResult
 
-        match simulation with
-        | RampConstant (copies, duration)
-        | KeepConstant (copies, duration)
-        | RampPerSec (copies, duration)
-        | InjectPerSec (copies, duration) ->
-            let! _ = checkCopies copies
-            let! _ = checkDuration duration
-            return simulation
-    }
+                elif duration > Constants.MaxSimulationDuration then
+                    simulation.ToString() |> SimulationIsBiggerThanMax |> AppError.createResult
+
+                else Ok duration
+
+            match simulation with
+            | RampConstant (copies, duration)
+            | KeepConstant (copies, duration) ->
+                let! _ = checkCopies copies
+                let! _ = checkDuration duration
+                return simulation
+
+            | RampPerSec (rate, duration)
+            | InjectPerSec (rate, duration) ->
+                let! _ = checkRate rate
+                let! _ = checkDuration duration
+                return simulation
+
+            | InjectPerSecRandom (minRate, maxRate, duration) ->
+                let! _ = checkRate minRate
+                let! _ = checkRate maxRate
+                let! _ = checkDuration duration
+                return simulation
+        }
 
 let createTimeLine (simulations: LoadSimulation list) =
 
@@ -44,7 +62,7 @@ let createTimeLine (simulations: LoadSimulation list) =
             match simulations with
             | [] -> return List.empty
             | simulation :: tail ->
-                match! validateSimulation simulation with
+                match! Validation.validate simulation with
                 | RampConstant (copiesCount, duration)
                 | KeepConstant (copiesCount, duration)
                 | RampPerSec (copiesCount, duration)
@@ -58,6 +76,18 @@ let createTimeLine (simulations: LoadSimulation list) =
                         LoadSimulation = simulation
                     }
                     let! timeLine = create(endTime, copiesCount, tail)
+                    return timeSegment :: timeLine
+
+                | InjectPerSecRandom (_, maxRate, duration) ->
+                    let endTime = startTime + duration
+                    let timeSegment = {
+                        StartTime = startTime
+                        EndTime = endTime
+                        Duration = duration
+                        PrevSegmentCopiesCount = prevSegmentCopiesCount
+                        LoadSimulation = simulation
+                    }
+                    let! timeLine = create(endTime, maxRate, tail)
                     return timeSegment :: timeLine
         }
 
@@ -82,6 +112,7 @@ let getSimulationName (simulation) =
     | KeepConstant _   -> "keep_constant"
     | RampPerSec     _ -> "ramp_per_sec"
     | InjectPerSec   _ -> "inject_per_sec"
+    | InjectPerSecRandom _ -> "inject_per_sec_random"
 
 let getRunningTimeSegment (timeLine: LoadTimeLine, currentTime: TimeSpan) =
     timeLine
@@ -106,5 +137,6 @@ let createSimulationStats (simulation: LoadSimulation,
         | KeepConstant _ -> constantActorCount
         | RampPerSec   _ -> onetimeActorCount
         | InjectPerSec _ -> onetimeActorCount
+        | InjectPerSecRandom _ -> onetimeActorCount
 
     { SimulationName = getSimulationName(simulation); Value = value }

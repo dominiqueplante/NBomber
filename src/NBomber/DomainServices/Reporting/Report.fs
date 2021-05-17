@@ -1,39 +1,36 @@
 module internal NBomber.DomainServices.Reporting.Report
 
-#nowarn "0104"
-
-open System
+open System.Collections.Generic
 open System.IO
 
 open Serilog
+open Spectre.Console.Rendering
 
 open NBomber.Configuration
 open NBomber.Contracts
+open NBomber.Contracts.Stats
 open NBomber.Extensions.InternalExtensions
-open NBomber.Infra.Dependency
 
 type ReportsContent = {
     TxtReport: string
     HtmlReport: string
     CsvReport: string
     MdReport: string
-    SessionWithErrors: bool
+    ConsoleReport: IRenderable seq
+    SessionFinishedWithErrors: bool
 }
 
-let build (dep: IGlobalDependency) (testInfo: TestInfo) (nodeStats: NodeStats)
-          (timeLineStats: (TimeSpan * NodeStats) list) =
+let build (sessionResult: NodeSessionResult)
+          (simulations: IDictionary<string, LoadSimulation list>) =
 
-    let errorsExist =
-        timeLineStats
-        |> Seq.map(snd)
-        |> Seq.tryFind(fun x -> x.FailCount > 0)
-        |> Option.isSome
+    let errorsExist = sessionResult.NodeStats.ScenarioStats |> Array.exists(fun stats -> stats.FailCount > 0)
 
-    { TxtReport = TxtReport.print(testInfo, nodeStats)
-      HtmlReport = HtmlReport.print(dep, testInfo, nodeStats, timeLineStats)
-      CsvReport = CsvReport.print(testInfo, nodeStats)
-      MdReport = MdReport.print(testInfo, nodeStats)
-      SessionWithErrors = errorsExist }
+    { TxtReport = TxtReport.print sessionResult simulations
+      HtmlReport = HtmlReport.print sessionResult
+      CsvReport = CsvReport.print sessionResult
+      MdReport = MdReport.print sessionResult simulations
+      ConsoleReport = ConsoleReport.print sessionResult simulations
+      SessionFinishedWithErrors = errorsExist }
 
 let save (folder: string, fileName: string, reportFormats: ReportFormat list,
           report: ReportsContent, logger: ILogger, testInfo: TestInfo) =
@@ -48,6 +45,7 @@ let save (folder: string, fileName: string, reportFormats: ReportFormat list,
                 | ReportFormat.Html -> ".html"
                 | ReportFormat.Csv  -> ".csv"
                 | ReportFormat.Md   -> ".md"
+                | _                 -> failwith "invalid report format."
 
             let filePath = Path.Combine(reportsDir, fileName) + fileExt
             { FilePath = filePath; ReportFormat = format }
@@ -61,17 +59,16 @@ let save (folder: string, fileName: string, reportFormats: ReportFormat list,
             | ReportFormat.Html -> {| Content = report.HtmlReport; FilePath = x.FilePath |}
             | ReportFormat.Csv  -> {| Content = report.CsvReport; FilePath = x.FilePath |}
             | ReportFormat.Md   -> {| Content = report.MdReport; FilePath = x.FilePath |}
+            | _                 -> failwith "invalid report format."
         )
         |> Seq.iter(fun x -> File.WriteAllText(x.FilePath, x.Content))
 
-        if report.SessionWithErrors then
-            logger.Warning("test finished with errors, please check logs in './logs' folder.")
+        if report.SessionFinishedWithErrors then
+            logger.Warning("Test finished with errors, please check the log file.")
 
         if reportFiles.Length > 0 then
-            logger.Information("reports saved in folder: '{0}', {1}",
-                DirectoryInfo(reportsDir).FullName, Environment.NewLine)
+            logger.Information("Reports saved in folder: '{0}'", DirectoryInfo(reportsDir).FullName)
 
-        logger.Information(Environment.NewLine + report.TxtReport)
         reportFiles
     with
     | ex -> logger.Error(ex, "Report.save failed")

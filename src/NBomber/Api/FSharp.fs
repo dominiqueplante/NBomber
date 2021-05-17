@@ -2,12 +2,13 @@
 
 open System
 open System.IO
-open System.Threading
+open System.Runtime
+open System.Runtime.InteropServices
 open System.Threading.Tasks
 
 open Serilog
 open CommandLine
-open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Control.Tasks.NonAffine
 open FsToolkit.ErrorHandling
 open Microsoft.Extensions.Configuration
 
@@ -17,7 +18,7 @@ open NBomber.Configuration
 open NBomber.Errors
 open NBomber.Domain
 open NBomber.Domain.DomainTypes
-open NBomber.Domain.ConnectionPool
+open NBomber.Domain.ClientPool
 open NBomber.DomainServices
 
 type CommandLineArgs = {
@@ -25,85 +26,97 @@ type CommandLineArgs = {
     [<Option('i', "infra", HelpText = "NBomber infra configuration")>] InfraConfig: string
 }
 
-[<AutoOpen>]
-module TimeSpanApi =
+/// ClientFactory helps create and initialize API clients to work with specific API or protocol (HTTP, WebSockets, gRPC, GraphQL).
+[<RequireQualifiedAccess>]
+type ClientFactory =
 
-    let inline milliseconds (value: int) = value |> float |> TimeSpan.FromMilliseconds
-    let inline seconds (value: int) = value |> float |> TimeSpan.FromSeconds
-    let inline minutes (value) = value |> float |> TimeSpan.FromMinutes
-
-type ConnectionPoolArgs =
-
+    /// Creates ClientFactory.
+    /// ClientFactory helps create and initialize API clients to work with specific API or protocol (HTTP, WebSockets, gRPC, GraphQL).
     static member create (name: string,
-                          openConnection: int * CancellationToken -> Task<'TConnection>,
-                          closeConnection: 'TConnection * CancellationToken -> Task,
-                          ?connectionCount: int) =
+                          initClient: int * IBaseContext -> Task<'TClient>,
+                          ?disposeClient: 'TClient * IBaseContext -> Task<unit>,
+                          [<Optional;DefaultParameterValue(Constants.DefaultClientCount)>] ?clientCount: int) =
 
-        let count = defaultArg connectionCount Constants.DefaultConnectionCount
-        ConnectionPoolArgs(name, count, openConnection, closeConnection)
-        :> IConnectionPoolArgs<'TConnection>
+        let defaultDispose = (fun (client,context) ->
+            match client :> obj with
+            | :? IDisposable as d -> d.Dispose()
+            | _ -> ()
+            Task.CompletedTask
+        )
 
-    static member create (name: string,
-                          openConnection: int * CancellationToken -> Task<'TConnection>,
-                          closeConnection: 'TConnection * CancellationToken -> Task<unit>,
-                          ?connectionCount: int) =
+        let dispose =
+            disposeClient
+            |> Option.map(fun dispose -> fun (c,ctx) -> dispose(c,ctx) :> Task)
+            |> Option.defaultValue defaultDispose
 
-        let close = fun (connection,token) -> closeConnection(connection,token) :> Task
-        let count = defaultArg connectionCount Constants.DefaultConnectionCount
-        ConnectionPoolArgs.create(name, openConnection, close, count)
+        let count = defaultArg clientCount Constants.DefaultClientCount
+        ClientFactory(name, count, initClient, dispose) :> IClientFactory<'TClient>
 
-    static member empty =
-        ConnectionPoolArgs.create(Constants.EmptyPoolName, (fun _ -> Task.singleton()), (fun _ -> Task.singleton()), 0)
+/// DataFeed helps inject test data into your load test. It represents a data source.
+[<RequireQualifiedAccess>]
+module Feed =
 
+    /// Creates Feed that picks constant value per Step copy.
+    /// Every Step copy will have unique constant value.
+    let createConstant (name) (data: 'T seq) =
+        NBomber.Domain.Feed.constant(name, data)
+
+    /// Creates Feed that picks constant value per Step copy.
+    /// Every Step copy will have unique constant value.
+    let createConstantLazy (name) (getData: unit -> 'T seq) =
+        NBomber.Domain.Feed.constant(name, getData())
+
+    /// Creates Feed that randomly picks an item per Step invocation.
+    let createCircular (name) (data: 'T seq) =
+        NBomber.Domain.Feed.circular(name, data)
+
+    /// Creates Feed that randomly picks an item per Step invocation.
+    let createCircularLazy (name) (getData: unit -> 'T seq) =
+        NBomber.Domain.Feed.circular(name, getData())
+
+    /// Creates Feed that returns values from value on every Step invocation.
+    let createRandom (name) (data: 'T seq) =
+        NBomber.Domain.Feed.random(name, data)
+
+    /// Creates Feed that returns values from value on every Step invocation.
+    let createRandomLazy (name) (getData: unit -> 'T seq) =
+        NBomber.Domain.Feed.random(name, getData())
+
+/// Step represents a single user action like login, logout, etc.
+[<RequireQualifiedAccess>]
 type Step =
 
+    /// Creates Step.
+    /// Step represents a single user action like login, logout, etc.
     static member create (name: string,
-                          connectionPoolArgs: IConnectionPoolArgs<'TConnection>,
-                          feed: IFeed<'TFeedItem>,
-                          execute: IStepContext<'TConnection,'TFeedItem> -> Task<Response>,
+                          execute: IStepContext<'TClient,'TFeedItem> -> Task<Response>,
+                          ?clientFactory: IClientFactory<'TClient>,
+                          ?feed: IFeed<'TFeedItem>,
+                          ?timeout: TimeSpan,
                           ?doNotTrack: bool) =
 
-        let poolArgs = if connectionPoolArgs.PoolName = Constants.EmptyPoolName then None
-                       else Some((connectionPoolArgs :?> ConnectionPoolArgs<'TConnection>).GetUntyped().Value)
+        let factory =
+            clientFactory
+            |> Option.map(fun x -> x :?> ClientFactory<'TClient>)
+            |> Option.map(fun x -> x.GetUntyped())
+
+        let timeout = timeout |> Option.defaultValue(Constants.StepTimeout)
 
         { StepName = name
-          ConnectionPoolArgs = poolArgs
-          ConnectionPool = None
-          Execute = Step.toUntypedExec(execute)
-          Context = None
-          Feed = Feed.toUntypedFeed(feed)
+          ClientFactory = factory
+          ClientPool = None
+          Execute = execute |> Step.toUntypedExecuteAsync |> AsyncExec
+          Feed = feed |> Option.map Feed.toUntypedFeed
+          Timeout = timeout
           DoNotTrack = defaultArg doNotTrack Constants.DefaultDoNotTrack }
           :> IStep
-
-    static member create (name: string,
-                          connectionPoolArgs: IConnectionPoolArgs<'TConnection>,
-                          execute: IStepContext<'TConnection,unit> -> Task<Response>,
-                          ?doNotTrack: bool) =
-
-        Step.create(name, connectionPoolArgs, Feed.empty, execute,
-                    defaultArg doNotTrack Constants.DefaultDoNotTrack)
-
-    static member create (name: string,
-                          feed: IFeed<'TFeedItem>,
-                          execute: IStepContext<unit,'TFeedItem> -> Task<Response>,
-                          ?doNotTrack: bool) =
-
-        Step.create(name, ConnectionPoolArgs.empty, feed, execute,
-                    defaultArg doNotTrack Constants.DefaultDoNotTrack)
-
-    static member create (name: string,
-                          execute: IStepContext<unit,unit> -> Task<Response>,
-                          ?doNotTrack: bool) =
-
-        Step.create(name, ConnectionPoolArgs.empty, Feed.empty, execute,
-                    defaultArg doNotTrack Constants.DefaultDoNotTrack)
 
     /// Creates pause step with specified duration in lazy mode.
     /// It's useful when you want to fetch value from some configuration.
     static member createPause (getDuration: unit -> TimeSpan) =
-        Step.create(name = "pause",
+        Step.create(name = Constants.StepPauseName,
                     execute = (fun _ -> task { do! Task.Delay(getDuration())
-                                               return Response.Ok() }),
+                                               return Response.ok() }),
                     doNotTrack = true)
 
     /// Creates pause step in milliseconds in lazy mode.
@@ -120,21 +133,25 @@ type Step =
     static member createPause (milliseconds: int) =
         Step.createPause(fun () -> milliseconds)
 
-/// Scenario helps to organize steps into sequential flow with different load simulations (concurrency control).
+/// Scenario is basically a workflow that virtual users will follow. It helps you organize steps into user actions.
+/// Scenarios are always running in parallel (it's opposite to steps that run sequentially).
+/// You should think about Scenario as a system thread.
+[<RequireQualifiedAccess>]
 module Scenario =
 
     /// Creates scenario with steps which will be executed sequentially.
-    let create (name: string) (steps: IStep list): Contracts.Scenario = {
-          ScenarioName = name
+    /// Scenario is basically a workflow that virtual users will follow. It helps you organize steps into user actions.
+    /// Scenarios are always running in parallel (it's opposite to steps that run sequentially).
+    /// You should think about Scenario as a system thread.
+    let create (name: string) (steps: IStep list): Contracts.Scenario =
+        let stepsOrder = [|0..steps.Length-1|]
+        { ScenarioName = name
           Init = None
           Clean = None
           Steps = steps
           WarmUpDuration = Constants.DefaultWarmUpDuration
-          LoadSimulations = [
-            LoadSimulation.InjectPerSec(rate = Constants.DefaultCopiesCount,
-                                        during = Constants.DefaultSimulationDuration)
-          ]
-    }
+          LoadSimulations = [LoadSimulation.KeepConstant(copies = Constants.DefaultCopiesCount, during = Constants.DefaultSimulationDuration)]
+          GetStepsOrder = fun () -> stepsOrder }
 
     /// Initializes scenario.
     /// You can use it to for example to prepare your target system or to parse and apply configuration.
@@ -154,12 +171,21 @@ module Scenario =
         { scenario with WarmUpDuration = TimeSpan.Zero }
 
     /// Sets load simulations.
-    /// Default value is: InjectPerSec(rate = 50, during = minutes 1)
+    /// Default value is: KeepConstant(copies = 1, during = minutes 1)
+    /// NBomber is always running simulations in sequential order that you defined them.
+    /// All defined simulations are represent the whole Scenario duration.
     let withLoadSimulations (loadSimulations: LoadSimulation list) (scenario: Contracts.Scenario) =
         { scenario with LoadSimulations = loadSimulations }
 
+    /// Sets dynamic steps order that will be used by NBomber Scenario executor.
+    /// By default, all steps are executing sequentially but you can inject your custom order.
+    /// getStepsOrder function will be invoked on every turn before steps list execution.
+    let withDynamicStepOrder (getStepsOrder: unit -> int[]) (scenario: Contracts.Scenario) =
+        { scenario with GetStepsOrder = getStepsOrder }
+
 /// NBomberRunner is responsible for registering and running scenarios.
 /// Also it provides configuration points related to infrastructure, reporting, loading plugins.
+[<RequireQualifiedAccess>]
 module NBomberRunner =
 
     /// Registers scenario in NBomber environment.
@@ -184,25 +210,35 @@ module NBomberRunner =
     /// Sets output report name.
     /// Default name: nbomber_report.
     let withReportFileName (reportFileName: string) (context: NBomberContext) =
-        { context with ReportFileName = Some reportFileName }
+        let report = { context.Reporting with FileName = Some reportFileName }
+        { context with Reporting = report }
 
     /// Sets output report folder path.
     /// Default folder path: "./reports".
     let withReportFolder (reportFolderPath: string) (context: NBomberContext) =
-        { context with ReportFolder = Some reportFolderPath }
+        let report = { context.Reporting with FolderName = Some reportFolderPath }
+        { context with Reporting = report }
 
     let withReportFormats (reportFormats: ReportFormat list) (context: NBomberContext) =
-        { context with ReportFormats = reportFormats }
+        let report = { context.Reporting with Formats = reportFormats }
+        { context with Reporting  = report }
 
     /// Sets to run without reports
     let withoutReports (context: NBomberContext) =
-        { context with ReportFormats = List.empty }
+        let report = { context.Reporting with Formats = [] }
+        { context with Reporting = report }
+
+    /// Sets real-time reporting interval.
+    /// Default value: 10 seconds, min value: 5 sec
+    let withReportingInterval (interval: TimeSpan) (context: NBomberContext) =
+        let report = { context.Reporting with SendStatsInterval = interval }
+        { context with Reporting = report }
 
     /// Sets reporting sinks.
     /// Reporting sink is used to save real-time metrics to correspond database
-    let withReportingSinks (reportingSinks: IReportingSink list) (sendStatsInterval: TimeSpan) (context: NBomberContext) =
-        { context with ReportingSinks = reportingSinks
-                       SendStatsInterval = sendStatsInterval }
+    let withReportingSinks (reportingSinks: IReportingSink list) (context: NBomberContext) =
+        let report = { context.Reporting with Sinks = reportingSinks }
+        { context with Reporting = report }
 
     /// Sets worker plugins.
     /// Worker plugin is a plugin that starts at the test start and works as a background worker.
@@ -256,6 +292,11 @@ module NBomberRunner =
     let withApplicationType (applicationType: ApplicationType) (context: NBomberContext) =
         { context with ApplicationType = Some applicationType }
 
+    /// Disables hints analyzer.
+    /// Hints analyzer - analyze node stats to provide some hints in case of finding wrong usage or some other issue.
+    let disableHintsAnalyzer (context: NBomberContext) =
+        { context with UseHintsAnalyzer = false }
+
     let internal executeCliArgs (args) (context: NBomberContext) =
         let invokeConfigLoader (configName) (configLoader) (config) (context) =
             if config = String.Empty then sprintf "%s is empty" configName |> failwith
@@ -274,6 +315,7 @@ module NBomberRunner =
         | _ -> context
 
     let internal runWithResult (args) (context: NBomberContext) =
+        GCSettings.LatencyMode <- GCLatencyMode.SustainedLowLatency
         context
         |> executeCliArgs args
         |> NBomberRunner.run
@@ -294,3 +336,34 @@ module NBomberRunner =
         context
         |> runWithResult args
         |> Result.mapError(AppError.toString)
+
+namespace NBomber.FSharp.SyncApi
+
+    open NBomber
+    open NBomber.Contracts
+    open NBomber.Domain
+    open NBomber.Domain.DomainTypes
+    open NBomber.Domain.ClientPool
+
+    [<RequireQualifiedAccess>]
+    type SyncStep =
+
+        static member create (name: string,
+                              exec: IStepContext<'TClient,'TFeedItem> -> Response,
+                              ?clientFactory: IClientFactory<'TClient>,
+                              ?feed: IFeed<'TFeedItem>,
+                              ?doNotTrack: bool) =
+
+            let factory =
+                clientFactory
+                |> Option.map(fun x -> x :?> ClientFactory<'TClient>)
+                |> Option.map(fun x -> x.GetUntyped())
+
+            { StepName = name
+              ClientFactory = factory
+              ClientPool = None
+              Execute = exec |> Step.toUntypedExecute |> SyncExec
+              Feed = feed |> Option.map Feed.toUntypedFeed
+              Timeout = Constants.StepTimeout
+              DoNotTrack = defaultArg doNotTrack Constants.DefaultDoNotTrack }
+              :> IStep

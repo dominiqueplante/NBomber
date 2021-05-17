@@ -3,7 +3,6 @@
 #nowarn "3211"
 
 open System
-open System.Threading
 open System.Threading.Tasks
 open System.Runtime.CompilerServices
 open System.Runtime.InteropServices
@@ -14,48 +13,110 @@ open NBomber
 open NBomber.Contracts
 open NBomber.Configuration
 
-type ConnectionPoolArgs =
+/// ClientFactory helps you create and initialize API clients to work with specific API or protocol (HTTP, WebSockets, gRPC, GraphQL).
+type ClientFactory =
 
-    static member Create<'TConnection>(name: string,
-                                       openConnection: Func<int,CancellationToken,Task<'TConnection>>,
-                                       closeConnection: Func<'TConnection,CancellationToken,Task>,
-                                       [<Optional;DefaultParameterValue(Constants.DefaultConnectionCount:int)>]connectionCount: int) =
-        FSharp.ConnectionPoolArgs.create(name, openConnection.Invoke, closeConnection.Invoke, connectionCount)
+    /// Creates ClientFactory.
+    /// ClientFactory helps create and initialize API clients to work with specific API or protocol (HTTP, WebSockets, gRPC, GraphQL).
+    static member Create
+        (name: string,
+         initClient: Func<int,IBaseContext,Task<'TClient>>,
+         [<Optional;DefaultParameterValue(null)>] disposeClient: Func<'TClient,IBaseContext,Task>,
+         [<Optional;DefaultParameterValue(Constants.DefaultClientCount)>] clientCount: int) =
 
-    static member Empty = FSharp.ConnectionPoolArgs.empty
+        let defaultDispose = (fun (client,context) ->
+            match client :> obj with
+            | :? IDisposable as d -> d.Dispose()
+            | _ -> ()
+            Task.CompletedTask
+        )
 
+        let dispose =
+            if isNull(disposeClient :> obj) then defaultDispose
+            else disposeClient.Invoke
+
+        NBomber.Domain.ClientPool.ClientFactory(name, clientCount, initClient.Invoke, dispose)
+        :> IClientFactory<'TClient>
+
+/// DataFeed helps inject test data into your load test. It represents a data source.
+type Feed =
+
+    /// Creates Feed that picks constant value per Step copy.
+    /// Every Step copy will have unique constant value.
+    static member CreateConstant (name, data: 'T seq) =
+        NBomber.Domain.Feed.constant(name, data)
+
+    /// Creates Feed that picks constant value per Step copy.
+    /// Every Step copy will have unique constant value.
+    static member CreateConstant (name, getData: Func<'T seq>) =
+        NBomber.Domain.Feed.constant(name, getData.Invoke())
+
+    /// Creates Feed that randomly picks an item per Step invocation.
+    static member CreateCircular (name, data: 'T seq) =
+        NBomber.Domain.Feed.circular(name, data)
+
+    /// Creates Feed that randomly picks an item per Step invocation.
+    static member CreateCircular (name, getData: Func<'T seq>) =
+        NBomber.Domain.Feed.circular(name, getData.Invoke())
+
+    /// Creates Feed that returns values from  value on every Step invocation.
+    static member CreateRandom (name, data: 'T seq) =
+        NBomber.Domain.Feed.random(name, data)
+
+    /// Creates Feed that returns values from  value on every Step invocation.
+    static member CreateRandom (name, getData: Func<'T seq>) =
+        NBomber.Domain.Feed.random(name, getData.Invoke())
+
+/// Step represents a single user action like login, logout, etc.
 type Step =
 
-    static member Create<'TConnection,'TFeedItem>
+    /// Creates Step.
+    /// Step represents a single user action like login, logout, etc.
+    static member Create
         (name: string,
-         connectionPoolArgs: IConnectionPoolArgs<'TConnection>,
+         clientFactory: IClientFactory<'TClient>,
          feed: IFeed<'TFeedItem>,
-         execute: Func<IStepContext<'TConnection,'TFeedItem>,Task<Response>>,
-         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+         execute: Func<IStepContext<'TClient,'TFeedItem>,Task<Response>>,
+         [<Optional;DefaultParameterValue(null)>] timeout: Nullable<TimeSpan>,
+         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack)>] doNotTrack: bool) =
 
-        FSharp.Step.create(name, connectionPoolArgs, feed, execute.Invoke, doNotTrack)
+        let timeout = Option.ofNullable timeout
+        FSharp.Step.create(name, execute.Invoke, clientFactory, feed, ?timeout = timeout, doNotTrack = doNotTrack)
 
-    static member Create<'TConnection>
+    /// Creates Step.
+    /// Step represents a single user action like login, logout, etc.
+    static member Create
         (name: string,
-         connectionPoolArgs: IConnectionPoolArgs<'TConnection>,
-         execute: Func<IStepContext<'TConnection,unit>,Task<Response>>,
-         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+         clientFactory: IClientFactory<'TClient>,
+         execute: Func<IStepContext<'TClient,unit>,Task<Response>>,
+         [<Optional;DefaultParameterValue(null)>] timeout: Nullable<TimeSpan>,
+         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack)>] doNotTrack: bool) =
 
-        Step.Create(name, connectionPoolArgs, Feed.empty, execute, doNotTrack)
+        let timeout = Option.ofNullable timeout
+        FSharp.Step.create(name, execute.Invoke, clientFactory, ?timeout = timeout, doNotTrack = doNotTrack)
 
-    static member Create<'TFeedItem>
+    /// Creates Step.
+    /// Step represents a single user action like login, logout, etc.
+    static member Create
         (name: string,
          feed: IFeed<'TFeedItem>,
          execute: Func<IStepContext<unit,'TFeedItem>,Task<Response>>,
-         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+         [<Optional;DefaultParameterValue(null)>] timeout: Nullable<TimeSpan>,
+         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack)>] doNotTrack: bool) =
 
-        Step.Create(name, ConnectionPoolArgs.Empty, feed, execute, doNotTrack)
+        let timeout = Option.ofNullable timeout
+        FSharp.Step.create(name, execute.Invoke, feed = feed, ?timeout = timeout, doNotTrack = doNotTrack)
 
-    static member Create(name: string,
-                         execute: Func<IStepContext<unit,unit>,Task<Response>>,
-                         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+    /// Creates Step.
+    /// Step represents a single user action like login, logout, etc.
+    static member Create
+        (name: string,
+         execute: Func<IStepContext<unit,unit>,Task<Response>>,
+         [<Optional;DefaultParameterValue(null)>] timeout: Nullable<TimeSpan>,
+         [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack)>] doNotTrack: bool) =
 
-        Step.Create(name, ConnectionPoolArgs.Empty, Feed.empty, execute, doNotTrack)
+        let timeout = Option.ofNullable timeout
+        FSharp.Step.create(name, execute.Invoke, ?timeout = timeout, doNotTrack = doNotTrack)
 
     /// Creates pause step with specified duration.
     static member CreatePause(duration: TimeSpan) =
@@ -75,10 +136,16 @@ type Step =
     static member CreatePause(getDuration: Func<int>) =
         FSharp.Step.createPause(getDuration.Invoke)
 
+/// Scenario is basically a workflow that virtual users will follow. It helps you organize steps into user actions.
+/// Scenarios are always running in parallel (it's opposite to steps that run sequentially).
+/// You should think about Scenario as a system thread.
 [<Extension>]
 type ScenarioBuilder =
 
     /// Creates scenario with steps which will be executed sequentially.
+    /// Scenario is basically a workflow that virtual users will follow. It helps you organize steps into user actions.
+    /// Scenarios are always running in parallel (it's opposite to steps that run sequentially).
+    /// You should think about Scenario as a system thread.
     static member CreateScenario(name: string, [<ParamArray>]steps: IStep[]) =
         FSharp.Scenario.create name (Seq.toList steps)
 
@@ -104,10 +171,19 @@ type ScenarioBuilder =
         scenario |> FSharp.Scenario.withoutWarmUp
 
     /// Sets load simulations.
-    /// Default value is: InjectPerSec(rate = 50, during = minutes 1)
+    /// Default value is: KeepConstant(copies = 1, during = minutes 1)
+    /// NBomber is always running simulations in sequential order that you defined them.
+    /// All defined simulations are represent the whole Scenario duration.
     [<Extension>]
-    static member WithLoadSimulations (scenario: Scenario, [<ParamArray>]loadSimulations: LoadSimulation[]) =
+    static member WithLoadSimulations(scenario: Scenario, [<ParamArray>]loadSimulations: LoadSimulation[]) =
         scenario |> FSharp.Scenario.withLoadSimulations(Seq.toList loadSimulations)
+
+    /// Sets dynamic steps order that will be used by NBomber Scenario executor.
+    /// By default, all steps are executing sequentially but you can inject your custom order.
+    /// getStepsOrder function will be invoked on every turn before steps list execution.
+    [<Extension>]
+    static member WithDynamicStepOrder(scenario: Scenario, getStepsOrder: Func<int[]>) =
+        scenario |> FSharp.Scenario.withDynamicStepOrder(getStepsOrder.Invoke)
 
 [<Extension>]
 type NBomberRunner =
@@ -151,12 +227,18 @@ type NBomberRunner =
     static member WithoutReports(context: NBomberContext) =
         context |> FSharp.NBomberRunner.withoutReports
 
+    /// Sets real-time reporting interval.
+    /// Default value: 10 seconds, min value: 5 sec
+    [<Extension>]
+    static member WithReportingInterval(context: NBomberContext, interval: TimeSpan) =
+        context |> FSharp.NBomberRunner.withReportingInterval interval
+
     /// Sets reporting sinks.
     /// Reporting sink is used to save real-time metrics to correspond database.
     [<Extension>]
-    static member WithReportingSinks(context: NBomberContext, reportingSinks: IReportingSink[], sendStatsInterval: TimeSpan) =
+    static member WithReportingSinks(context: NBomberContext, [<ParamArray>]reportingSinks: IReportingSink[]) =
         let sinks = reportingSinks |> Seq.toList
-        context |> FSharp.NBomberRunner.withReportingSinks sinks sendStatsInterval
+        context |> FSharp.NBomberRunner.withReportingSinks sinks
 
     /// Sets worker plugins.
     /// Worker plugin is a plugin that starts at the test start and works as a background worker.
@@ -196,6 +278,12 @@ type NBomberRunner =
     static member WithApplicationType(context: NBomberContext, applicationType: ApplicationType) =
         context |> FSharp.NBomberRunner.withApplicationType(applicationType)
 
+    /// Disables hints analyzer.
+    /// Hints analyzer - analyze node stats to provide some hints in case of finding wrong usage or some other issue.
+    [<Extension>]
+    static member DisableHintsAnalyzer(context: NBomberContext) =
+        context |> FSharp.NBomberRunner.disableHintsAnalyzer
+
     [<Extension>]
     static member Run(context: NBomberContext) =
         match FSharp.NBomberRunner.run context with
@@ -217,18 +305,74 @@ type NBomberRunner =
 
 type Simulation =
 
-    /// Injects a given number of scenario copies with a linear ramp over a given duration. Use it for ramp up and rump down.
+    /// Injects a given number of scenario copies (threads) with a linear ramp over a given duration.
+    /// Every single scenario copy will iterate while the specified duration.
+    /// Use it for ramp up and rump down.
     static member RampConstant(copies: int, during: TimeSpan) =
         LoadSimulation.RampConstant(copies, during)
 
-    /// Injects a given number of scenario copies at once and keep them running, during a given duration.
+    /// A fixed number of scenario copies (threads) executes as many iterations as possible for a specified amount of time.
+    /// Every single scenario copy will iterate while the specified duration.
+    /// Use it when you need to run a specific amount of scenario copies (threads) for a certain amount of time.
     static member KeepConstant(copies: int, during: TimeSpan) =
         LoadSimulation.KeepConstant(copies, during)
 
-    /// Injects a given number of scenario copies from the current rate to target rate, defined in scenarios per second, during a given duration.
+    /// Injects a given number of scenario copies (threads) per 1 sec from the current rate to target rate during a given duration.
+    /// Every single scenario copy will run only once.
     static member RampPerSec(rate: int, during: TimeSpan) =
         LoadSimulation.RampPerSec(rate, during)
 
-    /// Injects a given number of scenario copies at a constant rate, defined in scenarios per second, during a given duration.
+    /// Injects a given number of scenario copies (threads) per 1 sec during a given duration.
+    /// Every single scenario copy will run only once.
+    /// Use it when you want to maintain a constant rate of requests without being affected by the performance of the system under test.
     static member InjectPerSec(rate: int, during: TimeSpan) =
         LoadSimulation.InjectPerSec(rate, during)
+
+    /// Injects a random number of scenario copies (threads) per 1 sec during a given duration.
+    /// Every single scenario copy will run only once.
+    /// Use it when you want to maintain a random rate of requests without being affected by the performance of the system under test.
+    static member InjectPerSecRandom(minRate:int, maxRate:int, during:TimeSpan) =
+        LoadSimulation.InjectPerSecRandom(minRate, maxRate, during)
+
+namespace NBomber.CSharp.SyncApi
+
+    open System
+    open System.Runtime.InteropServices
+
+    open NBomber
+    open NBomber.Contracts
+    open NBomber.FSharp.SyncApi
+
+    type SyncStep =
+
+        static member Create
+            (name: string,
+             pool: IClientFactory<'TClient>,
+             feed: IFeed<'TFeedItem>,
+             exec: Func<IStepContext<'TClient,'TFeedItem>,Response>,
+             [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+
+            SyncStep.create(name, exec.Invoke, pool, feed, doNotTrack)
+
+        static member Create
+            (name: string,
+             pool: IClientFactory<'TClient>,
+             exec: Func<IStepContext<'TClient,unit>,Response>,
+             [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+
+            SyncStep.create(name, exec.Invoke, pool, doNotTrack = doNotTrack)
+
+        static member Create
+            (name: string,
+             feed: IFeed<'TFeedItem>,
+             exec: Func<IStepContext<unit,'TFeedItem>,Response>,
+             [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+
+            SyncStep.create(name, exec.Invoke, feed = feed, doNotTrack = doNotTrack)
+
+        static member Create
+            (name: string,
+             exec: Func<IStepContext<unit,unit>,Response>,
+             [<Optional;DefaultParameterValue(Constants.DefaultDoNotTrack:bool)>]doNotTrack: bool) =
+
+            SyncStep.create(name, exec.Invoke, doNotTrack = doNotTrack)

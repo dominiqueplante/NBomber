@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateProgramFile>false</GenerateProgramFile>
+        <ServerGarbageCollection>true</ServerGarbageCollection>
+        <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="DataFeed\DataFeedTest.fs" />
+        <None Include="DataFeed\users-feed-data.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="DataFeed\users-feed-data.csv">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <Compile Include="HelloWorld\CustomSettingsExample.fs" />
+        <Compile Include="HelloWorld\HelloWorldExample.fs" />
+        <None Include="HelloWorld\config.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <Compile Include="CustomReporting\CustomReporting.fs" />
+        <Compile Include="InfluxDbSink\InfluxDbSink.fs" />
+        <Compile Include="InfluxDbSink\InfluxDbReportingScenario.fs" />
+        <None Include="InfluxDbSink\docker-compose.yaml" />
+        <Compile Include="HttpTests\SimpleHttpTest.fs" />
+        <None Include="HttpTests\infra-config.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <Compile Include="ClientFactory\HttpClientFactory.fs" />
+        <Compile Include="Program.fs" />        
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\NBomber\NBomber.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="4.2.0" />
+    </ItemGroup>
+
+</Project>

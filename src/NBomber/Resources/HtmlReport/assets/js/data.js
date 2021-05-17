@@ -1,387 +1,818 @@
 const viewModel = {
-    nBomberInfo: {
-        NBomberVersion: "x.x.x"
-    },
-    testInfo: {
-        "TestSuite": "nbomber_default_test_suite_name",
-        "TestName": "nbomber_default_test_name"
-    },
-    statsData: {
-        "RequestCount": 5492,
-        "OkCount": 4200,
-        "FailCount": 1292,
-        "AllDataMB": 42.53,
+    "NodeStats": {
+        "RequestCount": 594,
+        "OkCount": 379,
+        "FailCount": 215,
+        "AllBytes": 120497,
         "ScenarioStats": [
             {
-                "ScenarioName": "test_1",
-                "RequestCount": 1825,
-                "OkCount": 1392,
-                "FailCount": 433,
-                "AllDataMB": 14.11,
+                "ScenarioName": "scenario_1",
+                "RequestCount": 209,
+                "OkCount": 151,
+                "FailCount": 58,
+                "AllBytes": 0,
                 "StepStats": [
                     {
-                        "StepName": "pull html 1",
-                        "RequestCount": 600,
-                        "OkCount": 484,
-                        "FailCount": 116,
-                        "Min": 14,
-                        "Mean": 723,
-                        "Max": 1633,
-                        "RPS": 5,
-                        "Percent50": 731,
-                        "Percent75": 1090,
-                        "Percent95": 1356,
-                        "Percent99": 1569,
-                        "StdDev": 404,
-                        "MinDataKb": 0.13,
-                        "MeanDataKb": 8.44,
-                        "MaxDataKb": 19.88,
-                        "AllDataMB": 4.31
-                    },
-                    {
-                        "StepName": "pull html 2",
-                        "RequestCount": 474,
-                        "OkCount": 349,
-                        "FailCount": 125,
-                        "Min": 38,
-                        "Mean": 717,
-                        "Max": 1489,
-                        "RPS": 3,
-                        "Percent50": 688,
-                        "Percent75": 1136,
-                        "Percent95": 1329,
-                        "Percent99": 1466,
-                        "StdDev": 416,
-                        "MinDataKb": 0.18,
-                        "MeanDataKb": 9.01,
-                        "MaxDataKb": 19.68,
-                        "AllDataMB": 3.35
-                    },
-                    {
-                        "StepName": "pull html 3",
-                        "RequestCount": 339,
-                        "OkCount": 231,
-                        "FailCount": 108,
-                        "Min": 60,
-                        "Mean": 792,
-                        "Max": 1508,
-                        "RPS": 2,
-                        "Percent50": 762,
-                        "Percent75": 1226,
-                        "Percent95": 1478,
-                        "Percent99": 1500,
-                        "StdDev": 439,
-                        "MinDataKb": 0.69,
-                        "MeanDataKb": 10.22,
-                        "MaxDataKb": 19.45,
-                        "AllDataMB": 2.45
-                    },
-                    {
-                        "StepName": "pull html 4",
-                        "RequestCount": 231,
-                        "OkCount": 190,
-                        "FailCount": 41,
-                        "Min": 12,
-                        "Mean": 706,
-                        "Max": 1588,
-                        "RPS": 2,
-                        "Percent50": 609,
-                        "Percent75": 1240,
-                        "Percent95": 1459,
-                        "Percent99": 1507,
-                        "StdDev": 457,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 11.42,
-                        "MaxDataKb": 19.77,
-                        "AllDataMB": 2.25
-                    },
-                    {
-                        "StepName": "pull html 5",
-                        "RequestCount": 181,
-                        "OkCount": 138,
-                        "FailCount": 43,
-                        "Min": 16,
-                        "Mean": 555,
-                        "Max": 1454,
-                        "RPS": 1,
-                        "Percent50": 473,
-                        "Percent75": 748,
-                        "Percent95": 1378,
-                        "Percent99": 1450,
-                        "StdDev": 391,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 13.04,
-                        "MaxDataKb": 19.43,
-                        "AllDataMB": 1.75
+                        "StepName": "pull_html_1",
+                        "Ok": {
+                            "Request": {
+                                "Count": 151,
+                                "RPS": 5.0
+                            },
+                            "Latency": {
+                                "MinMs": 25.6,
+                                "MeanMs": 532.6,
+                                "MaxMs": 1016.6,
+                                "Percent50": 532.5,
+                                "Percent75": 673.6,
+                                "Percent95": 830.6,
+                                "Percent99": 837.9,
+                                "StdDev": 221.3,
+                                "LatencyCount": {
+                                    "LessOrEq800": 117,
+                                    "More800Less1200": 34,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 0,
+                                "MaxBytes": 0,
+                                "Percent50": 0,
+                                "Percent75": 0,
+                                "Percent95": 0,
+                                "Percent99": 0,
+                                "StdDev": 0.0,
+                                "AllBytes": 0
+                            },
+                            "StatusCodes": []
+                        },
+                        "Fail": {
+                            "Request": {
+                                "Count": 58,
+                                "RPS": 1.9
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 960.5,
+                                "MaxMs": 1019.1,
+                                "Percent50": 960.1,
+                                "Percent75": 962.5,
+                                "Percent95": 963.9,
+                                "Percent99": 963.9,
+                                "StdDev": 2.6,
+                                "LatencyCount": {
+                                    "LessOrEq800": 0,
+                                    "More800Less1200": 58,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 0,
+                                "MaxBytes": 0,
+                                "Percent50": 0,
+                                "Percent75": 0,
+                                "Percent95": 0,
+                                "Percent99": 0,
+                                "StdDev": 0.0,
+                                "AllBytes": 0
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 58,
+                                    "StatusCode": -100,
+                                    "IsError": true,
+                                    "Message": "step timeout",
+                                    "Count": 58
+                                }
+                            ]
+                        }
                     }
                 ],
                 "LatencyCount": {
-                    "Less800": 818,
-                    "More800Less1200": 326,
-                    "More1200": 248
+                    "LessOrEq800": 117,
+                    "More800Less1200": 92,
+                    "MoreOrEq1200": 0
                 },
                 "LoadSimulationStats": {
                     "SimulationName": "inject_per_sec",
                     "Value": 10
                 },
-                "Duration": "00:01:00"
+                "StatusCodes": [
+                    {
+                        "Count@": 58,
+                        "StatusCode": -100,
+                        "IsError": true,
+                        "Message": "step timeout",
+                        "Count": 58
+                    }
+                ],
+                "CurrentOperation": 5,
+                "Duration": "00:00:30"
             },
             {
-                "ScenarioName": "test_2",
-                "RequestCount": 1832,
-                "OkCount": 1402,
-                "FailCount": 430,
-                "AllDataMB": 14.29,
+                "ScenarioName": "scenario_2",
+                "RequestCount": 206,
+                "OkCount": 136,
+                "FailCount": 70,
+                "AllBytes": 68286,
                 "StepStats": [
                     {
-                        "StepName": "pull html 1",
-                        "RequestCount": 600,
-                        "OkCount": 480,
-                        "FailCount": 120,
-                        "Min": 20,
-                        "Mean": 720,
-                        "Max": 1623,
-                        "RPS": 5,
-                        "Percent50": 716,
-                        "Percent75": 1084,
-                        "Percent95": 1339,
-                        "Percent99": 1573,
-                        "StdDev": 401,
-                        "MinDataKb": 0.1,
-                        "MeanDataKb": 8.5,
-                        "MaxDataKb": 19.88,
-                        "AllDataMB": 4.29
-                    },
-                    {
-                        "StepName": "pull html 2",
-                        "RequestCount": 470,
-                        "OkCount": 353,
-                        "FailCount": 117,
-                        "Min": 34,
-                        "Mean": 712,
-                        "Max": 1474,
-                        "RPS": 4,
-                        "Percent50": 686,
-                        "Percent75": 1134,
-                        "Percent95": 1328,
-                        "Percent99": 1459,
-                        "StdDev": 417,
-                        "MinDataKb": 0.18,
-                        "MeanDataKb": 9.01,
-                        "MaxDataKb": 19.67,
-                        "AllDataMB": 3.36
-                    },
-                    {
-                        "StepName": "pull html 3",
-                        "RequestCount": 343,
-                        "OkCount": 234,
-                        "FailCount": 109,
-                        "Min": 55,
-                        "Mean": 793,
-                        "Max": 1506,
-                        "RPS": 2,
-                        "Percent50": 760,
-                        "Percent75": 1231,
-                        "Percent95": 1493,
-                        "Percent99": 1503,
-                        "StdDev": 447,
-                        "MinDataKb": 0.26,
-                        "MeanDataKb": 10.38,
-                        "MaxDataKb": 19.44,
-                        "AllDataMB": 2.49
-                    },
-                    {
-                        "StepName": "pull html 4",
-                        "RequestCount": 234,
-                        "OkCount": 195,
-                        "FailCount": 39,
-                        "Min": 11,
-                        "Mean": 712,
-                        "Max": 1511,
-                        "RPS": 2,
-                        "Percent50": 604,
-                        "Percent75": 1115,
-                        "Percent95": 1444,
-                        "Percent99": 1503,
-                        "StdDev": 451,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 11.72,
-                        "MaxDataKb": 19.77,
-                        "AllDataMB": 2.34
-                    },
-                    {
-                        "StepName": "pull html 5",
-                        "RequestCount": 185,
-                        "OkCount": 140,
-                        "FailCount": 45,
-                        "Min": 16,
-                        "Mean": 536,
-                        "Max": 1556,
-                        "RPS": 1,
-                        "Percent50": 469,
-                        "Percent75": 749,
-                        "Percent95": 1226,
-                        "Percent99": 1402,
-                        "StdDev": 378,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 12.85,
-                        "MaxDataKb": 19.45,
-                        "AllDataMB": 1.81
+                        "StepName": "pull_html_2",
+                        "Ok": {
+                            "Request": {
+                                "Count": 136,
+                                "RPS": 4.5
+                            },
+                            "Latency": {
+                                "MinMs": 10.2,
+                                "MeanMs": 565.9,
+                                "MaxMs": 984.7,
+                                "Percent50": 509.0,
+                                "Percent75": 706.1,
+                                "Percent95": 887.6,
+                                "Percent99": 907.6,
+                                "StdDev": 232.1,
+                                "LatencyCount": {
+                                    "LessOrEq800": 105,
+                                    "More800Less1200": 31,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 32,
+                                "MeanBytes": 493,
+                                "MaxBytes": 998,
+                                "Percent50": 447,
+                                "Percent75": 647,
+                                "Percent95": 829,
+                                "Percent99": 845,
+                                "StdDev": 233.9,
+                                "AllBytes": 67501
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 136,
+                                    "StatusCode": 200,
+                                    "IsError": false,
+                                    "Message": "",
+                                    "Count": 136
+                                }
+                            ]
+                        },
+                        "Fail": {
+                            "Request": {
+                                "Count": 70,
+                                "RPS": 2.3
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 947.0,
+                                "MaxMs": 1019.9,
+                                "Percent50": 953.5,
+                                "Percent75": 954.8,
+                                "Percent95": 957.3,
+                                "Percent99": 957.3,
+                                "StdDev": 19.9,
+                                "LatencyCount": {
+                                    "LessOrEq800": 1,
+                                    "More800Less1200": 69,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 43,
+                                "MaxBytes": 785,
+                                "Percent50": 43,
+                                "Percent75": 43,
+                                "Percent95": 43,
+                                "Percent99": 43,
+                                "StdDev": 0.0,
+                                "AllBytes": 785
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 69,
+                                    "StatusCode": -100,
+                                    "IsError": true,
+                                    "Message": "step timeout",
+                                    "Count": 69
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 500,
+                                    "IsError": true,
+                                    "Message": "Internal Server Error",
+                                    "Count": 1
+                                }
+                            ]
+                        }
                     }
                 ],
                 "LatencyCount": {
-                    "Less800": 828,
-                    "More800Less1200": 331,
-                    "More1200": 242
+                    "LessOrEq800": 106,
+                    "More800Less1200": 100,
+                    "MoreOrEq1200": 0
                 },
                 "LoadSimulationStats": {
                     "SimulationName": "inject_per_sec",
-                    "Value": 10
+                    "Value": 5
                 },
-                "Duration": "00:01:00"
+                "StatusCodes": [
+                    {
+                        "Count@": 69,
+                        "StatusCode": -100,
+                        "IsError": true,
+                        "Message": "step timeout",
+                        "Count": 69
+                    },
+                    {
+                        "Count@": 136,
+                        "StatusCode": 200,
+                        "IsError": false,
+                        "Message": "",
+                        "Count": 136
+                    },
+                    {
+                        "Count@": 1,
+                        "StatusCode": 500,
+                        "IsError": true,
+                        "Message": "Internal Server Error",
+                        "Count": 1
+                    }
+                ],
+                "CurrentOperation": 5,
+                "Duration": "00:00:30"
             },
             {
-                "ScenarioName": "test_3",
-                "RequestCount": 1835,
-                "OkCount": 1406,
-                "FailCount": 429,
-                "AllDataMB": 14.13,
+                "ScenarioName": "scenario_3",
+                "RequestCount": 179,
+                "OkCount": 92,
+                "FailCount": 87,
+                "AllBytes": 52211,
                 "StepStats": [
                     {
-                        "StepName": "pull html 1",
-                        "RequestCount": 600,
-                        "OkCount": 482,
-                        "FailCount": 118,
-                        "Min": 19,
-                        "Mean": 715,
-                        "Max": 1624,
-                        "RPS": 5,
-                        "Percent50": 683,
-                        "Percent75": 1070,
-                        "Percent95": 1327,
-                        "Percent99": 1569,
-                        "StdDev": 402,
-                        "MinDataKb": 0.1,
-                        "MeanDataKb": 8.47,
-                        "MaxDataKb": 19.88,
-                        "AllDataMB": 4.29
+                        "StepName": "pull_html_3",
+                        "Ok": {
+                            "Request": {
+                                "Count": 49,
+                                "RPS": 2.7
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 224.7,
+                                "MaxMs": 1012.5,
+                                "Percent50": 182.8,
+                                "Percent75": 285.8,
+                                "Percent95": 323.8,
+                                "Percent99": 323.8,
+                                "StdDev": 72.7,
+                                "LatencyCount": {
+                                    "LessOrEq800": 44,
+                                    "More800Less1200": 5,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 246,
+                                "MaxBytes": 993,
+                                "Percent50": 203,
+                                "Percent75": 305,
+                                "Percent95": 348,
+                                "Percent99": 348,
+                                "StdDev": 76.0,
+                                "AllBytes": 21359
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 29,
+                                    "StatusCode": 200,
+                                    "IsError": false,
+                                    "Message": "",
+                                    "Count": 29
+                                }
+                            ]
+                        },
+                        "Fail": {
+                            "Request": {
+                                "Count": 53,
+                                "RPS": 2.9
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 631.3,
+                                "MaxMs": 1017.4,
+                                "Percent50": 656.7,
+                                "Percent75": 657.7,
+                                "Percent95": 658.7,
+                                "Percent99": 658.7,
+                                "StdDev": 46.3,
+                                "LatencyCount": {
+                                    "LessOrEq800": 7,
+                                    "More800Less1200": 46,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 144,
+                                "MaxBytes": 818,
+                                "Percent50": 142,
+                                "Percent75": 146,
+                                "Percent95": 146,
+                                "Percent99": 146,
+                                "StdDev": 2.1,
+                                "AllBytes": 4757
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 45,
+                                    "StatusCode": -100,
+                                    "IsError": true,
+                                    "Message": "step timeout",
+                                    "Count": 45
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 400,
+                                    "IsError": true,
+                                    "Message": "Bad Request",
+                                    "Count": 1
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 401,
+                                    "IsError": true,
+                                    "Message": "Unauthorized",
+                                    "Count": 1
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 403,
+                                    "IsError": true,
+                                    "Message": "Forbidden",
+                                    "Count": 1
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 502,
+                                    "IsError": true,
+                                    "Message": "Bad Gateway",
+                                    "Count": 1
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 503,
+                                    "IsError": true,
+                                    "Message": "Service Unavailable",
+                                    "Count": 1
+                                }
+                            ]
+                        }
                     },
                     {
-                        "StepName": "pull html 2",
-                        "RequestCount": 472,
-                        "OkCount": 360,
-                        "FailCount": 112,
-                        "Min": 29,
-                        "Mean": 710,
-                        "Max": 1474,
-                        "RPS": 4,
-                        "Percent50": 684,
-                        "Percent75": 1126,
-                        "Percent95": 1329,
-                        "Percent99": 1460,
-                        "StdDev": 420,
-                        "MinDataKb": 0.18,
-                        "MeanDataKb": 8.86,
-                        "MaxDataKb": 19.67,
-                        "AllDataMB": 3.4
+                        "StepName": "pull_html_4",
+                        "Ok": {
+                            "Request": {
+                                "Count": 28,
+                                "RPS": 1.6
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 305.8,
+                                "MaxMs": 999.4,
+                                "Percent50": 291.2,
+                                "Percent75": 331.3,
+                                "Percent95": 345.2,
+                                "Percent99": 345.2,
+                                "StdDev": 37.4,
+                                "LatencyCount": {
+                                    "LessOrEq800": 19,
+                                    "More800Less1200": 9,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 283,
+                                "MaxBytes": 988,
+                                "Percent50": 244,
+                                "Percent75": 314,
+                                "Percent95": 356,
+                                "Percent99": 356,
+                                "StdDev": 59.7,
+                                "AllBytes": 14550
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 21,
+                                    "StatusCode": 200,
+                                    "IsError": false,
+                                    "Message": "",
+                                    "Count": 21
+                                }
+                            ]
+                        },
+                        "Fail": {
+                            "Request": {
+                                "Count": 21,
+                                "RPS": 1.2
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 299.8,
+                                "MaxMs": 1015.8,
+                                "Percent50": 279.8,
+                                "Percent75": 324.3,
+                                "Percent95": 325.1,
+                                "Percent99": 325.1,
+                                "StdDev": 25.3,
+                                "LatencyCount": {
+                                    "LessOrEq800": 6,
+                                    "More800Less1200": 15,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 27,
+                                "MaxBytes": 614,
+                                "Percent50": 20,
+                                "Percent75": 34,
+                                "Percent95": 34,
+                                "Percent99": 34,
+                                "StdDev": 7.0,
+                                "AllBytes": 1504
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 16,
+                                    "StatusCode": -100,
+                                    "IsError": true,
+                                    "Message": "step timeout",
+                                    "Count": 16
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 500,
+                                    "IsError": true,
+                                    "Message": "Internal Server Error",
+                                    "Count": 1
+                                },
+                                {
+                                    "Count@": 2,
+                                    "StatusCode": 502,
+                                    "IsError": true,
+                                    "Message": "Bad Gateway",
+                                    "Count": 2
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 503,
+                                    "IsError": true,
+                                    "Message": "Service Unavailable",
+                                    "Count": 1
+                                }
+                            ]
+                        }
                     },
                     {
-                        "StepName": "pull html 3",
-                        "RequestCount": 350,
-                        "OkCount": 231,
-                        "FailCount": 119,
-                        "Min": 58,
-                        "Mean": 804,
-                        "Max": 1512,
-                        "RPS": 2,
-                        "Percent50": 765,
-                        "Percent75": 1221,
-                        "Percent95": 1494,
-                        "Percent99": 1506,
-                        "StdDev": 439,
-                        "MinDataKb": 0.68,
-                        "MeanDataKb": 10.05,
-                        "MaxDataKb": 19.44,
-                        "AllDataMB": 2.45
-                    },
-                    {
-                        "StepName": "pull html 4",
-                        "RequestCount": 231,
-                        "OkCount": 191,
-                        "FailCount": 40,
-                        "Min": 13,
-                        "Mean": 713,
-                        "Max": 1541,
-                        "RPS": 2,
-                        "Percent50": 611,
-                        "Percent75": 1236,
-                        "Percent95": 1437,
-                        "Percent99": 1502,
-                        "StdDev": 455,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 11.33,
-                        "MaxDataKb": 19.76,
-                        "AllDataMB": 2.23
-                    },
-                    {
-                        "StepName": "pull html 5",
-                        "RequestCount": 182,
-                        "OkCount": 142,
-                        "FailCount": 40,
-                        "Min": 14,
-                        "Mean": 579,
-                        "Max": 1455,
-                        "RPS": 1,
-                        "Percent50": 489,
-                        "Percent75": 863,
-                        "Percent95": 1393,
-                        "Percent99": 1454,
-                        "StdDev": 407,
-                        "MinDataKb": 0.0,
-                        "MeanDataKb": 12.6,
-                        "MaxDataKb": 19.43,
-                        "AllDataMB": 1.76
+                        "StepName": "pull_html_5",
+                        "Ok": {
+                            "Request": {
+                                "Count": 15,
+                                "RPS": 0.8
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 216.0,
+                                "MaxMs": 996.1,
+                                "Percent50": 202.1,
+                                "Percent75": 220.8,
+                                "Percent95": 234.8,
+                                "Percent99": 234.8,
+                                "StdDev": 16.0,
+                                "LatencyCount": {
+                                    "LessOrEq800": 13,
+                                    "More800Less1200": 2,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 237,
+                                "MaxBytes": 991,
+                                "Percent50": 214,
+                                "Percent75": 263,
+                                "Percent95": 270,
+                                "Percent99": 270,
+                                "StdDev": 31.2,
+                                "AllBytes": 9242
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 8,
+                                    "StatusCode": 200,
+                                    "IsError": false,
+                                    "Message": "",
+                                    "Count": 8
+                                }
+                            ]
+                        },
+                        "Fail": {
+                            "Request": {
+                                "Count": 13,
+                                "RPS": 0.7
+                            },
+                            "Latency": {
+                                "MinMs": 0.0,
+                                "MeanMs": 277.7,
+                                "MaxMs": 1014.2,
+                                "Percent50": 266.7,
+                                "Percent75": 288.9,
+                                "Percent95": 288.9,
+                                "Percent99": 288.9,
+                                "StdDev": 11.1,
+                                "LatencyCount": {
+                                    "LessOrEq800": 3,
+                                    "More800Less1200": 9,
+                                    "MoreOrEq1200": 0
+                                }
+                            },
+                            "DataTransfer": {
+                                "MinBytes": 0,
+                                "MeanBytes": 27,
+                                "MaxBytes": 799,
+                                "Percent50": 27,
+                                "Percent75": 27,
+                                "Percent95": 27,
+                                "Percent99": 27,
+                                "StdDev": 0.0,
+                                "AllBytes": 799
+                            },
+                            "StatusCodes": [
+                                {
+                                    "Count@": 11,
+                                    "StatusCode": -100,
+                                    "IsError": true,
+                                    "Message": "step timeout",
+                                    "Count": 11
+                                },
+                                {
+                                    "Count@": 1,
+                                    "StatusCode": 500,
+                                    "IsError": true,
+                                    "Message": "Internal Server Error",
+                                    "Count": 1
+                                }
+                            ]
+                        }
                     }
                 ],
                 "LatencyCount": {
-                    "Less800": 825,
-                    "More800Less1200": 332,
-                    "More1200": 249
+                    "LessOrEq800": 92,
+                    "More800Less1200": 86,
+                    "MoreOrEq1200": 0
                 },
                 "LoadSimulationStats": {
                     "SimulationName": "inject_per_sec",
                     "Value": 10
                 },
-                "Duration": "00:01:00"
+                "StatusCodes": [
+                    {
+                        "Count@": 72,
+                        "StatusCode": -100,
+                        "IsError": true,
+                        "Message": "step timeout",
+                        "Count": 72
+                    },
+                    {
+                        "Count@": 58,
+                        "StatusCode": 200,
+                        "IsError": false,
+                        "Message": "",
+                        "Count": 58
+                    },
+                    {
+                        "Count@": 1,
+                        "StatusCode": 400,
+                        "IsError": true,
+                        "Message": "Bad Request",
+                        "Count": 1
+                    },
+                    {
+                        "Count@": 1,
+                        "StatusCode": 401,
+                        "IsError": true,
+                        "Message": "Unauthorized",
+                        "Count": 1
+                    },
+                    {
+                        "Count@": 1,
+                        "StatusCode": 403,
+                        "IsError": true,
+                        "Message": "Forbidden",
+                        "Count": 1
+                    },
+                    {
+                        "Count@": 2,
+                        "StatusCode": 500,
+                        "IsError": true,
+                        "Message": "Internal Server Error",
+                        "Count": 2
+                    },
+                    {
+                        "Count@": 3,
+                        "StatusCode": 502,
+                        "IsError": true,
+                        "Message": "Bad Gateway",
+                        "Count": 3
+                    },
+                    {
+                        "Count@": 2,
+                        "StatusCode": 503,
+                        "IsError": true,
+                        "Message": "Service Unavailable",
+                        "Count": 2
+                    }
+                ],
+                "CurrentOperation": 5,
+                "Duration": "00:00:17"
             }
         ],
         "PluginStats": [
             {
-                "TableName": "NBomber.Plugins.Network.PingPlugin",
-                "Columns": [
-                    "Host",
-                    "Status",
-                    "Address",
-                    "Round Trip Time",
-                    "Time to Live",
-                    "Don't Fragment",
-                    "Buffer Size"
-                ],
-                "Rows": [
-                    [
-                        "google.com",
-                        "Success",
-                        "172.217.16.46",
-                        "30 ms",
-                        "128",
-                        "False",
-                        "32 bytes"
-                    ]
-                ]
+                "CaseSensitive": false,
+                "DataSetName": "NewDataSet",
+                "EnforceConstraints": true,
+                "ExtendedProperties": [],
+                "Locale": "en-US",
+                "Namespace": "",
+                "Prefix": "",
+                "RemotingFormat": 0,
+                "SchemaSerializationMode": 1,
+                "Tables": {
+                    "CustomPlugin1": {
+                        "CaseSensitive": false,
+                        "DisplayExpression": "",
+                        "Locale": "en-US",
+                        "MinimumCapacity": 50,
+                        "Namespace": "",
+                        "Prefix": "",
+                        "RemotingFormat": 0,
+                        "TableName": "CustomPlugin1",
+                        "Columns": [
+                            {
+                                "AllowDBNull": true,
+                                "AutoIncrement": false,
+                                "AutoIncrementSeed": 0,
+                                "AutoIncrementStep": 1,
+                                "Caption": "Property",
+                                "ColumnMapping": 1,
+                                "ColumnName": "Key",
+                                "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                "DateTimeMode": 3,
+                                "DefaultValue": null,
+                                "Expression": "",
+                                "ExtendedProperties": [],
+                                "MaxLength": -1,
+                                "Namespace": "",
+                                "Prefix": "",
+                                "ReadOnly": false
+                            },
+                            {
+                                "AllowDBNull": true,
+                                "AutoIncrement": false,
+                                "AutoIncrementSeed": 0,
+                                "AutoIncrementStep": 1,
+                                "Caption": "Value",
+                                "ColumnMapping": 1,
+                                "ColumnName": "Value",
+                                "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                "DateTimeMode": 3,
+                                "DefaultValue": null,
+                                "Expression": "",
+                                "ExtendedProperties": [],
+                                "MaxLength": -1,
+                                "Namespace": "",
+                                "Prefix": "",
+                                "ReadOnly": false
+                            }
+                        ],
+                        "Constraints": [],
+                        "Rows": [
+                            {
+                                "OriginalRow": null,
+                                "Key": "Property1",
+                                "Value": "1958891016",
+                                "RowState": 4
+                            },
+                            {
+                                "OriginalRow": null,
+                                "Key": "Property2",
+                                "Value": "441860245",
+                                "RowState": 4
+                            },
+                            {
+                                "OriginalRow": null,
+                                "Key": "Property3",
+                                "Value": "2106844768",
+                                "RowState": 4
+                            }
+                        ]
+                    }
+                },
+                "Relations": {}
+            },
+            {
+                "CaseSensitive": false,
+                "DataSetName": "NewDataSet",
+                "EnforceConstraints": true,
+                "ExtendedProperties": [],
+                "Locale": "en-US",
+                "Namespace": "",
+                "Prefix": "",
+                "RemotingFormat": 0,
+                "SchemaSerializationMode": 1,
+                "Tables": {
+                    "CustomPlugin2": {
+                        "CaseSensitive": false,
+                        "DisplayExpression": "",
+                        "Locale": "en-US",
+                        "MinimumCapacity": 50,
+                        "Namespace": "",
+                        "Prefix": "",
+                        "RemotingFormat": 0,
+                        "TableName": "CustomPlugin2",
+                        "Columns": [
+                            {
+                                "AllowDBNull": true,
+                                "AutoIncrement": false,
+                                "AutoIncrementSeed": 0,
+                                "AutoIncrementStep": 1,
+                                "Caption": "Property",
+                                "ColumnMapping": 1,
+                                "ColumnName": "Property",
+                                "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                "DateTimeMode": 3,
+                                "DefaultValue": null,
+                                "Expression": "",
+                                "ExtendedProperties": [],
+                                "MaxLength": -1,
+                                "Namespace": "",
+                                "Prefix": "",
+                                "ReadOnly": false
+                            },
+                            {
+                                "AllowDBNull": true,
+                                "AutoIncrement": false,
+                                "AutoIncrementSeed": 0,
+                                "AutoIncrementStep": 1,
+                                "Caption": "Value",
+                                "ColumnMapping": 1,
+                                "ColumnName": "Value",
+                                "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                "DateTimeMode": 3,
+                                "DefaultValue": null,
+                                "Expression": "",
+                                "ExtendedProperties": [],
+                                "MaxLength": -1,
+                                "Namespace": "",
+                                "Prefix": "",
+                                "ReadOnly": false
+                            }
+                        ],
+                        "Constraints": [],
+                        "Rows": [
+                            {
+                                "OriginalRow": null,
+                                "Property": "Property 1",
+                                "Value": "733347866",
+                                "RowState": 4
+                            },
+                            {
+                                "OriginalRow": null,
+                                "Property": "Property 2",
+                                "Value": "2029391232",
+                                "RowState": 4
+                            },
+                            {
+                                "OriginalRow": null,
+                                "Property": "Property 3",
+                                "Value": "1426080878",
+                                "RowState": 4
+                            }
+                        ]
+                    }
+                },
+                "Relations": {}
             }
         ],
         "NodeInfo": {
-            "MachineName": "DESKTOP-DMNJHK6",
+            "MachineName": "DESKTOP",
             "NodeType": {
                 "Case": "SingleNode"
             },
@@ -389,2095 +820,4178 @@ const viewModel = {
             "OS": {
                 "Platform": 2,
                 "ServicePack": "",
-                "Version": {
-                    "Major": 6,
-                    "Minor": 2,
-                    "Build": 9200,
-                    "Revision": 0,
-                    "MajorRevision": 0,
-                    "MinorRevision": 0
-                },
+                "Version": "6.2.9200.0",
                 "VersionString": "Microsoft Windows NT 6.2.9200.0"
             },
             "DotNetVersion": ".NETCoreApp,Version=v3.1",
             "Processor": "Intel64 Family 6 Model 94 Stepping 3, GenuineIntel",
-            "CoresCount": 8
-        }
+            "CoresCount": 8,
+            "NBomberVersion": "2.0.0"
+        },
+        "TestInfo": {
+            "SessionId": "2021-04-17_09.54.94_session_5faa29ab",
+            "TestSuite": "nbomber_default_test_suite_name",
+            "TestName": "nbomber_default_test_name"
+        },
+        "ReportFiles": [],
+        "Duration": "00:00:30"
     },
-    timeLineStatsData: {
-        "TimeStamps": [
-            "00:00:10",
-            "00:00:20",
-            "00:00:30",
-            "00:00:40",
-            "00:00:50",
-            "00:01:00"
-        ],
-        "ScenarioStats": [
-            [
+    "TimeLineStats": [
+        {
+            "Duration": "00:00:05",
+            "ScenarioStats": [
                 {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 246,
-                    "OkCount": 177,
-                    "FailCount": 69,
-                    "AllDataMB": 0.19,
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 3,
+                    "OkCount": 2,
+                    "FailCount": 1,
+                    "AllBytes": 0,
                     "StepStats": [
                         {
-                            "StepName": "pull html 1",
-                            "RequestCount": 90,
-                            "OkCount": 68,
-                            "FailCount": 22,
-                            "Min": 113,
-                            "Mean": 380,
-                            "Max": 683,
-                            "RPS": 6,
-                            "Percent50": 379,
-                            "Percent75": 461,
-                            "Percent95": 676,
-                            "Percent99": 679,
-                            "StdDev": 170,
-                            "MinDataKb": 0.13,
-                            "MeanDataKb": 1.21,
-                            "MaxDataKb": 2.0,
-                            "AllDataMB": 0.06
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 68,
-                            "OkCount": 56,
-                            "FailCount": 12,
-                            "Min": 40,
-                            "Mean": 346,
-                            "Max": 715,
-                            "RPS": 5,
-                            "Percent50": 283,
-                            "Percent75": 510,
-                            "Percent95": 703,
-                            "Percent99": 707,
-                            "StdDev": 225,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 1.37,
-                            "MaxDataKb": 2.2,
-                            "AllDataMB": 0.06
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 46,
-                            "OkCount": 22,
-                            "FailCount": 24,
-                            "Min": 230,
-                            "Mean": 369,
-                            "Max": 561,
-                            "RPS": 2,
-                            "Percent50": 413,
-                            "Percent75": 437,
-                            "Percent95": 560,
-                            "Percent99": 561,
-                            "StdDev": 120,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.78,
-                            "MaxDataKb": 1.75,
-                            "AllDataMB": 0.03
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 22,
-                            "OkCount": 20,
-                            "FailCount": 2,
-                            "Min": 245,
-                            "Mean": 422,
-                            "Max": 614,
-                            "RPS": 2,
-                            "Percent50": 481,
-                            "Percent75": 487,
-                            "Percent95": 611,
-                            "Percent99": 614,
-                            "StdDev": 134,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.8,
-                            "MaxDataKb": 1.87,
-                            "AllDataMB": 0.03
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 20,
-                            "OkCount": 11,
-                            "FailCount": 9,
-                            "Min": 273,
-                            "Mean": 464,
-                            "Max": 546,
-                            "RPS": 1,
-                            "Percent50": 529,
-                            "Percent75": 532,
-                            "Percent95": 546,
-                            "Percent99": 546,
-                            "StdDev": 111,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.56,
-                            "MaxDataKb": 1.74,
-                            "AllDataMB": 0.02
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 2,
+                                    "RPS": 0.4
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 406.2,
+                                    "MaxMs": 877.4,
+                                    "Percent50": 374.0,
+                                    "Percent75": 438.7,
+                                    "Percent95": 438.7,
+                                    "Percent99": 438.7,
+                                    "StdDev": 32.3,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 1,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 1,
+                                    "RPS": 0.2
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 500.7,
+                                    "MaxMs": 1001.9,
+                                    "Percent50": 500.9,
+                                    "Percent75": 500.9,
+                                    "Percent95": 500.9,
+                                    "Percent99": 500.9,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 1,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "LatencyCount": {
-                        "Less800": 177,
-                        "More800Less1200": 0,
-                        "More1200": 0
+                        "LessOrEq800": 1,
+                        "More800Less1200": 2,
+                        "MoreOrEq1200": 0
                     },
                     "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
+                        "SimulationName": "ramp_constant",
+                        "Value": 2
                     },
-                    "Duration": "00:00:10.0471309"
+                    "StatusCodes": [
+                        {
+                            "Count@": 1,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:05"
                 },
                 {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 252,
-                    "OkCount": 184,
-                    "FailCount": 68,
-                    "AllDataMB": 0.19999999999999998,
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 8,
+                    "OkCount": 3,
+                    "FailCount": 5,
+                    "AllBytes": 2610,
                     "StepStats": [
                         {
-                            "StepName": "pull html 1",
-                            "RequestCount": 90,
-                            "OkCount": 68,
-                            "FailCount": 22,
-                            "Min": 113,
-                            "Mean": 380,
-                            "Max": 678,
-                            "RPS": 6,
-                            "Percent50": 379,
-                            "Percent75": 467,
-                            "Percent95": 671,
-                            "Percent99": 674,
-                            "StdDev": 169,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 1.22,
-                            "MaxDataKb": 2.0,
-                            "AllDataMB": 0.06
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 68,
-                            "OkCount": 59,
-                            "FailCount": 9,
-                            "Min": 40,
-                            "Mean": 337,
-                            "Max": 718,
-                            "RPS": 5,
-                            "Percent50": 248,
-                            "Percent75": 510,
-                            "Percent95": 705,
-                            "Percent99": 707,
-                            "StdDev": 225,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 1.37,
-                            "MaxDataKb": 2.2,
-                            "AllDataMB": 0.06
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 49,
-                            "OkCount": 24,
-                            "FailCount": 25,
-                            "Min": 55,
-                            "Mean": 357,
-                            "Max": 560,
-                            "RPS": 2,
-                            "Percent50": 416,
-                            "Percent75": 435,
-                            "Percent95": 559,
-                            "Percent99": 560,
-                            "StdDev": 133,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.77,
-                            "MaxDataKb": 1.74,
-                            "AllDataMB": 0.03
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 24,
-                            "OkCount": 21,
-                            "FailCount": 3,
-                            "Min": 246,
-                            "Mean": 424,
-                            "Max": 614,
-                            "RPS": 2,
-                            "Percent50": 471,
-                            "Percent75": 485,
-                            "Percent95": 613,
-                            "Percent99": 614,
-                            "StdDev": 131,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.8,
-                            "MaxDataKb": 1.87,
-                            "AllDataMB": 0.03
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 21,
-                            "OkCount": 12,
-                            "FailCount": 9,
-                            "Min": 268,
-                            "Mean": 464,
-                            "Max": 534,
-                            "RPS": 1,
-                            "Percent50": 527,
-                            "Percent75": 531,
-                            "Percent95": 533,
-                            "Percent99": 534,
-                            "StdDev": 108,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.61,
-                            "MaxDataKb": 1.74,
-                            "AllDataMB": 0.02
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 3,
+                                    "RPS": 0.6
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 418.3,
+                                    "MaxMs": 813.5,
+                                    "Percent50": 340.6,
+                                    "Percent75": 496.3,
+                                    "Percent95": 496.3,
+                                    "Percent99": 496.3,
+                                    "StdDev": 77.8,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 2,
+                                        "More800Less1200": 1,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 469,
+                                    "MaxBytes": 990,
+                                    "Percent50": 404,
+                                    "Percent75": 533,
+                                    "Percent95": 533,
+                                    "Percent99": 533,
+                                    "StdDev": 64.5,
+                                    "AllBytes": 1825
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 3,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 3
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 5,
+                                    "RPS": 1.0
+                                },
+                                "Latency": {
+                                    "MinMs": 41.6,
+                                    "MeanMs": 898.0,
+                                    "MaxMs": 1012.5,
+                                    "Percent50": 1004.9,
+                                    "Percent75": 1004.9,
+                                    "Percent95": 1005.2,
+                                    "Percent99": 1005.2,
+                                    "StdDev": 150.8,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 4,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 261,
+                                    "MaxBytes": 785,
+                                    "Percent50": 261,
+                                    "Percent75": 261,
+                                    "Percent95": 261,
+                                    "Percent99": 261,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 4,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 4
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
                         }
                     ],
                     "LatencyCount": {
-                        "Less800": 184,
-                        "More800Less1200": 0,
-                        "More1200": 0
+                        "LessOrEq800": 3,
+                        "More800Less1200": 5,
+                        "MoreOrEq1200": 0
                     },
                     "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
+                        "SimulationName": "ramp_constant",
+                        "Value": 3
                     },
-                    "Duration": "00:00:10.0471309"
+                    "StatusCodes": [
+                        {
+                            "Count@": 4,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 4
+                        },
+                        {
+                            "Count@": 3,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 3
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:05"
                 },
                 {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 249,
-                    "OkCount": 181,
-                    "FailCount": 68,
-                    "AllDataMB": 0.19999999999999998,
+                    "ScenarioName": "scenario_3",
+                    "RequestCount": 9,
+                    "OkCount": 5,
+                    "FailCount": 4,
+                    "AllBytes": 3585,
                     "StepStats": [
                         {
-                            "StepName": "pull html 1",
-                            "RequestCount": 91,
-                            "OkCount": 70,
-                            "FailCount": 21,
-                            "Min": 113,
-                            "Mean": 385,
-                            "Max": 707,
-                            "RPS": 7,
-                            "Percent50": 379,
-                            "Percent75": 472,
-                            "Percent95": 679,
-                            "Percent99": 692,
-                            "StdDev": 172,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 1.23,
-                            "MaxDataKb": 2.22,
-                            "AllDataMB": 0.07
+                            "StepName": "pull_html_3",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 4,
+                                    "RPS": 0.8
+                                },
+                                "Latency": {
+                                    "MinMs": 30.1,
+                                    "MeanMs": 443.8,
+                                    "MaxMs": 745.9,
+                                    "Percent50": 324.6,
+                                    "Percent75": 563.2,
+                                    "Percent95": 563.2,
+                                    "Percent99": 563.2,
+                                    "StdDev": 119.3,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 4,
+                                        "More800Less1200": 0,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 411,
+                                    "MeanBytes": 689,
+                                    "MaxBytes": 991,
+                                    "Percent50": 634,
+                                    "Percent75": 745,
+                                    "Percent95": 745,
+                                    "Percent99": 745,
+                                    "StdDev": 55.5,
+                                    "AllBytes": 2735
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 2,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 2
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 2,
+                                    "RPS": 0.4
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 335.7,
+                                    "MaxMs": 1013.4,
+                                    "Percent50": 334.0,
+                                    "Percent75": 337.8,
+                                    "Percent95": 337.8,
+                                    "Percent99": 337.8,
+                                    "StdDev": 1.9,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 2,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 2,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 2
+                                    }
+                                ]
+                            }
                         },
                         {
-                            "StepName": "pull html 2",
-                            "RequestCount": 69,
-                            "OkCount": 57,
-                            "FailCount": 12,
-                            "Min": 47,
-                            "Mean": 347,
-                            "Max": 744,
-                            "RPS": 5,
-                            "Percent50": 395,
-                            "Percent75": 510,
-                            "Percent95": 704,
-                            "Percent99": 710,
-                            "StdDev": 226,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 1.37,
-                            "MaxDataKb": 2.22,
-                            "AllDataMB": 0.06
+                            "StepName": "pull_html_4",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 1,
+                                    "RPS": 0.2
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 20.2,
+                                    "MaxMs": 60.5,
+                                    "Percent50": 20.2,
+                                    "Percent75": 20.2,
+                                    "Percent95": 20.2,
+                                    "Percent99": 20.2,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 0,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 283,
+                                    "MaxBytes": 850,
+                                    "Percent50": 283,
+                                    "Percent75": 283,
+                                    "Percent95": 283,
+                                    "Percent99": 283,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 850
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 2,
+                                    "RPS": 0.4
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 670.7,
+                                    "MaxMs": 1010.9,
+                                    "Percent50": 670.9,
+                                    "Percent75": 670.9,
+                                    "Percent95": 670.9,
+                                    "Percent99": 670.9,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 2,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 2,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 2
+                                    }
+                                ]
+                            }
                         },
                         {
-                            "StepName": "pull html 3",
-                            "RequestCount": 47,
-                            "OkCount": 22,
-                            "FailCount": 25,
-                            "Min": 221,
-                            "Mean": 361,
-                            "Max": 563,
-                            "RPS": 2,
-                            "Percent50": 413,
-                            "Percent75": 436,
-                            "Percent95": 551,
-                            "Percent99": 563,
-                            "StdDev": 116,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.76,
-                            "MaxDataKb": 1.76,
-                            "AllDataMB": 0.02
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 22,
-                            "OkCount": 20,
-                            "FailCount": 2,
-                            "Min": 248,
-                            "Mean": 413,
-                            "Max": 611,
-                            "RPS": 2,
-                            "Percent50": 471,
-                            "Percent75": 484,
-                            "Percent95": 607,
-                            "Percent99": 611,
-                            "StdDev": 130,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.79,
-                            "MaxDataKb": 1.87,
-                            "AllDataMB": 0.03
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 20,
-                            "OkCount": 12,
-                            "FailCount": 8,
-                            "Min": 265,
-                            "Mean": 466,
-                            "Max": 547,
-                            "RPS": 1,
-                            "Percent50": 527,
-                            "Percent75": 533,
-                            "Percent95": 534,
-                            "Percent99": 547,
-                            "StdDev": 109,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.61,
-                            "MaxDataKb": 1.74,
-                            "AllDataMB": 0.02
+                            "StepName": "pull_html_5",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 0,
+                                    "RPS": 0.0
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 0.0,
+                                    "MaxMs": 0.0,
+                                    "Percent50": 0.0,
+                                    "Percent75": 0.0,
+                                    "Percent95": 0.0,
+                                    "Percent99": 0.0,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 0,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 0,
+                                    "RPS": 0.0
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 0.0,
+                                    "MaxMs": 0.0,
+                                    "Percent50": 0.0,
+                                    "Percent75": 0.0,
+                                    "Percent95": 0.0,
+                                    "Percent99": 0.0,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 0,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            }
                         }
                     ],
                     "LatencyCount": {
-                        "Less800": 181,
-                        "More800Less1200": 0,
-                        "More1200": 0
+                        "LessOrEq800": 5,
+                        "More800Less1200": 4,
+                        "MoreOrEq1200": 0
                     },
                     "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
+                        "SimulationName": "ramp_constant",
+                        "Value": 3
                     },
-                    "Duration": "00:00:10.0471309"
+                    "StatusCodes": [
+                        {
+                            "Count@": 4,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 4
+                        },
+                        {
+                            "Count@": 2,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 2
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:05"
                 }
             ],
-            [
+            "PluginStats": [
                 {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 478,
-                    "OkCount": 340,
-                    "FailCount": 138,
-                    "AllDataMB": 0.74,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 190,
-                            "OkCount": 141,
-                            "FailCount": 49,
-                            "Min": 113,
-                            "Mean": 726,
-                            "Max": 1373,
-                            "RPS": 4,
-                            "Percent50": 731,
-                            "Percent75": 1103,
-                            "Percent95": 1342,
-                            "Percent99": 1365,
-                            "StdDev": 381,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.08,
-                            "MaxDataKb": 4.88,
-                            "AllDataMB": 0.3
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 128,
-                            "OkCount": 94,
-                            "FailCount": 34,
-                            "Min": 40,
-                            "Mean": 657,
-                            "Max": 1325,
-                            "RPS": 3,
-                            "Percent50": 691,
-                            "Percent75": 1136,
-                            "Percent95": 1300,
-                            "Percent99": 1320,
-                            "StdDev": 425,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.66,
-                            "MaxDataKb": 4.45,
-                            "AllDataMB": 0.19
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 87,
-                            "OkCount": 60,
-                            "FailCount": 27,
-                            "Min": 230,
-                            "Mean": 804,
-                            "Max": 1317,
-                            "RPS": 2,
-                            "Percent50": 765,
-                            "Percent75": 1219,
-                            "Percent95": 1313,
-                            "Percent99": 1316,
-                            "StdDev": 381,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.57,
-                            "MaxDataKb": 4.63,
-                            "AllDataMB": 0.16
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 50,
-                            "OkCount": 31,
-                            "FailCount": 19,
-                            "Min": 245,
-                            "Mean": 700,
-                            "Max": 1347,
-                            "RPS": 1,
-                            "Percent50": 487,
-                            "Percent75": 872,
-                            "Percent95": 1338,
-                            "Percent99": 1347,
-                            "StdDev": 409,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.15,
-                            "MaxDataKb": 4.74,
-                            "AllDataMB": 0.07
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 23,
-                            "OkCount": 14,
-                            "FailCount": 9,
-                            "Min": 273,
-                            "Mean": 555,
-                            "Max": 894,
-                            "RPS": 0,
-                            "Percent50": 529,
-                            "Percent75": 546,
-                            "Percent95": 892,
-                            "Percent99": 894,
-                            "StdDev": 200,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.41,
-                            "MaxDataKb": 2.67,
-                            "AllDataMB": 0.02
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "1638580369",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "508760032",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "24064058",
+                                    "RowState": 4
+                                }
+                            ]
                         }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 197,
-                        "More800Less1200": 91,
-                        "More1200": 52
                     },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:20.0074136"
+                    "Relations": {}
                 },
                 {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 483,
-                    "OkCount": 343,
-                    "FailCount": 140,
-                    "AllDataMB": 0.73,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 190,
-                            "OkCount": 138,
-                            "FailCount": 52,
-                            "Min": 113,
-                            "Mean": 714,
-                            "Max": 1370,
-                            "RPS": 4,
-                            "Percent50": 716,
-                            "Percent75": 1101,
-                            "Percent95": 1268,
-                            "Percent99": 1348,
-                            "StdDev": 373,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.78,
-                            "MaxDataKb": 4.86,
-                            "AllDataMB": 0.29
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 127,
-                            "OkCount": 99,
-                            "FailCount": 28,
-                            "Min": 40,
-                            "Mean": 652,
-                            "Max": 1314,
-                            "RPS": 3,
-                            "Percent50": 695,
-                            "Percent75": 1134,
-                            "Percent95": 1301,
-                            "Percent99": 1311,
-                            "StdDev": 430,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.68,
-                            "MaxDataKb": 4.45,
-                            "AllDataMB": 0.2
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 91,
-                            "OkCount": 62,
-                            "FailCount": 29,
-                            "Min": 55,
-                            "Mean": 783,
-                            "Max": 1317,
-                            "RPS": 2,
-                            "Percent50": 758,
-                            "Percent75": 1221,
-                            "Percent95": 1309,
-                            "Percent99": 1314,
-                            "StdDev": 388,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.5,
-                            "MaxDataKb": 4.63,
-                            "AllDataMB": 0.16
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 52,
-                            "OkCount": 30,
-                            "FailCount": 22,
-                            "Min": 246,
-                            "Mean": 664,
-                            "Max": 1336,
-                            "RPS": 1,
-                            "Percent50": 484,
-                            "Percent75": 867,
-                            "Percent95": 1336,
-                            "Percent99": 1336,
-                            "StdDev": 399,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.03,
-                            "MaxDataKb": 4.71,
-                            "AllDataMB": 0.06
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 23,
-                            "OkCount": 14,
-                            "FailCount": 9,
-                            "Min": 268,
-                            "Mean": 523,
-                            "Max": 881,
-                            "RPS": 0,
-                            "Percent50": 527,
-                            "Percent75": 533,
-                            "Percent95": 871,
-                            "Percent99": 881,
-                            "StdDev": 176,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.4,
-                            "MaxDataKb": 2.66,
-                            "AllDataMB": 0.02
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "60367864",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "861828910",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "427398048",
+                                    "RowState": 4
+                                }
+                            ]
                         }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 203,
-                        "More800Less1200": 95,
-                        "More1200": 45
                     },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:20.0074136"
-                },
-                {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 486,
-                    "OkCount": 351,
-                    "FailCount": 135,
-                    "AllDataMB": 0.77,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 190,
-                            "OkCount": 139,
-                            "FailCount": 51,
-                            "Min": 113,
-                            "Mean": 708,
-                            "Max": 1360,
-                            "RPS": 4,
-                            "Percent50": 702,
-                            "Percent75": 1094,
-                            "Percent95": 1274,
-                            "Percent99": 1348,
-                            "StdDev": 371,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.8,
-                            "MaxDataKb": 4.86,
-                            "AllDataMB": 0.29
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 131,
-                            "OkCount": 99,
-                            "FailCount": 32,
-                            "Min": 47,
-                            "Mean": 673,
-                            "Max": 1324,
-                            "RPS": 3,
-                            "Percent50": 699,
-                            "Percent75": 1126,
-                            "Percent95": 1310,
-                            "Percent99": 1317,
-                            "StdDev": 429,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.73,
-                            "MaxDataKb": 4.46,
-                            "AllDataMB": 0.21
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 90,
-                            "OkCount": 62,
-                            "FailCount": 28,
-                            "Min": 221,
-                            "Mean": 807,
-                            "Max": 1320,
-                            "RPS": 2,
-                            "Percent50": 773,
-                            "Percent75": 1213,
-                            "Percent95": 1317,
-                            "Percent99": 1318,
-                            "StdDev": 380,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.82,
-                            "MaxDataKb": 4.63,
-                            "AllDataMB": 0.16
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 52,
-                            "OkCount": 34,
-                            "FailCount": 18,
-                            "Min": 248,
-                            "Mean": 722,
-                            "Max": 1345,
-                            "RPS": 1,
-                            "Percent50": 499,
-                            "Percent75": 1315,
-                            "Percent95": 1337,
-                            "Percent99": 1345,
-                            "StdDev": 408,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.77,
-                            "MaxDataKb": 4.73,
-                            "AllDataMB": 0.08
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 25,
-                            "OkCount": 17,
-                            "FailCount": 8,
-                            "Min": 265,
-                            "Mean": 591,
-                            "Max": 942,
-                            "RPS": 0,
-                            "Percent50": 533,
-                            "Percent75": 863,
-                            "Percent95": 888,
-                            "Percent99": 942,
-                            "StdDev": 215,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 0.49,
-                            "MaxDataKb": 3.01,
-                            "AllDataMB": 0.03
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 201,
-                        "More800Less1200": 99,
-                        "More1200": 51
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:20.0074136"
-                }
-            ],
-            [
-                {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 753,
-                    "OkCount": 507,
-                    "FailCount": 246,
-                    "AllDataMB": 1.76,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 290,
-                            "OkCount": 214,
-                            "FailCount": 76,
-                            "Min": 14,
-                            "Mean": 589,
-                            "Max": 1373,
-                            "RPS": 5,
-                            "Percent50": 475,
-                            "Percent75": 888,
-                            "Percent95": 1275,
-                            "Percent99": 1360,
-                            "StdDev": 379,
-                            "MinDataKb": 0.13,
-                            "MeanDataKb": 3.66,
-                            "MaxDataKb": 7.31,
-                            "AllDataMB": 0.74
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 214,
-                            "OkCount": 142,
-                            "FailCount": 72,
-                            "Min": 38,
-                            "Mean": 573,
-                            "Max": 1325,
-                            "RPS": 3,
-                            "Percent50": 512,
-                            "Percent75": 899,
-                            "Percent95": 1213,
-                            "Percent99": 1320,
-                            "StdDev": 383,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 3.92,
-                            "MaxDataKb": 7.66,
-                            "AllDataMB": 0.5
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 132,
-                            "OkCount": 76,
-                            "FailCount": 56,
-                            "Min": 64,
-                            "Mean": 733,
-                            "Max": 1317,
-                            "RPS": 1,
-                            "Percent50": 616,
-                            "Percent75": 982,
-                            "Percent95": 1308,
-                            "Percent99": 1316,
-                            "StdDev": 376,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.04,
-                            "MaxDataKb": 7.43,
-                            "AllDataMB": 0.26
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 76,
-                            "OkCount": 51,
-                            "FailCount": 25,
-                            "Min": 245,
-                            "Mean": 839,
-                            "Max": 1489,
-                            "RPS": 1,
-                            "Percent50": 648,
-                            "Percent75": 1337,
-                            "Percent95": 1474,
-                            "Percent99": 1480,
-                            "StdDev": 442,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.09,
-                            "MaxDataKb": 7.77,
-                            "AllDataMB": 0.19
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 41,
-                            "OkCount": 24,
-                            "FailCount": 17,
-                            "Min": 61,
-                            "Mean": 472,
-                            "Max": 1454,
-                            "RPS": 0,
-                            "Percent50": 513,
-                            "Percent75": 546,
-                            "Percent95": 1450,
-                            "Percent99": 1454,
-                            "StdDev": 397,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.15,
-                            "MaxDataKb": 5.31,
-                            "AllDataMB": 0.07
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 352,
-                        "More800Less1200": 91,
-                        "More1200": 64
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:30.0740001"
-                },
-                {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 755,
-                    "OkCount": 506,
-                    "FailCount": 249,
-                    "AllDataMB": 1.74,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 295,
-                            "OkCount": 211,
-                            "FailCount": 84,
-                            "Min": 21,
-                            "Mean": 580,
-                            "Max": 1370,
-                            "RPS": 5,
-                            "Percent50": 472,
-                            "Percent75": 884,
-                            "Percent95": 1180,
-                            "Percent99": 1345,
-                            "StdDev": 370,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 3.68,
-                            "MaxDataKb": 7.33,
-                            "AllDataMB": 0.73
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 211,
-                            "OkCount": 147,
-                            "FailCount": 64,
-                            "Min": 40,
-                            "Mean": 572,
-                            "Max": 1314,
-                            "RPS": 3,
-                            "Percent50": 513,
-                            "Percent75": 901,
-                            "Percent95": 1268,
-                            "Percent99": 1311,
-                            "StdDev": 388,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 3.92,
-                            "MaxDataKb": 7.67,
-                            "AllDataMB": 0.51
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 137,
-                            "OkCount": 75,
-                            "FailCount": 62,
-                            "Min": 55,
-                            "Mean": 729,
-                            "Max": 1317,
-                            "RPS": 1,
-                            "Percent50": 746,
-                            "Percent75": 976,
-                            "Percent95": 1302,
-                            "Percent99": 1314,
-                            "StdDev": 383,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.99,
-                            "MaxDataKb": 7.44,
-                            "AllDataMB": 0.24
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 75,
-                            "OkCount": 50,
-                            "FailCount": 25,
-                            "Min": 246,
-                            "Mean": 820,
-                            "Max": 1496,
-                            "RPS": 1,
-                            "Percent50": 653,
-                            "Percent75": 1336,
-                            "Percent95": 1472,
-                            "Percent99": 1496,
-                            "StdDev": 442,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.03,
-                            "MaxDataKb": 7.78,
-                            "AllDataMB": 0.19
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 40,
-                            "OkCount": 23,
-                            "FailCount": 17,
-                            "Min": 37,
-                            "Mean": 347,
-                            "Max": 881,
-                            "RPS": 0,
-                            "Percent50": 284,
-                            "Percent75": 530,
-                            "Percent95": 871,
-                            "Percent99": 881,
-                            "StdDev": 258,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.1,
-                            "MaxDataKb": 5.31,
-                            "AllDataMB": 0.07
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 356,
-                        "More800Less1200": 95,
-                        "More1200": 55
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:30.0740001"
-                },
-                {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 771,
-                    "OkCount": 524,
-                    "FailCount": 247,
-                    "AllDataMB": 1.82,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 300,
-                            "OkCount": 213,
-                            "FailCount": 87,
-                            "Min": 19,
-                            "Mean": 575,
-                            "Max": 1360,
-                            "RPS": 5,
-                            "Percent50": 472,
-                            "Percent75": 874,
-                            "Percent95": 1188,
-                            "Percent99": 1341,
-                            "StdDev": 367,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 3.7,
-                            "MaxDataKb": 7.33,
-                            "AllDataMB": 0.73
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 213,
-                            "OkCount": 153,
-                            "FailCount": 60,
-                            "Min": 47,
-                            "Mean": 569,
-                            "Max": 1324,
-                            "RPS": 4,
-                            "Percent50": 510,
-                            "Percent75": 898,
-                            "Percent95": 1270,
-                            "Percent99": 1314,
-                            "StdDev": 391,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 3.91,
-                            "MaxDataKb": 7.67,
-                            "AllDataMB": 0.55
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 143,
-                            "OkCount": 75,
-                            "FailCount": 68,
-                            "Min": 58,
-                            "Mean": 754,
-                            "Max": 1320,
-                            "RPS": 1,
-                            "Percent50": 747,
-                            "Percent75": 981,
-                            "Percent95": 1308,
-                            "Percent99": 1318,
-                            "StdDev": 373,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.22,
-                            "MaxDataKb": 7.45,
-                            "AllDataMB": 0.25
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 75,
-                            "OkCount": 54,
-                            "FailCount": 21,
-                            "Min": 80,
-                            "Mean": 835,
-                            "Max": 1498,
-                            "RPS": 1,
-                            "Percent50": 658,
-                            "Percent75": 1326,
-                            "Percent95": 1482,
-                            "Percent99": 1483,
-                            "StdDev": 448,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.86,
-                            "MaxDataKb": 7.78,
-                            "AllDataMB": 0.2
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 45,
-                            "OkCount": 29,
-                            "FailCount": 16,
-                            "Min": 58,
-                            "Mean": 615,
-                            "Max": 1455,
-                            "RPS": 0,
-                            "Percent50": 533,
-                            "Percent75": 882,
-                            "Percent95": 1454,
-                            "Percent99": 1455,
-                            "StdDev": 468,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 1.2,
-                            "MaxDataKb": 5.31,
-                            "AllDataMB": 0.09
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 359,
-                        "More800Less1200": 99,
-                        "More1200": 66
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:30.0740001"
-                }
-            ],
-            [
-                {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 992,
-                    "OkCount": 690,
-                    "FailCount": 302,
-                    "AllDataMB": 3.46,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 390,
-                            "OkCount": 286,
-                            "FailCount": 104,
-                            "Min": 14,
-                            "Mean": 703,
-                            "Max": 1373,
-                            "RPS": 5,
-                            "Percent50": 720,
-                            "Percent75": 1090,
-                            "Percent95": 1315,
-                            "Percent99": 1357,
-                            "StdDev": 392,
-                            "MinDataKb": 0.13,
-                            "MeanDataKb": 4.96,
-                            "MaxDataKb": 10.59,
-                            "AllDataMB": 1.39
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 276,
-                            "OkCount": 195,
-                            "FailCount": 81,
-                            "Min": 38,
-                            "Mean": 719,
-                            "Max": 1344,
-                            "RPS": 3,
-                            "Percent50": 699,
-                            "Percent75": 1140,
-                            "Percent95": 1323,
-                            "Percent99": 1341,
-                            "StdDev": 414,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 5.18,
-                            "MaxDataKb": 10.69,
-                            "AllDataMB": 1.0
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 177,
-                            "OkCount": 103,
-                            "FailCount": 74,
-                            "Min": 64,
-                            "Mean": 838,
-                            "Max": 1355,
-                            "RPS": 1,
-                            "Percent50": 953,
-                            "Percent75": 1221,
-                            "Percent95": 1313,
-                            "Percent99": 1354,
-                            "StdDev": 377,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 4.09,
-                            "MaxDataKb": 10.39,
-                            "AllDataMB": 0.5
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 91,
-                            "OkCount": 65,
-                            "FailCount": 26,
-                            "Min": 245,
-                            "Mean": 900,
-                            "Max": 1489,
-                            "RPS": 0,
-                            "Percent50": 869,
-                            "Percent75": 1322,
-                            "Percent95": 1474,
-                            "Percent99": 1480,
-                            "StdDev": 412,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.69,
-                            "MaxDataKb": 10.24,
-                            "AllDataMB": 0.33
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 60,
-                            "OkCount": 43,
-                            "FailCount": 17,
-                            "Min": 61,
-                            "Mean": 675,
-                            "Max": 1454,
-                            "RPS": 0,
-                            "Percent50": 732,
-                            "Percent75": 892,
-                            "Percent95": 1233,
-                            "Percent99": 1454,
-                            "StdDev": 400,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.74,
-                            "MaxDataKb": 10.0,
-                            "AllDataMB": 0.24
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 368,
-                        "More800Less1200": 203,
-                        "More1200": 119
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:40.0105409"
-                },
-                {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 996,
-                    "OkCount": 689,
-                    "FailCount": 307,
-                    "AllDataMB": 3.4299999999999997,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 390,
-                            "OkCount": 283,
-                            "FailCount": 107,
-                            "Min": 21,
-                            "Mean": 698,
-                            "Max": 1370,
-                            "RPS": 5,
-                            "Percent50": 716,
-                            "Percent75": 1082,
-                            "Percent95": 1304,
-                            "Percent99": 1343,
-                            "StdDev": 387,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 5.01,
-                            "MaxDataKb": 10.59,
-                            "AllDataMB": 1.38
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 273,
-                            "OkCount": 199,
-                            "FailCount": 74,
-                            "Min": 40,
-                            "Mean": 713,
-                            "Max": 1347,
-                            "RPS": 3,
-                            "Percent50": 700,
-                            "Percent75": 1148,
-                            "Percent95": 1314,
-                            "Percent99": 1344,
-                            "StdDev": 418,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 5.17,
-                            "MaxDataKb": 10.73,
-                            "AllDataMB": 1.0
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 183,
-                            "OkCount": 102,
-                            "FailCount": 81,
-                            "Min": 55,
-                            "Mean": 836,
-                            "Max": 1354,
-                            "RPS": 1,
-                            "Percent50": 956,
-                            "Percent75": 1223,
-                            "Percent95": 1309,
-                            "Percent99": 1353,
-                            "StdDev": 382,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 4.32,
-                            "MaxDataKb": 10.74,
-                            "AllDataMB": 0.5
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 91,
-                            "OkCount": 64,
-                            "FailCount": 27,
-                            "Min": 246,
-                            "Mean": 883,
-                            "Max": 1496,
-                            "RPS": 0,
-                            "Percent50": 846,
-                            "Percent75": 1318,
-                            "Percent95": 1455,
-                            "Percent99": 1480,
-                            "StdDev": 411,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.74,
-                            "MaxDataKb": 10.26,
-                            "AllDataMB": 0.32
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 61,
-                            "OkCount": 41,
-                            "FailCount": 20,
-                            "Min": 37,
-                            "Mean": 621,
-                            "Max": 1226,
-                            "RPS": 0,
-                            "Percent50": 534,
-                            "Percent75": 881,
-                            "Percent95": 1217,
-                            "Percent99": 1226,
-                            "StdDev": 392,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.89,
-                            "MaxDataKb": 10.0,
-                            "AllDataMB": 0.23
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 370,
-                        "More800Less1200": 207,
-                        "More1200": 111
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:40.0105409"
-                },
-                {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 1011,
-                    "OkCount": 705,
-                    "FailCount": 306,
-                    "AllDataMB": 3.49,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 390,
-                            "OkCount": 284,
-                            "FailCount": 106,
-                            "Min": 19,
-                            "Mean": 691,
-                            "Max": 1360,
-                            "RPS": 5,
-                            "Percent50": 683,
-                            "Percent75": 1066,
-                            "Percent95": 1291,
-                            "Percent99": 1336,
-                            "StdDev": 386,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 4.98,
-                            "MaxDataKb": 10.62,
-                            "AllDataMB": 1.37
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 275,
-                            "OkCount": 206,
-                            "FailCount": 69,
-                            "Min": 47,
-                            "Mean": 709,
-                            "Max": 1347,
-                            "RPS": 3,
-                            "Percent50": 693,
-                            "Percent75": 1143,
-                            "Percent95": 1319,
-                            "Percent99": 1344,
-                            "StdDev": 421,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 5.17,
-                            "MaxDataKb": 10.73,
-                            "AllDataMB": 1.05
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 192,
-                            "OkCount": 101,
-                            "FailCount": 91,
-                            "Min": 58,
-                            "Mean": 853,
-                            "Max": 1359,
-                            "RPS": 1,
-                            "Percent50": 964,
-                            "Percent75": 1218,
-                            "Percent95": 1308,
-                            "Percent99": 1320,
-                            "StdDev": 369,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 4.11,
-                            "MaxDataKb": 10.71,
-                            "AllDataMB": 0.5
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 90,
-                            "OkCount": 68,
-                            "FailCount": 22,
-                            "Min": 80,
-                            "Mean": 900,
-                            "Max": 1498,
-                            "RPS": 0,
-                            "Percent50": 866,
-                            "Percent75": 1319,
-                            "Percent95": 1482,
-                            "Percent99": 1483,
-                            "StdDev": 420,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 3.37,
-                            "MaxDataKb": 10.26,
-                            "AllDataMB": 0.33
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 66,
-                            "OkCount": 46,
-                            "FailCount": 20,
-                            "Min": 58,
-                            "Mean": 739,
-                            "Max": 1455,
-                            "RPS": 0,
-                            "Percent50": 738,
-                            "Percent75": 1169,
-                            "Percent95": 1454,
-                            "Percent99": 1455,
-                            "StdDev": 428,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 2.67,
-                            "MaxDataKb": 10.0,
-                            "AllDataMB": 0.24
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 373,
-                        "More800Less1200": 210,
-                        "More1200": 122
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:40.0105409"
-                }
-            ],
-            [
-                {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 1361,
-                    "OkCount": 956,
-                    "FailCount": 405,
-                    "AllDataMB": 6.720000000000001,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 490,
-                            "OkCount": 375,
-                            "FailCount": 115,
-                            "Min": 14,
-                            "Mean": 679,
-                            "Max": 1457,
-                            "RPS": 5,
-                            "Percent50": 639,
-                            "Percent75": 961,
-                            "Percent95": 1321,
-                            "Percent99": 1451,
-                            "StdDev": 393,
-                            "MinDataKb": 0.13,
-                            "MeanDataKb": 6.2,
-                            "MaxDataKb": 14.43,
-                            "AllDataMB": 2.49
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 365,
-                            "OkCount": 250,
-                            "FailCount": 115,
-                            "Min": 38,
-                            "Mean": 668,
-                            "Max": 1344,
-                            "RPS": 3,
-                            "Percent50": 623,
-                            "Percent75": 976,
-                            "Percent95": 1317,
-                            "Percent99": 1341,
-                            "StdDev": 396,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 6.02,
-                            "MaxDataKb": 14.31,
-                            "AllDataMB": 1.68
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 250,
-                            "OkCount": 153,
-                            "FailCount": 97,
-                            "Min": 60,
-                            "Mean": 762,
-                            "Max": 1508,
-                            "RPS": 2,
-                            "Percent50": 761,
-                            "Percent75": 1118,
-                            "Percent95": 1317,
-                            "Percent99": 1497,
-                            "StdDev": 407,
-                            "MinDataKb": 0.69,
-                            "MeanDataKb": 6.42,
-                            "MaxDataKb": 14.6,
-                            "AllDataMB": 1.13
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 147,
-                            "OkCount": 109,
-                            "FailCount": 38,
-                            "Min": 92,
-                            "Mean": 754,
-                            "Max": 1588,
-                            "RPS": 1,
-                            "Percent50": 646,
-                            "Percent75": 1240,
-                            "Percent95": 1474,
-                            "Percent99": 1502,
-                            "StdDev": 444,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 6.59,
-                            "MaxDataKb": 14.1,
-                            "AllDataMB": 0.86
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 109,
-                            "OkCount": 69,
-                            "FailCount": 40,
-                            "Min": 18,
-                            "Mean": 604,
-                            "Max": 1454,
-                            "RPS": 1,
-                            "Percent50": 619,
-                            "Percent75": 861,
-                            "Percent95": 1205,
-                            "Percent99": 1450,
-                            "StdDev": 375,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 4.83,
-                            "MaxDataKb": 14.33,
-                            "AllDataMB": 0.56
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 571,
-                        "More800Less1200": 243,
-                        "More1200": 142
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:50.0808147"
-                },
-                {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 1364,
-                    "OkCount": 959,
-                    "FailCount": 405,
-                    "AllDataMB": 6.7299999999999995,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 490,
-                            "OkCount": 371,
-                            "FailCount": 119,
-                            "Min": 20,
-                            "Mean": 676,
-                            "Max": 1457,
-                            "RPS": 5,
-                            "Percent50": 639,
-                            "Percent75": 959,
-                            "Percent95": 1318,
-                            "Percent99": 1441,
-                            "StdDev": 389,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 6.21,
-                            "MaxDataKb": 14.43,
-                            "AllDataMB": 2.46
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 361,
-                            "OkCount": 254,
-                            "FailCount": 107,
-                            "Min": 34,
-                            "Mean": 664,
-                            "Max": 1347,
-                            "RPS": 3,
-                            "Percent50": 621,
-                            "Percent75": 976,
-                            "Percent95": 1309,
-                            "Percent99": 1343,
-                            "StdDev": 400,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 6.0,
-                            "MaxDataKb": 14.33,
-                            "AllDataMB": 1.68
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 254,
-                            "OkCount": 155,
-                            "FailCount": 99,
-                            "Min": 55,
-                            "Mean": 774,
-                            "Max": 1506,
-                            "RPS": 2,
-                            "Percent50": 761,
-                            "Percent75": 1146,
-                            "Percent95": 1492,
-                            "Percent99": 1503,
-                            "StdDev": 419,
-                            "MinDataKb": 0.26,
-                            "MeanDataKb": 6.59,
-                            "MaxDataKb": 14.6,
-                            "AllDataMB": 1.15
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 149,
-                            "OkCount": 110,
-                            "FailCount": 39,
-                            "Min": 82,
-                            "Mean": 726,
-                            "Max": 1503,
-                            "RPS": 1,
-                            "Percent50": 613,
-                            "Percent75": 1087,
-                            "Percent95": 1444,
-                            "Percent99": 1496,
-                            "StdDev": 432,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 6.68,
-                            "MaxDataKb": 14.09,
-                            "AllDataMB": 0.87
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 110,
-                            "OkCount": 69,
-                            "FailCount": 41,
-                            "Min": 35,
-                            "Mean": 563,
-                            "Max": 1226,
-                            "RPS": 1,
-                            "Percent50": 533,
-                            "Percent75": 858,
-                            "Percent95": 1185,
-                            "Percent99": 1222,
-                            "StdDev": 359,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 5.3,
-                            "MaxDataKb": 14.33,
-                            "AllDataMB": 0.57
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 575,
-                        "More800Less1200": 249,
-                        "More1200": 134
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:50.0808147"
-                },
-                {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 1377,
-                    "OkCount": 978,
-                    "FailCount": 399,
-                    "AllDataMB": 6.86,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 490,
-                            "OkCount": 374,
-                            "FailCount": 116,
-                            "Min": 19,
-                            "Mean": 669,
-                            "Max": 1463,
-                            "RPS": 5,
-                            "Percent50": 629,
-                            "Percent75": 955,
-                            "Percent95": 1318,
-                            "Percent99": 1442,
-                            "StdDev": 388,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 6.25,
-                            "MaxDataKb": 14.43,
-                            "AllDataMB": 2.48
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 364,
-                            "OkCount": 262,
-                            "FailCount": 102,
-                            "Min": 29,
-                            "Mean": 663,
-                            "Max": 1347,
-                            "RPS": 3,
-                            "Percent50": 623,
-                            "Percent75": 981,
-                            "Percent95": 1314,
-                            "Percent99": 1343,
-                            "StdDev": 402,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 6.04,
-                            "MaxDataKb": 14.31,
-                            "AllDataMB": 1.75
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 262,
-                            "OkCount": 155,
-                            "FailCount": 107,
-                            "Min": 58,
-                            "Mean": 780,
-                            "Max": 1512,
-                            "RPS": 2,
-                            "Percent50": 765,
-                            "Percent75": 1137,
-                            "Percent95": 1359,
-                            "Percent99": 1506,
-                            "StdDev": 408,
-                            "MinDataKb": 0.68,
-                            "MeanDataKb": 6.81,
-                            "MaxDataKb": 14.6,
-                            "AllDataMB": 1.16
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 149,
-                            "OkCount": 112,
-                            "FailCount": 37,
-                            "Min": 75,
-                            "Mean": 754,
-                            "Max": 1524,
-                            "RPS": 1,
-                            "Percent50": 657,
-                            "Percent75": 1236,
-                            "Percent95": 1446,
-                            "Percent99": 1498,
-                            "StdDev": 439,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 6.25,
-                            "MaxDataKb": 14.1,
-                            "AllDataMB": 0.87
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 112,
-                            "OkCount": 75,
-                            "FailCount": 37,
-                            "Min": 18,
-                            "Mean": 640,
-                            "Max": 1455,
-                            "RPS": 1,
-                            "Percent50": 617,
-                            "Percent75": 867,
-                            "Percent95": 1449,
-                            "Percent99": 1454,
-                            "StdDev": 402,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 4.99,
-                            "MaxDataKb": 14.33,
-                            "AllDataMB": 0.6
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 583,
-                        "More800Less1200": 251,
-                        "More1200": 144
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:00:50.0808147"
-                }
-            ],
-            [
-                {
-                    "ScenarioName": "test_1",
-                    "RequestCount": 1825,
-                    "OkCount": 1392,
-                    "FailCount": 433,
-                    "AllDataMB": 14.11,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 600,
-                            "OkCount": 484,
-                            "FailCount": 116,
-                            "Min": 14,
-                            "Mean": 723,
-                            "Max": 1633,
-                            "RPS": 5,
-                            "Percent50": 731,
-                            "Percent75": 1090,
-                            "Percent95": 1356,
-                            "Percent99": 1569,
-                            "StdDev": 404,
-                            "MinDataKb": 0.13,
-                            "MeanDataKb": 8.44,
-                            "MaxDataKb": 19.88,
-                            "AllDataMB": 4.31
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 474,
-                            "OkCount": 349,
-                            "FailCount": 125,
-                            "Min": 38,
-                            "Mean": 717,
-                            "Max": 1489,
-                            "RPS": 3,
-                            "Percent50": 688,
-                            "Percent75": 1136,
-                            "Percent95": 1329,
-                            "Percent99": 1466,
-                            "StdDev": 416,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 9.01,
-                            "MaxDataKb": 19.68,
-                            "AllDataMB": 3.35
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 339,
-                            "OkCount": 231,
-                            "FailCount": 108,
-                            "Min": 60,
-                            "Mean": 792,
-                            "Max": 1508,
-                            "RPS": 2,
-                            "Percent50": 762,
-                            "Percent75": 1226,
-                            "Percent95": 1478,
-                            "Percent99": 1500,
-                            "StdDev": 439,
-                            "MinDataKb": 0.69,
-                            "MeanDataKb": 10.22,
-                            "MaxDataKb": 19.45,
-                            "AllDataMB": 2.45
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 231,
-                            "OkCount": 190,
-                            "FailCount": 41,
-                            "Min": 12,
-                            "Mean": 706,
-                            "Max": 1588,
-                            "RPS": 2,
-                            "Percent50": 609,
-                            "Percent75": 1240,
-                            "Percent95": 1459,
-                            "Percent99": 1507,
-                            "StdDev": 457,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 11.42,
-                            "MaxDataKb": 19.77,
-                            "AllDataMB": 2.25
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 181,
-                            "OkCount": 138,
-                            "FailCount": 43,
-                            "Min": 16,
-                            "Mean": 555,
-                            "Max": 1454,
-                            "RPS": 1,
-                            "Percent50": 473,
-                            "Percent75": 748,
-                            "Percent95": 1378,
-                            "Percent99": 1450,
-                            "StdDev": 391,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 13.04,
-                            "MaxDataKb": 19.43,
-                            "AllDataMB": 1.75
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 818,
-                        "More800Less1200": 326,
-                        "More1200": 248
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:01:00"
-                },
-                {
-                    "ScenarioName": "test_2",
-                    "RequestCount": 1832,
-                    "OkCount": 1402,
-                    "FailCount": 430,
-                    "AllDataMB": 14.290000000000001,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 600,
-                            "OkCount": 480,
-                            "FailCount": 120,
-                            "Min": 20,
-                            "Mean": 720,
-                            "Max": 1623,
-                            "RPS": 5,
-                            "Percent50": 716,
-                            "Percent75": 1084,
-                            "Percent95": 1339,
-                            "Percent99": 1573,
-                            "StdDev": 401,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 8.5,
-                            "MaxDataKb": 19.88,
-                            "AllDataMB": 4.29
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 470,
-                            "OkCount": 353,
-                            "FailCount": 117,
-                            "Min": 34,
-                            "Mean": 712,
-                            "Max": 1474,
-                            "RPS": 4,
-                            "Percent50": 686,
-                            "Percent75": 1134,
-                            "Percent95": 1328,
-                            "Percent99": 1459,
-                            "StdDev": 417,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 9.01,
-                            "MaxDataKb": 19.67,
-                            "AllDataMB": 3.36
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 343,
-                            "OkCount": 234,
-                            "FailCount": 109,
-                            "Min": 55,
-                            "Mean": 793,
-                            "Max": 1506,
-                            "RPS": 2,
-                            "Percent50": 760,
-                            "Percent75": 1231,
-                            "Percent95": 1493,
-                            "Percent99": 1503,
-                            "StdDev": 447,
-                            "MinDataKb": 0.26,
-                            "MeanDataKb": 10.38,
-                            "MaxDataKb": 19.44,
-                            "AllDataMB": 2.49
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 234,
-                            "OkCount": 195,
-                            "FailCount": 39,
-                            "Min": 11,
-                            "Mean": 712,
-                            "Max": 1511,
-                            "RPS": 2,
-                            "Percent50": 604,
-                            "Percent75": 1115,
-                            "Percent95": 1444,
-                            "Percent99": 1503,
-                            "StdDev": 451,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 11.72,
-                            "MaxDataKb": 19.77,
-                            "AllDataMB": 2.34
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 185,
-                            "OkCount": 140,
-                            "FailCount": 45,
-                            "Min": 16,
-                            "Mean": 536,
-                            "Max": 1556,
-                            "RPS": 1,
-                            "Percent50": 469,
-                            "Percent75": 749,
-                            "Percent95": 1226,
-                            "Percent99": 1402,
-                            "StdDev": 378,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 12.85,
-                            "MaxDataKb": 19.45,
-                            "AllDataMB": 1.81
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 828,
-                        "More800Less1200": 331,
-                        "More1200": 242
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:01:00"
-                },
-                {
-                    "ScenarioName": "test_3",
-                    "RequestCount": 1835,
-                    "OkCount": 1406,
-                    "FailCount": 429,
-                    "AllDataMB": 14.13,
-                    "StepStats": [
-                        {
-                            "StepName": "pull html 1",
-                            "RequestCount": 600,
-                            "OkCount": 482,
-                            "FailCount": 118,
-                            "Min": 19,
-                            "Mean": 715,
-                            "Max": 1624,
-                            "RPS": 5,
-                            "Percent50": 683,
-                            "Percent75": 1070,
-                            "Percent95": 1327,
-                            "Percent99": 1569,
-                            "StdDev": 402,
-                            "MinDataKb": 0.1,
-                            "MeanDataKb": 8.47,
-                            "MaxDataKb": 19.88,
-                            "AllDataMB": 4.29
-                        },
-                        {
-                            "StepName": "pull html 2",
-                            "RequestCount": 472,
-                            "OkCount": 360,
-                            "FailCount": 112,
-                            "Min": 29,
-                            "Mean": 710,
-                            "Max": 1474,
-                            "RPS": 4,
-                            "Percent50": 684,
-                            "Percent75": 1126,
-                            "Percent95": 1329,
-                            "Percent99": 1460,
-                            "StdDev": 420,
-                            "MinDataKb": 0.18,
-                            "MeanDataKb": 8.86,
-                            "MaxDataKb": 19.67,
-                            "AllDataMB": 3.4
-                        },
-                        {
-                            "StepName": "pull html 3",
-                            "RequestCount": 350,
-                            "OkCount": 231,
-                            "FailCount": 119,
-                            "Min": 58,
-                            "Mean": 804,
-                            "Max": 1512,
-                            "RPS": 2,
-                            "Percent50": 765,
-                            "Percent75": 1221,
-                            "Percent95": 1494,
-                            "Percent99": 1506,
-                            "StdDev": 439,
-                            "MinDataKb": 0.68,
-                            "MeanDataKb": 10.05,
-                            "MaxDataKb": 19.44,
-                            "AllDataMB": 2.45
-                        },
-                        {
-                            "StepName": "pull html 4",
-                            "RequestCount": 231,
-                            "OkCount": 191,
-                            "FailCount": 40,
-                            "Min": 13,
-                            "Mean": 713,
-                            "Max": 1541,
-                            "RPS": 2,
-                            "Percent50": 611,
-                            "Percent75": 1236,
-                            "Percent95": 1437,
-                            "Percent99": 1502,
-                            "StdDev": 455,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 11.33,
-                            "MaxDataKb": 19.76,
-                            "AllDataMB": 2.23
-                        },
-                        {
-                            "StepName": "pull html 5",
-                            "RequestCount": 182,
-                            "OkCount": 142,
-                            "FailCount": 40,
-                            "Min": 14,
-                            "Mean": 579,
-                            "Max": 1455,
-                            "RPS": 1,
-                            "Percent50": 489,
-                            "Percent75": 863,
-                            "Percent95": 1393,
-                            "Percent99": 1454,
-                            "StdDev": 407,
-                            "MinDataKb": 0.0,
-                            "MeanDataKb": 12.6,
-                            "MaxDataKb": 19.43,
-                            "AllDataMB": 1.76
-                        }
-                    ],
-                    "LatencyCount": {
-                        "Less800": 825,
-                        "More800Less1200": 332,
-                        "More1200": 249
-                    },
-                    "LoadSimulationStats": {
-                        "SimulationName": "inject_per_sec",
-                        "Value": 10
-                    },
-                    "Duration": "00:01:00"
+                    "Relations": {}
                 }
             ]
-        ]
-    }
+        },
+        {
+            "Duration": "00:00:10",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 22,
+                    "OkCount": 18,
+                    "FailCount": 4,
+                    "AllBytes": 0,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 18,
+                                    "RPS": 1.8
+                                },
+                                "Latency": {
+                                    "MinMs": 33.9,
+                                    "MeanMs": 534.9,
+                                    "MaxMs": 984.7,
+                                    "Percent50": 493.4,
+                                    "Percent75": 695.8,
+                                    "Percent95": 879.8,
+                                    "Percent99": 879.8,
+                                    "StdDev": 241.8,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 15,
+                                        "More800Less1200": 3,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 4,
+                                    "RPS": 0.4
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 670.3,
+                                    "MaxMs": 1015.0,
+                                    "Percent50": 671.5,
+                                    "Percent75": 671.5,
+                                    "Percent95": 672.3,
+                                    "Percent99": 672.3,
+                                    "StdDev": 1.9,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 4,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 4,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 4
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 15,
+                        "More800Less1200": 7,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 3
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 4,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 4
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:10"
+                },
+                {
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 38,
+                    "OkCount": 25,
+                    "FailCount": 13,
+                    "AllBytes": 16078,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 25,
+                                    "RPS": 2.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 460.0,
+                                    "MaxMs": 954.4,
+                                    "Percent50": 416.3,
+                                    "Percent75": 552.6,
+                                    "Percent95": 662.6,
+                                    "Percent99": 662.6,
+                                    "StdDev": 154.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 15,
+                                        "More800Less1200": 10,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 426,
+                                    "MaxBytes": 990,
+                                    "Percent50": 414,
+                                    "Percent75": 522,
+                                    "Percent95": 645,
+                                    "Percent99": 645,
+                                    "StdDev": 174.0,
+                                    "AllBytes": 15293
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 25,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 25
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 13,
+                                    "RPS": 1.3
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 692.0,
+                                    "MaxMs": 1014.2,
+                                    "Percent50": 719.4,
+                                    "Percent75": 720.8,
+                                    "Percent95": 722.1,
+                                    "Percent99": 722.1,
+                                    "StdDev": 56.4,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 12,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 112,
+                                    "MaxBytes": 785,
+                                    "Percent50": 112,
+                                    "Percent75": 112,
+                                    "Percent95": 112,
+                                    "Percent99": 112,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 12,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 12
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 16,
+                        "More800Less1200": 22,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 7
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 12,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 12
+                        },
+                        {
+                            "Count@": 25,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 25
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:10"
+                },
+                {
+                    "ScenarioName": "scenario_3",
+                    "RequestCount": 42,
+                    "OkCount": 25,
+                    "FailCount": 17,
+                    "AllBytes": 11682,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_3",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 15,
+                                    "RPS": 1.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 252.8,
+                                    "MaxMs": 1012.5,
+                                    "Percent50": 107.5,
+                                    "Percent75": 338.8,
+                                    "Percent95": 500.1,
+                                    "Percent99": 500.1,
+                                    "StdDev": 182.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 13,
+                                        "More800Less1200": 2,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 313,
+                                    "MaxBytes": 991,
+                                    "Percent50": 283,
+                                    "Percent75": 349,
+                                    "Percent95": 449,
+                                    "Percent99": 449,
+                                    "StdDev": 103.0,
+                                    "AllBytes": 6651
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 9,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 9
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 9,
+                                    "RPS": 0.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 705.3,
+                                    "MaxMs": 1014.2,
+                                    "Percent50": 705.7,
+                                    "Percent75": 706.0,
+                                    "Percent95": 706.5,
+                                    "Percent99": 706.5,
+                                    "StdDev": 0.9,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 9,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 72,
+                                    "MaxBytes": 508,
+                                    "Percent50": 72,
+                                    "Percent75": 72,
+                                    "Percent95": 72,
+                                    "Percent99": 72,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 508
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 8,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 8
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_4",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 7,
+                                    "RPS": 0.7
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 265.2,
+                                    "MaxMs": 765.5,
+                                    "Percent50": 273.2,
+                                    "Percent75": 282.3,
+                                    "Percent95": 284.0,
+                                    "Percent99": 284.0,
+                                    "StdDev": 23.4,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 7,
+                                        "More800Less1200": 0,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 212,
+                                    "MaxBytes": 988,
+                                    "Percent50": 147,
+                                    "Percent75": 275,
+                                    "Percent95": 322,
+                                    "Percent99": 322,
+                                    "StdDev": 101.1,
+                                    "AllBytes": 3084
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 4,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 4
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 5,
+                                    "RPS": 0.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 433.1,
+                                    "MaxMs": 1015.8,
+                                    "Percent50": 432.7,
+                                    "Percent75": 433.9,
+                                    "Percent95": 433.9,
+                                    "Percent99": 433.9,
+                                    "StdDev": 0.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 5,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 5,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 5
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_5",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 3,
+                                    "RPS": 0.3
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 190.2,
+                                    "MaxMs": 893.7,
+                                    "Percent50": 190.3,
+                                    "Percent75": 190.3,
+                                    "Percent95": 190.3,
+                                    "Percent99": 190.3,
+                                    "StdDev": 0.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 2,
+                                        "More800Less1200": 1,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 205,
+                                    "MaxBytes": 940,
+                                    "Percent50": 205,
+                                    "Percent75": 205,
+                                    "Percent95": 205,
+                                    "Percent99": 205,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 1439
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 1
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 3,
+                                    "RPS": 0.3
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 289.1,
+                                    "MaxMs": 1014.2,
+                                    "Percent50": 288.9,
+                                    "Percent75": 289.4,
+                                    "Percent95": 289.4,
+                                    "Percent99": 289.4,
+                                    "StdDev": 0.2,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 3,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 3,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 3
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 22,
+                        "More800Less1200": 20,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 7
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 16,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 16
+                        },
+                        {
+                            "Count@": 14,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 14
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:10"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "1824427894",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "1485055958",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "882574567",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "567906406",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "1691513742",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "1219022426",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:15",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 49,
+                    "OkCount": 38,
+                    "FailCount": 11,
+                    "AllBytes": 0,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 38,
+                                    "RPS": 2.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 481.8,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 529.6,
+                                    "Percent75": 602.5,
+                                    "Percent95": 747.1,
+                                    "Percent99": 778.1,
+                                    "StdDev": 206.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 29,
+                                        "More800Less1200": 9,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 11,
+                                    "RPS": 0.7
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 804.4,
+                                    "MaxMs": 1015.0,
+                                    "Percent50": 803.5,
+                                    "Percent75": 806.4,
+                                    "Percent95": 807.4,
+                                    "Percent99": 807.4,
+                                    "StdDev": 2.4,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 11,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 11,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 11
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 29,
+                        "More800Less1200": 20,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 5
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 11,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 11
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:15"
+                },
+                {
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 95,
+                    "OkCount": 58,
+                    "FailCount": 37,
+                    "AllBytes": 32877,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 58,
+                                    "RPS": 3.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 462.8,
+                                    "MaxMs": 954.4,
+                                    "Percent50": 414.6,
+                                    "Percent75": 581.8,
+                                    "Percent95": 682.4,
+                                    "Percent99": 708.6,
+                                    "StdDev": 179.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 45,
+                                        "More800Less1200": 13,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 462,
+                                    "MaxBytes": 990,
+                                    "Percent50": 459,
+                                    "Percent75": 580,
+                                    "Percent95": 738,
+                                    "Percent99": 741,
+                                    "StdDev": 201.2,
+                                    "AllBytes": 32092
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 58,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 58
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 37,
+                                    "RPS": 2.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 794.8,
+                                    "MaxMs": 1015.0,
+                                    "Percent50": 806.8,
+                                    "Percent75": 809.0,
+                                    "Percent95": 810.8,
+                                    "Percent99": 810.8,
+                                    "StdDev": 34.5,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 36,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 78,
+                                    "MaxBytes": 785,
+                                    "Percent50": 78,
+                                    "Percent75": 78,
+                                    "Percent95": 78,
+                                    "Percent99": 78,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 36,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 36
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 46,
+                        "More800Less1200": 49,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 36,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 36
+                        },
+                        {
+                            "Count@": 58,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 58
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:15"
+                },
+                {
+                    "ScenarioName": "scenario_3",
+                    "RequestCount": 106,
+                    "OkCount": 57,
+                    "FailCount": 49,
+                    "AllBytes": 34322,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_3",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 33,
+                                    "RPS": 2.2
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 360.3,
+                                    "MaxMs": 1012.5,
+                                    "Percent50": 271.4,
+                                    "Percent75": 460.3,
+                                    "Percent95": 596.3,
+                                    "Percent99": 596.3,
+                                    "StdDev": 157.4,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 29,
+                                        "More800Less1200": 4,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 489,
+                                    "MaxBytes": 993,
+                                    "Percent50": 425,
+                                    "Percent75": 563,
+                                    "Percent95": 707,
+                                    "Percent99": 707,
+                                    "StdDev": 151.3,
+                                    "AllBytes": 16414
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 18,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 18
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 29,
+                                    "RPS": 1.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 708.6,
+                                    "MaxMs": 1015.8,
+                                    "Percent50": 722.5,
+                                    "Percent75": 735.9,
+                                    "Percent95": 737.6,
+                                    "Percent99": 737.6,
+                                    "StdDev": 47.9,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 4,
+                                        "More800Less1200": 25,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 242,
+                                    "MaxBytes": 637,
+                                    "Percent50": 236,
+                                    "Percent75": 249,
+                                    "Percent95": 249,
+                                    "Percent99": 249,
+                                    "StdDev": 6.0,
+                                    "AllBytes": 2998
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 24,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 24
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 400,
+                                        "IsError": true,
+                                        "Message": "Bad Request",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 502,
+                                        "IsError": true,
+                                        "Message": "Bad Gateway",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_4",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 16,
+                                    "RPS": 1.1
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 426.4,
+                                    "MaxMs": 999.4,
+                                    "Percent50": 353.6,
+                                    "Percent75": 469.8,
+                                    "Percent95": 548.8,
+                                    "Percent99": 548.8,
+                                    "StdDev": 109.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 12,
+                                        "More800Less1200": 4,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 487,
+                                    "MaxBytes": 988,
+                                    "Percent50": 360,
+                                    "Percent75": 575,
+                                    "Percent95": 672,
+                                    "Percent99": 672,
+                                    "StdDev": 166.0,
+                                    "AllBytes": 9272
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 12,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 12
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 13,
+                                    "RPS": 0.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 573.4,
+                                    "MaxMs": 1015.8,
+                                    "Percent50": 534.2,
+                                    "Percent75": 613.2,
+                                    "Percent95": 613.7,
+                                    "Percent99": 613.7,
+                                    "StdDev": 40.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 3,
+                                        "More800Less1200": 10,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 65,
+                                    "MaxBytes": 614,
+                                    "Percent50": 58,
+                                    "Percent75": 72,
+                                    "Percent95": 72,
+                                    "Percent99": 72,
+                                    "StdDev": 7.0,
+                                    "AllBytes": 1195
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 10,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 10
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 502,
+                                        "IsError": true,
+                                        "Message": "Bad Gateway",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 503,
+                                        "IsError": true,
+                                        "Message": "Service Unavailable",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_5",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 8,
+                                    "RPS": 0.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 380.2,
+                                    "MaxMs": 893.7,
+                                    "Percent50": 359.8,
+                                    "Percent75": 400.9,
+                                    "Percent95": 400.9,
+                                    "Percent99": 400.9,
+                                    "StdDev": 20.5,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 7,
+                                        "More800Less1200": 1,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 375,
+                                    "MaxBytes": 954,
+                                    "Percent50": 351,
+                                    "Percent75": 399,
+                                    "Percent95": 399,
+                                    "Percent99": 399,
+                                    "StdDev": 24.0,
+                                    "AllBytes": 4443
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 4,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 4
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 7,
+                                    "RPS": 0.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 504.8,
+                                    "MaxMs": 1014.2,
+                                    "Percent50": 504.7,
+                                    "Percent75": 505.2,
+                                    "Percent95": 505.2,
+                                    "Percent99": 505.2,
+                                    "StdDev": 0.2,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 7,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 7,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 7
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 55,
+                        "More800Less1200": 51,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "ramp_constant",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 41,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 41
+                        },
+                        {
+                            "Count@": 34,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 34
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 400,
+                            "IsError": true,
+                            "Message": "Bad Request",
+                            "Count": 1
+                        },
+                        {
+                            "Count@": 2,
+                            "StatusCode": 502,
+                            "IsError": true,
+                            "Message": "Bad Gateway",
+                            "Count": 2
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 503,
+                            "IsError": true,
+                            "Message": "Service Unavailable",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:15"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "2031614404",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "522799890",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "2053055039",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "1977413755",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "139201604",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "767070351",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:17",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_3",
+                    "RequestCount": 174,
+                    "OkCount": 91,
+                    "FailCount": 83,
+                    "AllBytes": 51844,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_3",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 49,
+                                    "RPS": 2.7
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 224.7,
+                                    "MaxMs": 1012.5,
+                                    "Percent50": 182.8,
+                                    "Percent75": 285.8,
+                                    "Percent95": 323.8,
+                                    "Percent99": 323.8,
+                                    "StdDev": 72.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 44,
+                                        "More800Less1200": 5,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 246,
+                                    "MaxBytes": 993,
+                                    "Percent50": 203,
+                                    "Percent75": 305,
+                                    "Percent95": 348,
+                                    "Percent99": 348,
+                                    "StdDev": 76.0,
+                                    "AllBytes": 21359
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 29,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 29
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 53,
+                                    "RPS": 2.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 631.3,
+                                    "MaxMs": 1017.4,
+                                    "Percent50": 656.7,
+                                    "Percent75": 657.7,
+                                    "Percent95": 658.7,
+                                    "Percent99": 658.7,
+                                    "StdDev": 46.3,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 7,
+                                        "More800Less1200": 46,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 144,
+                                    "MaxBytes": 818,
+                                    "Percent50": 142,
+                                    "Percent75": 146,
+                                    "Percent95": 146,
+                                    "Percent99": 146,
+                                    "StdDev": 2.1,
+                                    "AllBytes": 4757
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 45,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 45
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 400,
+                                        "IsError": true,
+                                        "Message": "Bad Request",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 401,
+                                        "IsError": true,
+                                        "Message": "Unauthorized",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 403,
+                                        "IsError": true,
+                                        "Message": "Forbidden",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 502,
+                                        "IsError": true,
+                                        "Message": "Bad Gateway",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 503,
+                                        "IsError": true,
+                                        "Message": "Service Unavailable",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_4",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 28,
+                                    "RPS": 1.6
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 305.8,
+                                    "MaxMs": 999.4,
+                                    "Percent50": 291.2,
+                                    "Percent75": 331.3,
+                                    "Percent95": 345.2,
+                                    "Percent99": 345.2,
+                                    "StdDev": 37.4,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 19,
+                                        "More800Less1200": 9,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 283,
+                                    "MaxBytes": 988,
+                                    "Percent50": 244,
+                                    "Percent75": 314,
+                                    "Percent95": 356,
+                                    "Percent99": 356,
+                                    "StdDev": 59.7,
+                                    "AllBytes": 14550
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 21,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 21
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 20,
+                                    "RPS": 1.1
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 290.2,
+                                    "MaxMs": 1015.8,
+                                    "Percent50": 270.1,
+                                    "Percent75": 314.7,
+                                    "Percent95": 315.5,
+                                    "Percent99": 315.5,
+                                    "StdDev": 25.3,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 5,
+                                        "More800Less1200": 15,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 27,
+                                    "MaxBytes": 614,
+                                    "Percent50": 20,
+                                    "Percent75": 34,
+                                    "Percent95": 34,
+                                    "Percent99": 34,
+                                    "StdDev": 7.0,
+                                    "AllBytes": 1504
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 15,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 15
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    },
+                                    {
+                                        "Count@": 2,
+                                        "StatusCode": 502,
+                                        "IsError": true,
+                                        "Message": "Bad Gateway",
+                                        "Count": 2
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 503,
+                                        "IsError": true,
+                                        "Message": "Service Unavailable",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "StepName": "pull_html_5",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 14,
+                                    "RPS": 0.8
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 215.9,
+                                    "MaxMs": 996.1,
+                                    "Percent50": 202.0,
+                                    "Percent75": 220.7,
+                                    "Percent95": 234.8,
+                                    "Percent99": 234.8,
+                                    "StdDev": 16.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 12,
+                                        "More800Less1200": 2,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 225,
+                                    "MaxBytes": 991,
+                                    "Percent50": 201,
+                                    "Percent75": 250,
+                                    "Percent95": 257,
+                                    "Percent99": 257,
+                                    "StdDev": 31.2,
+                                    "AllBytes": 8875
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 7,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 7
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 10,
+                                    "RPS": 0.6
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 232.1,
+                                    "MaxMs": 1014.2,
+                                    "Percent50": 221.1,
+                                    "Percent75": 243.2,
+                                    "Percent95": 243.2,
+                                    "Percent99": 243.2,
+                                    "StdDev": 11.1,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 9,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 27,
+                                    "MaxBytes": 799,
+                                    "Percent50": 27,
+                                    "Percent75": 27,
+                                    "Percent95": 27,
+                                    "Percent99": 27,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 799
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 9,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 9
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 88,
+                        "More800Less1200": 86,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 69,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 69
+                        },
+                        {
+                            "Count@": 57,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 57
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 400,
+                            "IsError": true,
+                            "Message": "Bad Request",
+                            "Count": 1
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 401,
+                            "IsError": true,
+                            "Message": "Unauthorized",
+                            "Count": 1
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 403,
+                            "IsError": true,
+                            "Message": "Forbidden",
+                            "Count": 1
+                        },
+                        {
+                            "Count@": 2,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 2
+                        },
+                        {
+                            "Count@": 3,
+                            "StatusCode": 502,
+                            "IsError": true,
+                            "Message": "Bad Gateway",
+                            "Count": 3
+                        },
+                        {
+                            "Count@": 2,
+                            "StatusCode": 503,
+                            "IsError": true,
+                            "Message": "Service Unavailable",
+                            "Count": 2
+                        }
+                    ],
+                    "CurrentOperation": 5,
+                    "Duration": "00:00:17"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "74127588",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "1518660903",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "293432812",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "812571500",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "832208558",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "672504236",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:20",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 101,
+                    "OkCount": 70,
+                    "FailCount": 31,
+                    "AllBytes": 0,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 70,
+                                    "RPS": 3.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 405.5,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 380.7,
+                                    "Percent75": 437.4,
+                                    "Percent95": 538.1,
+                                    "Percent99": 545.9,
+                                    "StdDev": 98.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 57,
+                                        "More800Less1200": 14,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 31,
+                                    "RPS": 1.5
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 706.3,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 706.4,
+                                    "Percent75": 707.2,
+                                    "Percent95": 707.7,
+                                    "Percent99": 707.7,
+                                    "StdDev": 1.0,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 31,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 31,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 31
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 57,
+                        "More800Less1200": 45,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 31,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 31
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:20"
+                },
+                {
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 151,
+                    "OkCount": 98,
+                    "FailCount": 53,
+                    "AllBytes": 51213,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 98,
+                                    "RPS": 4.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 470.9,
+                                    "MaxMs": 983.0,
+                                    "Percent50": 434.4,
+                                    "Percent75": 553.6,
+                                    "Percent95": 677.2,
+                                    "Percent99": 691.2,
+                                    "StdDev": 147.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 78,
+                                        "More800Less1200": 20,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 418,
+                                    "MaxBytes": 990,
+                                    "Percent50": 388,
+                                    "Percent75": 518,
+                                    "Percent95": 642,
+                                    "Percent99": 651,
+                                    "StdDev": 158.9,
+                                    "AllBytes": 50428
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 99,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 99
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 53,
+                                    "RPS": 2.6
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 834.2,
+                                    "MaxMs": 1015.0,
+                                    "Percent50": 840.7,
+                                    "Percent75": 841.6,
+                                    "Percent95": 843.1,
+                                    "Percent99": 843.1,
+                                    "StdDev": 18.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 52,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 43,
+                                    "MaxBytes": 785,
+                                    "Percent50": 43,
+                                    "Percent75": 43,
+                                    "Percent95": 43,
+                                    "Percent99": 43,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 52,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 52
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 79,
+                        "More800Less1200": 72,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 5
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 52,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 52
+                        },
+                        {
+                            "Count@": 99,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 99
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:20"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "1226725719",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "603295306",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "1321360285",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "1448908700",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "1507536807",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "733038756",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:25",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 151,
+                    "OkCount": 107,
+                    "FailCount": 44,
+                    "AllBytes": 0,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 107,
+                                    "RPS": 4.3
+                                },
+                                "Latency": {
+                                    "MinMs": 25.6,
+                                    "MeanMs": 517.7,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 500.7,
+                                    "Percent75": 572.9,
+                                    "Percent95": 764.1,
+                                    "Percent99": 771.4,
+                                    "StdDev": 180.8,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 86,
+                                        "More800Less1200": 21,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 44,
+                                    "RPS": 1.8
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 911.6,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 911.7,
+                                    "Percent75": 912.7,
+                                    "Percent95": 913.9,
+                                    "Percent99": 913.9,
+                                    "StdDev": 1.7,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 44,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 44,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 44
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 86,
+                        "More800Less1200": 65,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 44,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 44
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:25"
+                },
+                {
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 176,
+                    "OkCount": 118,
+                    "FailCount": 58,
+                    "AllBytes": 61928,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 118,
+                                    "RPS": 4.7
+                                },
+                                "Latency": {
+                                    "MinMs": 10.2,
+                                    "MeanMs": 560.8,
+                                    "MaxMs": 984.7,
+                                    "Percent50": 488.3,
+                                    "Percent75": 690.5,
+                                    "Percent95": 885.1,
+                                    "Percent99": 899.2,
+                                    "StdDev": 235.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 91,
+                                        "More800Less1200": 27,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 32,
+                                    "MeanBytes": 504,
+                                    "MaxBytes": 998,
+                                    "Percent50": 439,
+                                    "Percent75": 671,
+                                    "Percent95": 829,
+                                    "Percent99": 837,
+                                    "StdDev": 241.2,
+                                    "AllBytes": 61143
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 118,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 118
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 58,
+                                    "RPS": 2.3
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 945.9,
+                                    "MaxMs": 1015.0,
+                                    "Percent50": 952.4,
+                                    "Percent75": 953.5,
+                                    "Percent95": 955.0,
+                                    "Percent99": 955.0,
+                                    "StdDev": 18.8,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 57,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 43,
+                                    "MaxBytes": 785,
+                                    "Percent50": 43,
+                                    "Percent75": 43,
+                                    "Percent95": 43,
+                                    "Percent99": 43,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 57,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 57
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 92,
+                        "More800Less1200": 84,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 5
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 57,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 57
+                        },
+                        {
+                            "Count@": 118,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 118
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 3,
+                    "Duration": "00:00:25"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "876403835",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "1417225218",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "931000930",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "389755462",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "1382697089",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "256218052",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:30",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_2",
+                    "RequestCount": 206,
+                    "OkCount": 136,
+                    "FailCount": 70,
+                    "AllBytes": 68286,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_2",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 136,
+                                    "RPS": 4.5
+                                },
+                                "Latency": {
+                                    "MinMs": 10.2,
+                                    "MeanMs": 565.9,
+                                    "MaxMs": 984.7,
+                                    "Percent50": 509.0,
+                                    "Percent75": 706.1,
+                                    "Percent95": 887.6,
+                                    "Percent99": 907.6,
+                                    "StdDev": 232.1,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 105,
+                                        "More800Less1200": 31,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 32,
+                                    "MeanBytes": 493,
+                                    "MaxBytes": 998,
+                                    "Percent50": 447,
+                                    "Percent75": 647,
+                                    "Percent95": 829,
+                                    "Percent99": 845,
+                                    "StdDev": 233.9,
+                                    "AllBytes": 67501
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 136,
+                                        "StatusCode": 200,
+                                        "IsError": false,
+                                        "Message": "",
+                                        "Count": 136
+                                    }
+                                ]
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 70,
+                                    "RPS": 2.3
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 947.0,
+                                    "MaxMs": 1019.9,
+                                    "Percent50": 953.5,
+                                    "Percent75": 954.8,
+                                    "Percent95": 957.3,
+                                    "Percent99": 957.3,
+                                    "StdDev": 19.9,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 1,
+                                        "More800Less1200": 69,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 43,
+                                    "MaxBytes": 785,
+                                    "Percent50": 43,
+                                    "Percent75": 43,
+                                    "Percent95": 43,
+                                    "Percent99": 43,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 785
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 69,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 69
+                                    },
+                                    {
+                                        "Count@": 1,
+                                        "StatusCode": 500,
+                                        "IsError": true,
+                                        "Message": "Internal Server Error",
+                                        "Count": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 106,
+                        "More800Less1200": 100,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 5
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 69,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 69
+                        },
+                        {
+                            "Count@": 136,
+                            "StatusCode": 200,
+                            "IsError": false,
+                            "Message": "",
+                            "Count": 136
+                        },
+                        {
+                            "Count@": 1,
+                            "StatusCode": 500,
+                            "IsError": true,
+                            "Message": "Internal Server Error",
+                            "Count": 1
+                        }
+                    ],
+                    "CurrentOperation": 5,
+                    "Duration": "00:00:30"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "1750584273",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "2029284104",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "1432116165",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "1197284196",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "1080681202",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "969060989",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        },
+        {
+            "Duration": "00:00:30",
+            "ScenarioStats": [
+                {
+                    "ScenarioName": "scenario_1",
+                    "RequestCount": 209,
+                    "OkCount": 151,
+                    "FailCount": 58,
+                    "AllBytes": 0,
+                    "StepStats": [
+                        {
+                            "StepName": "pull_html_1",
+                            "Ok": {
+                                "Request": {
+                                    "Count": 151,
+                                    "RPS": 5.0
+                                },
+                                "Latency": {
+                                    "MinMs": 25.6,
+                                    "MeanMs": 532.6,
+                                    "MaxMs": 1016.6,
+                                    "Percent50": 532.5,
+                                    "Percent75": 673.6,
+                                    "Percent95": 830.6,
+                                    "Percent99": 837.9,
+                                    "StdDev": 221.3,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 117,
+                                        "More800Less1200": 34,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": []
+                            },
+                            "Fail": {
+                                "Request": {
+                                    "Count": 58,
+                                    "RPS": 1.9
+                                },
+                                "Latency": {
+                                    "MinMs": 0.0,
+                                    "MeanMs": 960.5,
+                                    "MaxMs": 1019.1,
+                                    "Percent50": 960.1,
+                                    "Percent75": 962.5,
+                                    "Percent95": 963.9,
+                                    "Percent99": 963.9,
+                                    "StdDev": 2.6,
+                                    "LatencyCount": {
+                                        "LessOrEq800": 0,
+                                        "More800Less1200": 58,
+                                        "MoreOrEq1200": 0
+                                    }
+                                },
+                                "DataTransfer": {
+                                    "MinBytes": 0,
+                                    "MeanBytes": 0,
+                                    "MaxBytes": 0,
+                                    "Percent50": 0,
+                                    "Percent75": 0,
+                                    "Percent95": 0,
+                                    "Percent99": 0,
+                                    "StdDev": 0.0,
+                                    "AllBytes": 0
+                                },
+                                "StatusCodes": [
+                                    {
+                                        "Count@": 58,
+                                        "StatusCode": -100,
+                                        "IsError": true,
+                                        "Message": "step timeout",
+                                        "Count": 58
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "LatencyCount": {
+                        "LessOrEq800": 117,
+                        "More800Less1200": 92,
+                        "MoreOrEq1200": 0
+                    },
+                    "LoadSimulationStats": {
+                        "SimulationName": "inject_per_sec",
+                        "Value": 10
+                    },
+                    "StatusCodes": [
+                        {
+                            "Count@": 58,
+                            "StatusCode": -100,
+                            "IsError": true,
+                            "Message": "step timeout",
+                            "Count": 58
+                        }
+                    ],
+                    "CurrentOperation": 5,
+                    "Duration": "00:00:30"
+                }
+            ],
+            "PluginStats": [
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin1": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin1",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Key",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property1",
+                                    "Value": "1175682952",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property2",
+                                    "Value": "1971978941",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Key": "Property3",
+                                    "Value": "1648410948",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                },
+                {
+                    "CaseSensitive": false,
+                    "DataSetName": "NewDataSet",
+                    "EnforceConstraints": true,
+                    "ExtendedProperties": [],
+                    "Locale": "en-US",
+                    "Namespace": "",
+                    "Prefix": "",
+                    "RemotingFormat": 0,
+                    "SchemaSerializationMode": 1,
+                    "Tables": {
+                        "CustomPlugin2": {
+                            "CaseSensitive": false,
+                            "DisplayExpression": "",
+                            "Locale": "en-US",
+                            "MinimumCapacity": 50,
+                            "Namespace": "",
+                            "Prefix": "",
+                            "RemotingFormat": 0,
+                            "TableName": "CustomPlugin2",
+                            "Columns": [
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Property",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Property",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                },
+                                {
+                                    "AllowDBNull": true,
+                                    "AutoIncrement": false,
+                                    "AutoIncrementSeed": 0,
+                                    "AutoIncrementStep": 1,
+                                    "Caption": "Value",
+                                    "ColumnMapping": 1,
+                                    "ColumnName": "Value",
+                                    "DataType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+                                    "DateTimeMode": 3,
+                                    "DefaultValue": null,
+                                    "Expression": "",
+                                    "ExtendedProperties": [],
+                                    "MaxLength": -1,
+                                    "Namespace": "",
+                                    "Prefix": "",
+                                    "ReadOnly": false
+                                }
+                            ],
+                            "Constraints": [],
+                            "Rows": [
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 1",
+                                    "Value": "123373102",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 2",
+                                    "Value": "1563601686",
+                                    "RowState": 4
+                                },
+                                {
+                                    "OriginalRow": null,
+                                    "Property": "Property 3",
+                                    "Value": "913982101",
+                                    "RowState": 4
+                                }
+                            ]
+                        }
+                    },
+                    "Relations": {}
+                }
+            ]
+        }
+    ],
+    "Hints": [
+        {
+            "SourceName": "scenario_1",
+            "SourceType": "Scenario",
+            "Hint": "Step 'pull_html_1' in scenario 'scenario_1' didn't track data transfer. In order to track data transfer, you should use Response.Ok(sizeInBytes: value)"
+        },
+        {
+            "SourceName": "scenario_3",
+            "SourceType": "Scenario",
+            "Hint": "Step 'pull_html_3' in scenario 'scenario_3' didn't track data transfer. In order to track data transfer, you should use Response.Ok(sizeInBytes: value)"
+        },
+        {
+            "SourceName": "scenario_3",
+            "SourceType": "Scenario",
+            "Hint": "Step 'pull_html_4' in scenario 'scenario_3' didn't track data transfer. In order to track data transfer, you should use Response.Ok(sizeInBytes: value)"
+        },
+        {
+            "SourceName": "scenario_3",
+            "SourceType": "Scenario",
+            "Hint": "Step 'pull_html_5' in scenario 'scenario_3' didn't track data transfer. In order to track data transfer, you should use Response.Ok(sizeInBytes: value)"
+        },
+        {
+            "SourceName": "CustomPlugin1",
+            "SourceType": "WorkerPlugin",
+            "Hint": "Test worker plugin hint"
+        },
+        {
+            "SourceName": "CustomPlugin2",
+            "SourceType": "WorkerPlugin",
+            "Hint": "Test worker plugin hint"
+        }
+    ]
 };

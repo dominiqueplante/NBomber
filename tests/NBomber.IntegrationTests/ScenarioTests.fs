@@ -4,13 +4,12 @@ open System
 open System.Threading.Tasks
 
 open Xunit
-open FsCheck
 open FsCheck.Xunit
 open Swensen.Unquote
-open FSharp.Control.Tasks.V2.ContextInsensitive
+open FSharp.Control.Tasks.NonAffine
 open Microsoft.Extensions.Configuration
 
-open NBomber.Extensions
+open NBomber
 open NBomber.Extensions.InternalExtensions
 open NBomber.Configuration
 open NBomber.Contracts
@@ -36,22 +35,18 @@ let ``TestClean should be invoked only once and not fail runner`` () =
     }
 
     let okStep = Step.create("ok step", fun _ -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
-        return Response.Ok()
+        do! Task.Delay(milliseconds 100)
+        return Response.ok()
     })
 
-    let scenario =
-        Scenario.create "withTestClean test" [okStep]
-        |> Scenario.withClean testClean
-        |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(2,  TimeSpan.FromSeconds(1.0))
-        ]
-
-    let allStats =
-        NBomberRunner.registerScenarios [scenario]
-        |> NBomberRunner.run
-        |> Result.getOk
+    Scenario.create "withTestClean test" [okStep]
+    |> Scenario.withClean testClean
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(2,  seconds 1)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.withReportFolder "./scenarios-tests/1/"
+    |> NBomberRunner.run
+    |> ignore
 
     test <@ 1 = cleanInvokeCounter @>
 
@@ -65,23 +60,19 @@ let ``TestInit should propagate CustomSettings from config.json`` () =
     }
 
     let okStep = Step.create("ok step", fun _ -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
-        return Response.Ok()
+        do! Task.Delay(milliseconds 100)
+        return Response.ok()
     })
 
     let pause = Step.createPause(fun () ->
         scnContext.Value.CustomSettings.Get<TestCustomSettings>().PauseMs
     )
 
-    let scenario =
-        Scenario.create "test_youtube" [okStep; pause]
-        |> Scenario.withInit testInit
-        |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(2,  TimeSpan.FromSeconds(2.0))
-        ]
-
-    NBomberRunner.registerScenarios [scenario]
+    Scenario.create "test_youtube" [okStep; pause]
+    |> Scenario.withInit testInit
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(2,  seconds 2)]
+    |> NBomberRunner.registerScenario
     |> NBomberRunner.loadConfig "Configuration/test_config.json"
     |> NBomberRunner.run
     |> ignore
@@ -95,33 +86,30 @@ let ``TestInit should propagate CustomSettings from config.json`` () =
 let ``should be stopped via StepContext.StopScenario`` () =
 
     let mutable counter = 0
-    let duration = TimeSpan.FromSeconds(15.0)
+    let duration = seconds 15
 
     let okStep = Step.create("ok step", fun context -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
+        do! Task.Delay(milliseconds 100)
         counter <- counter + 1
 
         if counter = 30 then
             context.StopScenario("test_youtube_1", "custom reason")
 
-        return Response.Ok()
+        return Response.ok()
     })
 
     let scenario1 =
         Scenario.create "test_youtube_1" [okStep]
         |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(10, duration)
-        ]
+        |> Scenario.withLoadSimulations [KeepConstant(10, duration)]
 
     let scenario2 =
         Scenario.create "test_youtube_2" [okStep]
         |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(10, duration)
-        ]
+        |> Scenario.withLoadSimulations [KeepConstant(10, duration)]
 
     NBomberRunner.registerScenarios [scenario1; scenario2]
+    |> NBomberRunner.withReportFolder "./scenarios-tests/2/"
     |> NBomberRunner.run
     |> Result.getOk
     |> fun nodeStats ->
@@ -137,12 +125,13 @@ let ``should be stopped via StepContext.StopScenario`` () =
         test <@ youtube2Steps.Duration = duration @>
 
 [<Fact>]
+[<Trait("CI", "disable")>]
 let ``Test execution should be stopped if all scenarios are stopped`` () =
     let mutable counter = 0
-    let duration = TimeSpan.FromSeconds(30.0)
+    let duration = seconds 30
 
     let okStep = Step.create("ok step", fun context -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
+        do! Task.Delay(milliseconds 500)
         counter <- counter + 1
 
         if counter = 30 then
@@ -151,24 +140,21 @@ let ``Test execution should be stopped if all scenarios are stopped`` () =
         if counter = 60 then
             context.StopScenario("test_youtube_2", "custom reason")
 
-        return Response.Ok()
+        return Response.ok()
     })
 
     let scenario1 =
         Scenario.create "test_youtube_1" [okStep]
         |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(10, duration)
-        ]
+        |> Scenario.withLoadSimulations [KeepConstant(10, duration)]
 
     let scenario2 =
         Scenario.create "test_youtube_2" [okStep]
         |> Scenario.withoutWarmUp
-        |> Scenario.withLoadSimulations [
-            KeepConstant(10, duration)
-        ]
+        |> Scenario.withLoadSimulations [KeepConstant(10, duration)]
 
     NBomberRunner.registerScenarios [scenario1; scenario2]
+    |> NBomberRunner.withReportFolder "./scenarios-tests/3/"
     |> NBomberRunner.run
     |> Result.getOk
     |> fun nodeStats ->
@@ -181,58 +167,52 @@ let ``Test execution should be stopped if all scenarios are stopped`` () =
 let ``Warmup should have no effect on stats`` () =
 
     let okStep = Step.create("ok step", fun _ -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
-        return Response.Ok()
+        do! Task.Delay(milliseconds 100)
+        return Response.ok()
     })
 
     let failStep = Step.create("fail step", fun _ -> task {
-        do! Task.Delay(TimeSpan.FromSeconds(0.1))
-        return Response.Fail()
+        do! Task.Delay(milliseconds 100)
+        return Response.fail()
     })
 
-    let scenario =
-        Scenario.create "warmup test" [okStep; failStep]
-        |> Scenario.withWarmUpDuration(TimeSpan.FromSeconds 3.0)
-        |> Scenario.withLoadSimulations [
-            KeepConstant(copies = 1, during = TimeSpan.FromSeconds 1.0)
-        ]
-
-    let result = NBomberRunner.registerScenarios [scenario]
-                 |> NBomberRunner.run
-
-    match result with
-    | Ok nodeStats ->
+    Scenario.create "warmup test" [okStep; failStep]
+    |> Scenario.withWarmUpDuration(seconds 3)
+    |> Scenario.withLoadSimulations [KeepConstant(copies = 1, during = seconds 1)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.withReportFolder "./scenarios-tests/4/"
+    |> NBomberRunner.run
+    |> Result.getOk
+    |> fun nodeStats ->
         let allStepStats = nodeStats.ScenarioStats |> Seq.collect(fun x -> x.StepStats)
-        let okStats = allStepStats |> Seq.find(fun x -> x.StepName = "ok step")
-        let failStats = allStepStats |> Seq.find(fun x -> x.StepName = "fail step")
+        let okSt = allStepStats |> Seq.find(fun x -> x.StepName = "ok step")
+        let failSt = allStepStats |> Seq.find(fun x -> x.StepName = "fail step")
 
-        test <@ okStats.OkCount <= 10 @>
-        test <@ okStats.FailCount = 0 @>
-        test <@ failStats.OkCount = 0 @>
-        test <@ failStats.FailCount <= 10 @>
-
-    | Error msg -> failwith msg
+        test <@ okSt.Ok.Request.Count <= 10 @>
+        test <@ okSt.Fail.Request.Count = 0 @>
+        test <@ failSt.Ok.Request.Count = 0 @>
+        test <@ failSt.Fail.Request.Count <= 10 @>
 
 [<Fact>]
 let ``applyScenariosSettings() should override initial settings if the name is matched`` () =
 
     let scnName1 = "scenario_1"
-    let warmUp1 = TimeSpan.FromSeconds 30.0
-    let duration1 = TimeSpan.FromSeconds 50.0
+    let warmUp1 = seconds 30
+    let duration1 = seconds 50
 
     let scnName2 = "scenario_1"
-    let duration2 = TimeSpan.FromSeconds 5.0
+    let duration2 = seconds 5
 
     let settings = {
         ScenarioName = scnName1
         WarmUpDuration = Some(warmUp1.ToString("hh\:mm\:ss"))
-        LoadSimulationsSettings = [LoadSimulationSettings.KeepConstant(10, duration1.ToString("hh\:mm\:ss"))]
-        ConnectionPoolSettings = None
+        LoadSimulationsSettings = Some [LoadSimulationSettings.KeepConstant(10, duration1.ToString("hh\:mm\:ss"))]
+        ClientFactorySettings = None
         CustomSettings = Some "some data"
     }
 
     let originalScenarios =
-        [Scenario.create scnName2 [Step.createPause(1)]
+        [Scenario.create scnName2 [Step.createPause 1]
         |> Scenario.withLoadSimulations [RampConstant(500, duration2)] ]
         |> Scenario.createScenarios
         |> Result.getOk
@@ -247,29 +227,27 @@ let ``applyScenariosSettings() should override initial settings if the name is m
 let ``applyScenariosSettings() should skip applying settings when scenario name is not match`` () =
 
     let scnName1 = "scenario_1"
-    let warmUp1 = TimeSpan.FromSeconds 30.0
-    let duration1 = TimeSpan.FromSeconds 50.0
+    let warmUp1 = seconds 30
+    let duration1 = seconds 50
 
     let scnName2 = "scenario_2"
-    let duration2 = TimeSpan.FromSeconds 5.0
+    let duration2 = seconds 5
 
     let settings = {
         ScenarioName = scnName1
         WarmUpDuration = Some(warmUp1.ToString("hh\:mm\:ss"))
-        LoadSimulationsSettings = [LoadSimulationSettings.RampConstant(5, duration1.ToString("hh\:mm\:ss"))]
-        ConnectionPoolSettings = None
+        LoadSimulationsSettings = Some [LoadSimulationSettings.RampConstant(5, duration1.ToString("hh\:mm\:ss"))]
+        ClientFactorySettings = None
         CustomSettings = None
     }
 
     let scenario =
-         Scenario.create scnName2 [Step.createPause(120)]
-         |> Scenario.withoutWarmUp
-         |> Scenario.withLoadSimulations [
-             LoadSimulation.KeepConstant(500, duration2)
-         ]
-         |> List.singleton
-         |> Scenario.createScenarios
-         |> Result.getOk
+        Scenario.create scnName2 [Step.createPause 120]
+        |> Scenario.withoutWarmUp
+        |> Scenario.withLoadSimulations [LoadSimulation.KeepConstant(500, duration2)]
+        |> List.singleton
+        |> Scenario.createScenarios
+        |> Result.getOk
 
     let updatedScenario = Scenario.applySettings [settings] scenario
 
@@ -300,16 +278,116 @@ let ``checkDuplicateName should return fail if scenario has duplicate name`` () 
     | _       -> failwith ""
 
 [<Fact>]
+let ``checkDuplicateStepName should fail if scenario has steps with the same name but different implementations`` () =
+    let step1 = Step.create("step 1", fun _ -> Task.FromResult(Response.ok()))
+    let step2 = Step.create("step 1", fun _ -> Task.FromResult(Response.ok()))
+    let scn = Scenario.create "1" [step1; step2]
+    match Scenario.Validation.checkDuplicateStepName(scn) with
+    | Error _ -> ()
+    | _       -> failwith "two steps with the same name should not be allowed"
+
+[<Fact>]
+let ``checkDuplicateStepName should not fail if scenario contains duplicated steps`` () =
+    let step1 = Step.create("step 1", fun _ -> Task.FromResult(Response.ok()))
+    let scn = Scenario.create "1" [step1; step1]
+    match Scenario.Validation.checkDuplicateStepName(scn) with
+    | Error _ -> failwith "duplicated steps should be allowed"
+    | _       -> ()
+
+[<Fact>]
+let ``scenario should fail when it has ambiguous step definition`` () =
+    let step1 = Step.create("step 1", fun _ -> Task.FromResult(Response.ok()))
+    let step2 = Step.create("step 1", fun _ -> Task.FromResult(Response.ok()))
+    Scenario.create "1" [step1; step2]
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 2)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getError
+    |> ignore
+
+[<Fact>]
 let ``checkEmptyStepName should return fail if scenario has empty step name`` () =
-    let step = NBomber.FSharp.Step.create(" ", fun _ -> Task.FromResult(Response.Ok()))
+    let step = NBomber.FSharp.Step.create(" ", fun _ -> Task.FromResult(Response.ok()))
     let scn = Scenario.create "1" [step]
     match Scenario.Validation.checkEmptyStepName(scn) with
     | Error _ -> ()
     | _       -> failwith ""
 
 [<Fact>]
-let ``checkStepsNotEmpty should return fail if scenario has no steps`` () =
-    let scn = Scenario.create "1" []
-    match Scenario.Validation.checkStepsNotEmpty(scn) with
-    | Error _ -> ()
-    | _       -> failwith ""
+let ``check that scenario should fail if it has no steps and no init and no clean`` () =
+    Scenario.create "1" []
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 2)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getError
+    |> ignore
+
+[<Fact>]
+let ``check that scenario should be ok if it has no steps but clean function exist`` () =
+    Scenario.create "1" []
+    |> Scenario.withClean(fun _ -> task { return () })
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 2)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getOk
+    |> ignore
+
+[<Fact>]
+let ``check that scenario should be ok if it has no steps but init function exist`` () =
+    Scenario.create "1" []
+    |> Scenario.withInit(fun _ -> task { return () })
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 2)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getOk
+    |> ignore
+
+[<Fact>]
+let ``withDynamicStepOrder should allow to run steps with custom order`` () =
+
+    let step1 = Step.create("step_1", fun context -> task {
+        do! Task.Delay(milliseconds 10)
+        return Response.ok()
+    })
+
+    let step2 = Step.create("step_2", fun context -> task {
+        do! Task.Delay(milliseconds 10)
+        return Response.ok()
+    })
+
+    Scenario.create "1" [step1; step2]
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 2)]
+    |> Scenario.withDynamicStepOrder(fun () -> [| 1 |])
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getOk
+    |> fun stats ->
+        let stepsStats = stats.ScenarioStats.[0].StepStats
+        test <@ stepsStats.[0].Ok.Request.Count = 0 @>
+        test <@ stepsStats.[1].Ok.Request.Count > 0 @>
+
+[<Fact>]
+let ``withStepTimeout should set step timeout`` () =
+
+    let step1 = Step.create("step_1", timeout = seconds 2, execute = fun context -> task {
+        do! Task.Delay(seconds 4)
+        return Response.ok()
+    })
+
+    Scenario.create "1" [step1]
+    |> Scenario.withoutWarmUp
+    |> Scenario.withLoadSimulations [KeepConstant(1, seconds 10)]
+    |> NBomberRunner.registerScenario
+    |> NBomberRunner.run
+    |> Result.getOk
+    |> fun stats ->
+        let stepsStats = stats.ScenarioStats.[0].StepStats
+        test <@ stepsStats.[0].Ok.Request.Count = 0 @>
+        test <@ stepsStats.[0].Fail.Request.Count > 0 @>
+        test <@ stepsStats.[0].Fail.StatusCodes.[0].StatusCode = NBomber.Constants.TimeoutStatusCode @>
+        test <@ stepsStats.[0].Fail.StatusCodes.[0].Count = stepsStats.[0].Fail.Request.Count @>

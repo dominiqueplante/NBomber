@@ -11,22 +11,30 @@ open NBomber.Extensions.InternalExtensions
 open NBomber.Extensions.Operator.Result
 open NBomber.Configuration
 open NBomber.Contracts
+open NBomber.Contracts.Stats
 open NBomber.Errors
 open NBomber.Domain
+
+// we keep ClientFactorySettings settings here instead of take them from ScenariosSettings
+// since after init (for case when the same ClientFactory assigned to several Scenarios)
+// factoryName = factoryName + scenarioName
+// and it's more convenient to prepare it for usage
 
 type SessionArgs = {
     TestInfo: TestInfo
     ScenariosSettings: ScenarioSetting list
     TargetScenarios: string list
-    ConnectionPoolSettings: ConnectionPoolSetting list
+    UpdatedClientFactorySettings: ClientFactorySetting list
     SendStatsInterval: TimeSpan
+    UseHintsAnalyzer: bool
 } with
     static member Empty = {
         TestInfo = { SessionId = ""; TestSuite = ""; TestName = "" }
         ScenariosSettings = List.empty
         TargetScenarios = List.empty
-        ConnectionPoolSettings = List.empty
-        SendStatsInterval = Constants.MinSendStatsInterval
+        UpdatedClientFactorySettings = List.empty
+        SendStatsInterval = Constants.DefaultSendStatsInterval
+        UseHintsAnalyzer = true
     }
 
 module Validation =
@@ -74,6 +82,7 @@ module Validation =
         |> Seq.tryFind(fun scenarioSetting ->
             try
                 scenarioSetting.LoadSimulationsSettings
+                |> Option.defaultValue List.empty
                 |> Seq.iter(LoadTimeLine.createSimulationFromSettings >> ignore)
                 false
             with
@@ -89,13 +98,16 @@ let empty = {
     NBomberConfig = None
     InfraConfig = None
     CreateLoggerConfig = None
-    ReportFileName = None
-    ReportFolder = None
-    ReportFormats = Constants.AllReportFormats
-    ReportingSinks = List.empty
-    SendStatsInterval = Constants.MinSendStatsInterval
+    Reporting = {
+        FolderName = None
+        FileName = None
+        Formats = Constants.AllReportFormats
+        Sinks = List.empty
+        SendStatsInterval = Constants.DefaultSendStatsInterval
+    }
     WorkerPlugins = List.empty
     ApplicationType = None
+    UseHintsAnalyzer = true
 }
 
 let getTestSuite (context: NBomberContext) =
@@ -135,7 +147,7 @@ let getReportFileName (context: NBomberContext) =
     }
     context
     |> tryGetFromConfig
-    |> Option.orElse(context.ReportFileName)
+    |> Option.orElse(context.Reporting.FileName)
     |> Option.defaultValue(Constants.DefaultReportName)
 
 let getReportFolder (context: NBomberContext) =
@@ -146,7 +158,7 @@ let getReportFolder (context: NBomberContext) =
     }
     context
     |> tryGetFromConfig
-    |> Option.orElse(context.ReportFolder)
+    |> Option.orElse(context.Reporting.FolderName)
     |> Option.defaultValue(Constants.DefaultReportFolder)
 
 let getReportFormats (context: NBomberContext) =
@@ -158,9 +170,7 @@ let getReportFormats (context: NBomberContext) =
     }
     context
     |> tryGetFromConfig
-    |> Option.orElse(if List.isEmpty context.ReportFormats then None
-                     else Some context.ReportFormats)
-    |> Option.defaultValue List.empty
+    |> Option.defaultValue context.Reporting.Formats
 
 let getSendStatsInterval (context: NBomberContext) =
     let tryGetFromConfig (ctx) = option {
@@ -171,9 +181,9 @@ let getSendStatsInterval (context: NBomberContext) =
     context
     |> tryGetFromConfig
     |> Option.map(Validation.checkSendStatsSettings)
-    |> Option.defaultValue(Ok context.SendStatsInterval)
+    |> Option.defaultValue(context.Reporting.SendStatsInterval |> Validation.checkSendStatsInterval)
 
-let getConnectionPoolSettings (context: NBomberContext) =
+let getClientFactorySettings (context: NBomberContext) =
     let tryGetFromConfig (ctx) = option {
         let! config = ctx.NBomberConfig
         let! settings = config.GlobalSettings
@@ -181,10 +191,10 @@ let getConnectionPoolSettings (context: NBomberContext) =
 
         return scnSettings |> List.collect(fun scn ->
             option {
-                let! poolSettings = scn.ConnectionPoolSettings
-                return poolSettings |> List.map(fun pool ->
-                    let newName = Scenario.createConnectionPoolName(scn.ScenarioName, pool.PoolName)
-                    { pool with PoolName = newName }
+                let! factorySettings = scn.ClientFactorySettings
+                return factorySettings |> List.map(fun pool ->
+                    let newName = Scenario.ClientFactory.createName pool.FactoryName scn.ScenarioName
+                    { pool with FactoryName = newName }
                 )
             }
             |> Option.defaultValue List.empty
@@ -201,17 +211,26 @@ let createSessionArgs (testInfo: TestInfo) (context: NBomberContext) =
         let! reportFolder      = context |> getReportFolder    |> Validation.checkReportFolder
         let! sendStatsInterval = context |> getSendStatsInterval
         let! scenariosSettings  = context |> getScenariosSettings
-        let connectionPoolSettings = context |> getConnectionPoolSettings
+        let clientFactorySettings = context |> getClientFactorySettings
 
         return {
-          TestInfo = testInfo
-          ScenariosSettings = scenariosSettings
-          TargetScenarios = targetScenarios
-          ConnectionPoolSettings = connectionPoolSettings
-          SendStatsInterval = sendStatsInterval
+            TestInfo = testInfo
+            ScenariosSettings = scenariosSettings
+            TargetScenarios = targetScenarios
+            UpdatedClientFactorySettings = clientFactorySettings
+            SendStatsInterval = sendStatsInterval
+            UseHintsAnalyzer = context.UseHintsAnalyzer
         }
     }
     |> Result.mapError(AppError.create)
 
 let createScenarios (context: NBomberContext) =
     context.RegisteredScenarios |> Scenario.createScenarios
+
+let createBaseContext (testInfo, nodeInfo, token, logger) = {
+    new IBaseContext with
+        member _.TestInfo = testInfo
+        member _.NodeInfo = nodeInfo
+        member _.CancellationToken = token
+        member _.Logger = logger
+}

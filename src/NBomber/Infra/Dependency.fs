@@ -8,46 +8,43 @@ open System.Runtime.Versioning
 open Microsoft.Extensions.Configuration
 open Serilog
 open Serilog.Events
-open ShellProgressBar
+open Serilog.Sinks.SpectreConsole
 
 open NBomber.Configuration
 open NBomber.Contracts
-
-type IProgressBarEnv =
-    abstract CreateManualProgressBar: tickCount:int -> IProgressBar
-    abstract CreateAutoProgressBar: duration:TimeSpan -> IProgressBar
+open NBomber.Contracts.Stats
 
 type IGlobalDependency =
-    inherit IDisposable
-    abstract NBomberVersion: string
     abstract ApplicationType: ApplicationType
     abstract NodeType: NodeType
     abstract NBomberConfig: NBomberConfig option
     abstract InfraConfig: IConfiguration option
     abstract CreateLoggerConfig: (unit -> LoggerConfiguration) option
-    abstract ProgressBarEnv: IProgressBarEnv
     abstract Logger: ILogger
     abstract ReportingSinks: IReportingSink list
     abstract WorkerPlugins: IWorkerPlugin list
 
 module Logger =
 
-    let create (testInfo: TestInfo)
+    let create (folder: string)
+               (testInfo: TestInfo)
                (createConfig: (unit -> LoggerConfiguration) option)
                (configPath: IConfiguration option) =
 
         let attachFileLogger (config: LoggerConfiguration) =
             config.WriteTo.File(
-                path = "./logs/nbomber-log-" + testInfo.SessionId + ".txt",
+                path = $"{folder}/{testInfo.SessionId}/nbomber-log-.txt",
                 outputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [ThreadId:{ThreadId}] {Message:lj}{NewLine}{Exception}",
                 rollingInterval = RollingInterval.Day
             )
 
-        let attachConsoleLogger (config: LoggerConfiguration) =
+        let attachAnsiConsoleLogger (config: LoggerConfiguration) =
             config.WriteTo.Logger(fun lc ->
-                lc.WriteTo.Console()
-                  .Filter.ByIncludingOnly(fun event -> event.Level = LogEventLevel.Information
-                                                       || event.Level = LogEventLevel.Warning)
+                let outputTemplate = "{Timestamp:HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                lc.WriteTo.spectreConsole(outputTemplate,  minLevel = LogEventLevel.Information)
+                    .Filter.ByIncludingOnly(fun event -> event.Level = LogEventLevel.Information
+                                                        || event.Level = LogEventLevel.Warning
+                                                        || event.Level = LogEventLevel.Fatal)
                 |> ignore
             )
 
@@ -60,7 +57,7 @@ module Logger =
                                    .Enrich.WithProperty("TestName", testInfo.TestName)
                                    .Enrich.WithThreadId()
             |> attachFileLogger
-            |> attachConsoleLogger
+            |> attachAnsiConsoleLogger
 
         match configPath with
         | Some path -> loggerConfig.ReadFrom.Configuration(path).CreateLogger() :> ILogger
@@ -81,81 +78,44 @@ module ResourceManager =
 module NodeInfo =
 
     let init () =
-        let dotNetVersion = Assembly.GetEntryAssembly()
-                                    .GetCustomAttribute<TargetFrameworkAttribute>()
-                                    .FrameworkName
+
+        let dotNetVersion =
+            let assembly =
+                if isNull(Assembly.GetEntryAssembly()) then Assembly.GetCallingAssembly()
+                else Assembly.GetEntryAssembly()
+
+            assembly.GetCustomAttribute<TargetFrameworkAttribute>().FrameworkName
 
         let processor = Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")
+        let version = typeof<ApplicationType>.Assembly.GetName().Version
 
         { MachineName = Environment.MachineName
           NodeType = NodeType.SingleNode
-          CurrentOperation = NodeOperationType.None
+          CurrentOperation = OperationType.None
           OS = Environment.OSVersion
           DotNetVersion = dotNetVersion
           Processor = if isNull processor then String.Empty else processor
-          CoresCount = Environment.ProcessorCount }
-
-module ProgressBarEnv =
-
-    let private options =
-        ProgressBarOptions(ProgressBarOnBottom = true,
-                           ForegroundColor = ConsoleColor.Yellow,
-                           ForegroundColorDone = Nullable<ConsoleColor>(ConsoleColor.DarkGreen),
-                           BackgroundColor = Nullable<ConsoleColor>(ConsoleColor.DarkGray),
-                           BackgroundCharacter = Nullable<char>('\u2593'),
-                           CollapseWhenFinished = false)
-
-    let create () =
-        { new IProgressBarEnv with
-            member _.CreateManualProgressBar(ticks) =
-                new ProgressBar(ticks, String.Empty, options) :> IProgressBar
-
-            member _.CreateAutoProgressBar(duration) =
-                new FixedDurationBar(duration, String.Empty, options) :> IProgressBar }
+          CoresCount = Environment.ProcessorCount
+          NBomberVersion = sprintf "%i.%i.%i" version.Major version.Minor version.Build }
 
 let createSessionId () =
     let date = DateTime.UtcNow.ToString("yyyy-MM-dd_HH.mm.ff")
     let guid = Guid.NewGuid().GetHashCode().ToString("x")
-    date + "_" + guid
+    $"{date}_session_{guid}"
 
-let create (appType: ApplicationType) (nodeType: NodeType) (context: NBomberContext) =
-    let emptyTestInfo = { SessionId = ""; TestSuite = ""; TestName = "" }
-    let logger = Logger.create emptyTestInfo context.CreateLoggerConfig context.InfraConfig
-    let version = typeof<ApplicationType>.Assembly.GetName().Version
+let create (reportFolder: string) (testInfo: TestInfo)
+           (appType: ApplicationType) (nodeType: NodeType)
+           (context: NBomberContext) =
 
+    let logger = Logger.create reportFolder testInfo context.CreateLoggerConfig context.InfraConfig
     Log.Logger <- logger
 
     { new IGlobalDependency with
-        member _.NBomberVersion = sprintf "%i.%i.%i" version.Major version.Minor version.Build
         member _.ApplicationType = appType
         member _.NodeType = nodeType
         member _.NBomberConfig = context.NBomberConfig
         member _.InfraConfig = context.InfraConfig
         member _.CreateLoggerConfig = context.CreateLoggerConfig
-        member _.ProgressBarEnv = ProgressBarEnv.create()
         member _.Logger = logger
-        member _.ReportingSinks = context.ReportingSinks
-        member _.WorkerPlugins = context.WorkerPlugins
-        member this.Dispose() =
-            this.ReportingSinks |> Seq.iter(fun x -> x.Dispose())
-            this.WorkerPlugins |> Seq.iter(fun x -> x.Dispose()) }
-
-let init (testInfo: TestInfo) (dep: IGlobalDependency) =
-    let logger = Logger.create testInfo dep.CreateLoggerConfig dep.InfraConfig
-    Log.Logger <- logger
-
-    dep.ReportingSinks |> Seq.iter(fun x -> x.Init(logger, dep.InfraConfig))
-    dep.WorkerPlugins |> Seq.iter(fun x -> x.Init(logger, dep.InfraConfig))
-
-    { new IGlobalDependency with
-        member _.NBomberVersion = dep.NBomberVersion
-        member _.ApplicationType = dep.ApplicationType
-        member _.NodeType = dep.NodeType
-        member _.NBomberConfig = dep.NBomberConfig
-        member _.InfraConfig = dep.InfraConfig
-        member _.CreateLoggerConfig = dep.CreateLoggerConfig
-        member _.ProgressBarEnv = dep.ProgressBarEnv
-        member _.Logger = logger
-        member _.ReportingSinks = dep.ReportingSinks
-        member _.WorkerPlugins = dep.WorkerPlugins
-        member _.Dispose() = dep.Dispose() }
+        member _.ReportingSinks = context.Reporting.Sinks
+        member _.WorkerPlugins = context.WorkerPlugins }

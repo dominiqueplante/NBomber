@@ -1,60 +1,79 @@
-﻿module internal NBomber.Domain.DomainTypes
+module internal NBomber.Domain.DomainTypes
 
 open System
+open System.Collections.Generic
+open System.Threading
 open System.Threading.Tasks
 
-open NBomber
-open NBomber.Contracts
-open NBomber.Domain.ConnectionPool
+open HdrHistogram
+open Serilog
 
-//todo: use opaque types
-type StepName = string
-type ScenarioName = string
-type Latency = int
+open NBomber.Contracts
+open NBomber.Contracts.Stats
+open NBomber.Domain.ClientPool
 
 type StopCommand =
-    | StopScenario of ScenarioName * reason:string
+    | StopScenario of scenarioName:string * reason:string
     | StopTest of reason:string
 
-type StepContext<'TConnection,'TFeedItem>(correlationId, cancellationToken,
-                                          connection, data, feedItem, logger,
-                                          execStopCommand: StopCommand -> unit) =
-    interface IStepContext<'TConnection,'TFeedItem> with
-        member _.CorrelationId = correlationId
-        member _.CancellationToken = cancellationToken
-        member _.Connection = connection
-        member _.Data = data
-        member _.FeedItem = feedItem
-        member _.Logger = logger
+type UntypedStepContext = {
+    ScenarioInfo: ScenarioInfo
+    CancellationToken: CancellationToken
+    Client: obj
+    Logger: ILogger
+    mutable FeedItem: obj
+    mutable Data: Dictionary<string,obj>
+    mutable InvocationCount: int
+    StopScenario: string * string -> unit // scenarioName * reason
+    StopCurrentTest: string -> unit       // reason
+}
 
-        member _.GetPreviousStepResponse<'T>() =
-            try
-                data.[Constants.StepResponseKey] :?> 'T
-            with
-            | ex -> Unchecked.defaultof<'T>
-
-        member _.StopScenario(scenarioName, reason) = StopScenario(scenarioName, reason) |> execStopCommand
-        member _.StopCurrentTest(reason) = StopTest(reason) |> execStopCommand
-
-    member _.ExecStopCommand(command) = execStopCommand(command)
+type StepExecution =
+    | SyncExec  of (UntypedStepContext -> Response)
+    | AsyncExec of (UntypedStepContext -> Task<Response>)
 
 type Step = {
-    StepName: StepName
-    ConnectionPoolArgs: ConnectionPoolArgs<obj> option
-    ConnectionPool: ConnectionPool option
-    Execute: StepContext<obj,obj> -> Task<Response>
-    Context: StepContext<obj,obj> option
-    Feed: IFeed<obj>
+    StepName: string
+    ClientFactory: ClientFactory<obj> option
+    ClientPool: ClientPool option
+    Execute: StepExecution
+    Feed: IFeed<obj> option
+    Timeout: TimeSpan
     DoNotTrack: bool
 } with
     interface IStep with
         member this.StepName = this.StepName
         member this.DoNotTrack = this.DoNotTrack
 
+type RawStepStats = {
+    mutable MinMicroSec: int
+    mutable MaxMicroSec: int
+    mutable MinBytes: int
+    mutable MaxBytes: int
+    mutable RequestCount: int
+    mutable LessOrEq800: int
+    mutable More800Less1200: int
+    mutable MoreOrEq1200: int
+    mutable AllBytes: int64
+    LatencyHistogram: LongHistogram
+    DataTransferHistogram: LongHistogram
+    StatusCodes: Dictionary<int,StatusCodeStats>
+}
+
+type StepStatsRawData = {
+    OkStats: RawStepStats
+    FailStats: RawStepStats
+}
+
+type RunningStep = {
+    Value: Step
+    Context: UntypedStepContext
+}
+
 type StepResponse = {
-    Response: Response
-    StartTimeMs: float
-    LatencyMs: int
+    ClientResponse: Response
+    EndTimeMs: float
+    LatencyMs: float
 }
 
 type LoadTimeSegment = {
@@ -68,7 +87,7 @@ type LoadTimeSegment = {
 type LoadTimeLine = LoadTimeSegment list
 
 type Scenario = {
-    ScenarioName: ScenarioName
+    ScenarioName: string
     Init: (IScenarioContext -> Task) option
     Clean: (IScenarioContext -> Task) option
     Steps: Step list
@@ -77,4 +96,5 @@ type Scenario = {
     PlanedDuration: TimeSpan
     ExecutedDuration: TimeSpan option
     CustomSettings: string
+    GetStepsOrder: unit -> int[]
 }

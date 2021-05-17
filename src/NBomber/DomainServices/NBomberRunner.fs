@@ -2,17 +2,18 @@ module internal NBomber.DomainServices.NBomberRunner
 
 open System
 
+open System.Threading.Tasks
 open FsToolkit.ErrorHandling
 
 open NBomber
 open NBomber.Contracts
+open NBomber.Contracts.Stats
+open NBomber.Domain.Stats
+open NBomber.DomainServices.Reporting
+open NBomber.DomainServices.TestHost
 open NBomber.Errors
 open NBomber.Infra
 open NBomber.Infra.Dependency
-open NBomber.DomainServices
-open NBomber.DomainServices.Reporting
-open NBomber.DomainServices.Reporting.Report
-open NBomber.DomainServices.TestHost
 
 let getApplicationType () =
     try
@@ -21,30 +22,48 @@ let getApplicationType () =
     with
     | _ -> ApplicationType.Process
 
-let saveReports (dep: IGlobalDependency) (context: NBomberContext) (testInfo: TestInfo) (report: ReportsContent) =
-    let fileName     = NBomberContext.getReportFileName(context)
-    let folder       = NBomberContext.getReportFolder(context)
-    let fileNameDate = sprintf "%s_%s" fileName (DateTime.UtcNow.ToString "yyyy-MM-dd--HH-mm-ss")
-    let formats      = NBomberContext.getReportFormats(context)
+let saveReports (dep: IGlobalDependency) (context: NBomberContext) (stats: NodeStats) (report: Report.ReportsContent) =
+    let fileName     = NBomberContext.getReportFileName context
+    let currentTime  = DateTime.UtcNow.ToString "yyyy-MM-dd--HH-mm-ss"
+    let fileNameDate = $"{fileName}_{currentTime}"
+    let folder       = NBomberContext.getReportFolder context
+    let formats      = NBomberContext.getReportFormats context
 
     if formats.Length > 0 then
-        Report.save(folder, fileNameDate, formats, report, dep.Logger, testInfo) |> ignore
+        let reportFiles = Report.save(folder, fileNameDate, formats, report, dep.Logger, stats.TestInfo)
+        let finalStats = { stats with ReportFiles = reportFiles }
+        dep.ReportingSinks
+        |> List.map(fun x -> x.SaveFinalStats [| finalStats |])
+        |> Task.WhenAll
+        |> fun t -> t.Wait()
 
-let runSession (testInfo: TestInfo) (context: NBomberContext) (dep: IGlobalDependency) =
+        finalStats
+    else
+        stats
+
+let getLoadSimulations (context: NBomberContext) =
+    context.RegisteredScenarios
+    |> Seq.map(fun scn -> scn.ScenarioName, scn.LoadSimulations)
+    |> dict
+
+let runSession (testInfo: TestInfo) (nodeInfo: NodeInfo) (context: NBomberContext) (dep: IGlobalDependency) =
     taskResult {
-        dep.Logger.Information(Constants.NBomberWelcomeText, dep.NBomberVersion, testInfo.SessionId)
-        dep.Logger.Information("NBomber started as single node")
+        Constants.Logo |> Console.addLogo |> Console.render
 
-        let! sessionArgs = context |> NBomberContext.createSessionArgs(testInfo)
-        let! scenarios   = context |> NBomberContext.createScenarios
-        use testHost     = new TestHost(dep, scenarios, sessionArgs)
-        let! nodeStats   = testHost.RunSession()
-        let timeLineStats = testHost.GetTimeLineNodeStats()
+        dep.Logger.Information(Constants.NBomberWelcomeText, nodeInfo.NBomberVersion, testInfo.SessionId)
+        dep.Logger.Information("NBomber started as single node.")
 
-        Report.build dep testInfo nodeStats timeLineStats
-        |> saveReports dep context testInfo
+        let! sessionArgs  = context |> NBomberContext.createSessionArgs(testInfo)
+        let! scenarios    = context |> NBomberContext.createScenarios
+        use testHost      = new TestHost(dep, scenarios, sessionArgs, ScenarioStatsActor.create)
+        let! result       = testHost.RunSession()
+        let simulations   = context |> getLoadSimulations
+        let reports       = Report.build result simulations
 
-        return nodeStats
+        if dep.ApplicationType = ApplicationType.Console then
+            reports.ConsoleReport |> Seq.iter Console.render
+
+        return reports |> saveReports dep context result.NodeStats
     }
 
 let run (context: NBomberContext) =
@@ -55,14 +74,17 @@ let run (context: NBomberContext) =
         TestName = NBomberContext.getTestName(context)
     }
 
+    let nodeInfo = NodeInfo.init()
+
     let appType =
         match context.ApplicationType with
         | Some appType -> appType
         | None         -> getApplicationType()
 
-    Dependency.create appType NodeType.SingleNode context
-    |> Dependency.init(testInfo)
-    |> runSession testInfo context
+    let reportFolder = NBomberContext.getReportFolder(context)
+
+    Dependency.create reportFolder testInfo appType NodeType.SingleNode context
+    |> runSession testInfo nodeInfo context
     |> TaskResult.mapError(fun error ->
         error |> AppError.toString |> Serilog.Log.Error
         error
