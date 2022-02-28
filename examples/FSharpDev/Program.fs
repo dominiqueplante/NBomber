@@ -10,11 +10,11 @@ open FSharpDev.InfluxDbSink
 [<EntryPoint>]
 let main argv =
 
-    //HelloWorldExample.run()
+    HelloWorldExample.run()
     //CustomSettingsExample.run()
     //DataFeedTest.run()
     //SimpleHttpTest.run()
-    HttpClientFactoryExample.run()
+    //HttpClientFactoryExample.run()
     //InfluxDbReportingScenario.run()
 
     0 // return an integer exit code
